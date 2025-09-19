@@ -1,0 +1,468 @@
+---
+title: '全局设置'
+description: '使用 `docs.json` 文件配置站点范围的设置'
+icon: 'settings-2'
+keywords: ['docs.json', '设置', '自定义', '配置']
+---
+
+`docs.json` 文件让你将 Markdown 文件集合转换为可导航的、自定义的文档站点。这个必需的配置文件控制样式、导航、集成等。将其视为文档的蓝图。
+
+`docs.json` 中的设置全局应用于所有页面。
+
+## 设置你的 `docs.json`
+
+开始时，你只需要指定 `theme`、`name`、`colors.primary` 和 `navigation`。其他字段是可选的，随着文档需求的增长，你可以添加它们。
+
+为了获得最佳编辑体验，在 `docs.json` 文件顶部包含模式引用。这在大多数代码编辑器中启用自动完成、验证和有用的工具提示：
+
+```json
+{
+  "$schema": "https://poetora.com/docs.json",
+  "theme": "ora",
+  "name": "你的文档",
+  "colors": {
+    "primary": "#ff0000"
+  },
+  "navigation": {
+    // 你的导航结构
+  }
+  // 其余配置
+}
+```
+
+## 参考
+
+本节包含 `docs.json` 文件的完整参考。
+
+### 自定义
+
+<ResponseField name="theme" required>
+  你站点的布局主题。
+
+现在只有一个 `ora` 主题，所以值必须是 `ora`。
+
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  你的项目、组织或产品的名称。
+</ResponseField>
+
+<ResponseField name="colors" type="object" required>
+  文档中使用的颜色。颜色在不同主题中的应用方式不同。如果你只提供一个主色，它将用于所有颜色元素。
+
+  <Expandable title="颜色">
+    <ResponseField name="primary" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" required>
+      文档的主色。通常在浅色模式下用于强调，主题之间有一些变化。
+      
+      必须是以 `#` 开头的十六进制代码。
+    </ResponseField>
+    <ResponseField name="light" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+      在深色模式下用于强调的颜色。
+      
+      必须是以 `#` 开头的十六进制代码。
+    </ResponseField>
+    <ResponseField name="dark" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+      在浅色和深色模式下用于按钮和悬停状态的颜色，主题之间有一些变化。
+      
+      必须是以 `#` 开头的十六进制代码。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  用于 SEO 和 AI 索引的站点描述。
+</ResponseField>
+
+<ResponseField name="logo" type="string or object">
+  浅色和深色模式的 logo。
+
+  <Expandable title="Logo">
+    <ResponseField name="light" type="string" required>
+      指向浅色模式 logo 文件的路径。包含文件扩展名。示例：`/logo.png`
+    </ResponseField>
+    <ResponseField name="dark" type="string" required>
+      指向深色模式 logo 文件的路径。包含文件扩展名。示例：`/logo-dark.png`
+    </ResponseField>
+    <ResponseField name="href" type="string (uri)">
+      点击 logo 时重定向的 URL。如果未提供，logo 将链接到你的主页。示例：`https://poetora.com`
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="favicon" type="string or object">
+  指向你的 favicon 文件的路径，包含文件扩展名。自动调整为适当的 favicon 大小。
+  可以是单个文件或浅色和深色模式的单独文件。示例：`/favicon.png`
+
+  <Expandable title="Favicon">
+    <ResponseField name="light" type="string" required>
+      浅色模式的 favicon 文件路径。包含文件扩展名。示例：`/favicon.png`
+    </ResponseField>
+    <ResponseField name="dark" type="string" required>
+      深色模式的 favicon 文件路径。包含文件扩展名。示例：`/favicon-dark.png`
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+### 结构
+
+<ResponseField name="navbar" type="object">
+  导航栏项目。
+
+  <Expandable title="导航栏">
+    <ResponseField name="links" type="array of object">
+      在导航栏中显示的链接
+
+      <Expandable title="链接">
+        <ResponseField name="label" type="string" required>
+          链接的文本。
+        </ResponseField>
+        <ResponseField name="href" type="string (uri)" required>
+          链接目标的 URL 或路径。
+        </ResponseField>
+        <ResponseField name="icon" type="string">
+          链接旁边显示的图标。支持 FontAwesome 和 Lucide 图标。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+    <ResponseField name="primary" type="object">
+      导航栏中的主按钮。
+
+      <Expandable title="主按钮">
+        <ResponseField name="type" type="&quot;button&quot; | &quot;github&quot;" required>
+          按钮样式。选择 `button` 用于带标签的标准按钮，或 `github` 用于带图标的 GitHub 仓库链接。
+        </ResponseField>
+        <ResponseField name="label" type="string" required>
+          按钮文本。仅在 `type` 为 `button` 时适用。
+        </ResponseField>
+        <ResponseField name="href" type="string (uri)" required>
+          按钮目标。必须是有效路径或外部 URL。如果 `type` 为 `github`，必须是 GitHub 仓库 URL。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="navigation" type="object" required>
+  内容的导航结构。
+
+  <Expandable title="导航">
+    <ResponseField name="groups" type="array of object">
+      用于将内容组织成部分的[组](navigation#groups)。
+    </ResponseField>
+    <ResponseField name="pages" type="array of string or object">
+      构成文档的单个[页面](navigation#pages)。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="footer" type="object">
+  页脚内容和社交媒体链接。
+
+  <Expandable title="页脚">
+    <ResponseField name="socials" type="object">
+      在页脚中显示的社交媒体资料。每个键是平台名称，每个值是你的资料 URL。例如：
+      ```json
+      {
+        "x": "https://x.com/poetora"
+      }
+      ```
+      
+      有效属性名称：`x`、`website`、`facebook`、`youtube`、`discord`、`slack`、`github`、`linkedin`、`instagram`、`hacker-news`、`medium`、`telegram`、`twitter`、`x-twitter`、`earth-americas`、`bluesky`、`threads`、`reddit`、`podcast`
+    </ResponseField>
+    <ResponseField name="links" type="array of object">
+      在页脚中显示的链接。
+
+      <Expandable title="链接">
+        <ResponseField name="header" type="string">
+          列的标题。
+        </ResponseField>
+        <ResponseField name="items" type="array of object" required>
+          在列中显示的链接。
+
+          <Expandable title="项目">
+            <ResponseField name="label" type="string" required>
+              链接文本。
+            </ResponseField>
+            <ResponseField name="href" type="string (uri)" required>
+              链接目标 URL。
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+## 示例
+
+<Tabs>
+  <Tab title="基本示例">
+    ```json title="docs.json" wrap lines
+    {
+      "$schema": "https://poetora.com/docs.json",
+      "theme": "ora",
+      "name": "Poetora 文档",
+      "description": "Poetora 美观易用的下一代文档编辑平台，专为开发者和内容创作者设计。",
+      "colors": {
+        "primary": "#3B82F6",
+        "light": "#F8FAFC",
+        "dark": "#0F172A"
+      },
+      "navigation": {
+        "groups": [
+          {
+            "group": "快速开始",
+            "pages": [
+              "index",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "核心配置",
+            "pages": [
+              "settings",
+              "pages",
+              "navigation"
+            ]
+          }
+        ]
+      },
+      "logo": {
+        "light": "/logo-light.svg",
+        "dark": "/logo-dark.svg",
+        "href": "https://poetora.com"
+      },
+      "navbar": {
+        "links": [
+          {
+            "label": "社区",
+            "href": "https://poetora.com/community"
+          }
+        ],
+        "primary": {
+          "type": "button",
+          "label": "开始使用",
+          "href": "https://poetora.com/start"
+        }
+      },
+      "footer": {
+        "socials": {
+          "github": "https://github.com/poetora",
+          "x": "https://x.com/poetora"
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="多语言示例">
+    ```json title="docs.json" wrap lines
+    {
+      "$schema": "https://poetora.com/docs.json",
+      "theme": "ora",
+      "name": "Poetora 文档",
+      "description": "Poetora 美观易用的下一代文档编辑平台，专为开发者和内容创作者设计。",
+      "colors": {
+        "primary": "#3B82F6",
+        "light": "#F8FAFC",
+        "dark": "#0F172A"
+      },
+      "navigation": {
+        "global": {
+          "anchors": [
+            {
+              "anchor": "Poetora 文档",
+              "href": "https://poetora.com/docs"
+            },
+            {
+              "anchor": "更新日志",
+              "href": "https://poetora.com/docs/changelog"
+            }
+          ]
+        },
+        "languages": [
+          {
+            "language": "en",
+            "dropdowns": [
+              {
+                "dropdown": "Documentation",
+                "icon": "book",
+                "description": "How to use the Poetora platform",
+                "pages": [
+                  {
+                    "group": "Getting started",
+                    "pages": ["index", "quickstart"]
+                  },
+                  {
+                    "group": "Web Editor",
+                    "pages": [
+                      "editor/getting-started",
+                      "editor/content-management",
+                      "editor/git-concepts",
+                      "editor/publishing"
+                    ]
+                  },
+                  {
+                    "group": "Core Configuration",
+                    "pages": ["pages", "settings", "navigation"]
+                  }
+                ]
+              },
+              {
+                "dropdown": "Components",
+                "icon": "puzzle",
+                "description": "Available components and features",
+                "pages": [
+                  {
+                    "group": "Basic Components",
+                    "pages": [
+                      "components/accordions",
+                      "components/callouts",
+                      "components/cards",
+                      "components/tabs",
+                      "components/steps"
+                    ]
+                  },
+                  {
+                    "group": "Advanced Components",
+                    "pages": [
+                      "components/code-groups",
+                      "components/param-fields",
+                      "components/columns",
+                      "components/frames"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "language": "cn",
+            "dropdowns": [
+              {
+                "dropdown": "文档中心",
+                "icon": "book",
+                "description": "如何使用 Poetora 平台",
+                "pages": [
+                  {
+                    "group": "快速开始",
+                    "pages": ["cn/index", "cn/quickstart"]
+                  },
+                  {
+                    "group": "Web 编辑器",
+                    "pages": [
+                      "cn/editor/getting-started",
+                      "cn/editor/content-management",
+                      "cn/editor/git-concepts",
+                      "cn/editor/publishing"
+                    ]
+                  },
+                  {
+                    "group": "核心配置",
+                    "pages": ["cn/pages", "cn/settings", "cn/navigation"]
+                  }
+                ]
+              },
+              {
+                "dropdown": "组件库",
+                "icon": "puzzle",
+                "description": "可用的组件和功能",
+                "pages": [
+                  {
+                    "group": "基础组件",
+                    "pages": [
+                      "cn/components/accordions",
+                      "cn/components/callouts",
+                      "cn/components/cards",
+                      "cn/components/tabs",
+                      "cn/components/steps"
+                    ]
+                  },
+                  {
+                    "group": "高级组件",
+                    "pages": [
+                      "cn/components/code-groups",
+                      "cn/components/param-fields",
+                      "cn/components/columns",
+                      "cn/components/frames"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "logo": {
+        "light": "/logo-light.svg",
+        "dark": "/logo-dark.svg",
+        "href": "https://poetora.com"
+      },
+      "navbar": {
+        "links": [
+          {
+            "label": "Community",
+            "href": "https://poetora.com/community"
+          }
+        ],
+        "primary": {
+          "type": "button",
+          "label": "Get Started",
+          "href": "https://poetora.com/start"
+        }
+      },
+      "footer": {
+        "socials": {
+          "github": "https://github.com/poetora",
+          "x": "https://x.com/poetora"
+        },
+        "links": [
+          {
+            "header": "Resources",
+            "items": [
+              {
+                "label": "Documentation",
+                "href": "https://poetora.com/docs"
+              },
+              {
+                "label": "API Reference",
+                "href": "https://poetora.com/docs/api"
+              },
+              {
+                "label": "Support",
+                "href": "https://poetora.com/support"
+              }
+            ]
+          },
+          {
+            "header": "Company",
+            "items": [
+              {
+                "label": "About",
+                "href": "https://poetora.com/about"
+              },
+              {
+                "label": "Blog",
+                "href": "https://poetora.com/blog"
+              },
+              {
+                "label": "Privacy Policy",
+                "href": "https://poetora.com/privacy"
+              }
+            ]
+          }
+        ]
+      },
+      "contextual": {
+        "options": [
+          "copy",
+          "view",
+          "chatgpt",
+          "claude"
+        ]
+      }
+    }
+    ```
+  </Tab>
+</Tabs>

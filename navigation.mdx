@@ -1,0 +1,615 @@
+---
+title: '导航配置'
+description: '构建和自定义文档的导航层次结构'
+icon: 'map'
+---
+
+`docs.json` 中的 [navigation](settings#param-navigation) 属性控制文档的结构和信息层次。
+
+通过正确的导航配置，你可以组织内容，使用户能够找到他们正在寻找的内容。
+
+## 页面
+
+页面是最基本的导航组件。页面映射到构成文档的 MDX 文件。
+
+在 `navigation` 对象中，`pages` 是一个数组，其中每个条目必须引用 [页面文件](pages) 的路径。
+
+```json
+{
+  "navigation": {
+    "pages": [
+      "settings",
+      "pages",
+      "navigation",
+      "themes",
+      "custom-domain"
+    ]
+  }
+}
+```
+
+## 组
+
+使用组将侧边栏导航组织成部分。组可以相互嵌套，用标签标记，并用图标样式化。
+
+在 `navigation` 对象中，`groups` 是一个数组，其中每个条目是一个需要 `group` 字段和 `pages` 字段的对象。`icon`、`tag` 和 `expanded` 字段是可选的。
+
+```json
+{
+  "navigation": {
+    "groups": [
+      {
+        "group": "快速开始",
+        "icon": "play",
+        "expanded": false,
+        "pages": [
+          "quickstart",
+          {
+            "group": "编辑",
+            "icon": "pencil",
+            "pages": ["installation", "editor"]
+          }
+        ]
+      },
+      {
+        "group": "编写内容",
+        "icon": "notebook-text",
+        "tag": "NEW",
+        "pages": [
+          "writing-content/page",
+          "writing-content/text"
+        ]
+      }
+    ]
+  }
+}
+```
+
+### 默认展开状态
+
+在组上设置 `expanded: true` 以使其在导航侧边栏中默认展开。这对于突出重要部分或改善关键内容的可发现性很有用。
+
+```json
+{
+  "group": "快速开始",
+  "expanded": true,
+  "pages": ["quickstart", "installation"]
+}
+```
+
+## 标签页
+
+标签页为你的文档创建具有单独 URL 路径的不同部分。标签页在文档顶部创建水平导航栏，让用户在部分之间切换。
+
+在 `navigation` 对象中，`tabs` 是一个数组，其中每个条目是一个需要 `tab` 字段的对象，可以包含其他导航字段，如组、页面、图标或外部页面链接。
+
+```json
+{
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "API 参考",
+        "icon": "square-terminal",
+        "pages": [
+          "api-reference/get",
+          "api-reference/post",
+          "api-reference/delete"
+        ]
+      },
+      {
+        "tab": "SDK",
+        "icon": "code",
+        "pages": [
+          "sdk/fetch",
+          "sdk/create",
+          "sdk/delete"
+        ]
+      },
+      {
+        "tab": "博客",
+        "icon": "newspaper",
+        "href": "https://external-link.com/blog"
+      }
+    ]
+  }
+}
+```
+
+### 菜单
+
+菜单为标签页添加下拉导航项目。使用菜单帮助用户直接转到标签页内的特定页面。
+
+在 `navigation` 对象中，`menu` 是一个数组，其中每个条目是一个需要 `item` 字段的对象，可以包含其他导航字段，如组、页面、图标或外部页面链接。
+
+```json
+{
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "开发者工具",
+        "icon": "square-terminal",
+        "menu": [
+          {
+            "item": "API 参考",
+            "icon": "rocket",
+            "groups": [
+              {
+                "group": "核心端点",
+                "icon": "square-terminal",
+                "pages": [
+                  "api-reference/get",
+                  "api-reference/post",
+                  "api-reference/delete"
+                ]
+              }
+            ]
+          },
+          {
+            "item": "SDK",
+            "icon": "code",
+            "description": "SDK 用于与 API 交互。",
+            "pages": [
+              "sdk/fetch",
+              "sdk/create",
+              "sdk/delete"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+## 锚点
+
+锚点为侧边栏顶部添加持久的导航项目。使用锚点来分节你的内容、提供对外部资源的快速访问或创建突出的行动号召。
+
+在 `navigation` 对象中，`anchors` 是一个数组，其中每个条目是一个需要 `anchor` 字段的对象，可以包含其他导航字段，如组、页面、图标或外部页面链接。
+
+```json
+{
+  "navigation": {
+    "anchors": [
+      {
+        "anchor": "文档",
+        "icon": "book-open",
+        "pages": [
+          "quickstart",
+          "development",
+          "navigation"
+        ]
+      },
+      {
+        "anchor": "API 参考",
+        "icon": "square-terminal",
+        "pages": [
+          "api-reference/get",
+          "api-reference/post",
+          "api-reference/delete"
+        ]
+      },
+      {
+        "anchor": "博客",
+        "href": "https://external-link.com/blog"
+      }
+    ]
+  }
+}
+```
+
+对于仅指向外部链接的锚点，使用 `global` 关键字。`global` 对象中的锚点必须有 `href` 字段，不能指向相对路径。
+
+全局锚点特别适用于链接到不属于你文档但应该让用户容易访问的资源，如博客或支持门户。
+
+```json
+{
+  "navigation": {
+    "global":  {
+      "anchors": [
+        {
+          "anchor": "社区",
+          "icon": "house",
+          "href": "https://slack.com"
+        },
+        {
+          "anchor": "博客",
+          "icon": "pencil",
+          "href": "https://poetora.com/blog"
+        }
+      ]
+    },
+    "tabs": /*...*/
+  }
+}
+```
+
+## 下拉菜单
+
+下拉菜单包含在侧边栏导航顶部的可展开菜单中。下拉菜单中的每个项目都指向文档的一个部分。
+
+在 `navigation` 对象中，`dropdowns` 是一个数组，其中每个条目是一个需要 `dropdown` 字段的对象，可以包含其他导航字段，如组、页面、图标或外部页面链接。
+
+```json
+{
+  "navigation": {
+    "dropdowns": [
+      {
+        "dropdown": "文档",
+        "icon": "book-open",
+        "pages": [
+          "quickstart",
+          "development",
+          "navigation"
+        ]
+      },
+      {
+        "dropdown": "API 参考",
+        "icon": "square-terminal",
+        "pages": [
+          "api-reference/get",
+          "api-reference/post",
+          "api-reference/delete"
+        ]
+      },
+      {
+        "dropdown": "博客",
+        "href": "https://external-link.com/blog"
+      }
+    ]
+  }
+}
+```
+
+## 版本
+
+将导航分区为不同版本。版本可从下拉菜单中选择。
+
+在 `navigation` 对象中，`versions` 是一个数组，其中每个条目是一个需要 `version` 字段的对象，可以包含任何其他导航字段。
+
+```json
+{
+  "navigation": {
+    "versions": [
+      {
+        "version": "1.0.0",
+        "groups": [
+          {
+            "group": "快速开始",
+            "pages": [
+              "v1/overview",
+              "v1/quickstart",
+              "v1/development"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "2.0.0",
+        "groups": [
+          {
+            "group": "快速开始",
+            "pages": [
+              "v2/overview",
+              "v2/quickstart",
+              "v2/development"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+## 语言
+
+将导航分区为不同语言。语言可从下拉菜单中选择。
+
+在 `navigation` 对象中，`languages` 是一个数组，其中每个条目是一个需要 `language` 字段的对象，可以包含任何其他导航字段。
+
+我们目前支持以下本地化语言：
+
+<CardGroup cols={2}>
+  <Card
+    title="阿拉伯语 (ar)"
+    icon={
+      <img
+        src="/images/navigation/languages/ar.png"
+        className="w-6 h-6 my-0"
+      />
+    }
+    horizontal
+  />
+  <Card
+    title="中文 (cn)"
+    icon={
+      <img
+        src="/images/navigation/languages/cn.png"
+        className="w-6 h-6 my-0"
+      />
+    }
+    horizontal
+  />
+  <Card
+    title="繁体中文 (zh-Hant)"
+    icon={
+      <img
+        src="/images/navigation/languages/cn.png"
+        className="w-6 h-6 my-0"
+      />
+    }
+    horizontal
+  />
+  <Card
+    title="英语 (en)"
+    icon={
+      <img
+        src="/images/navigation/languages/en.png"
+        className="w-6 h-6 my-0"
+      />
+    }
+    horizontal
+  />
+  <Card
+    title="法语 (fr)"
+    icon={
+      <img
+        src="/images/navigation/languages/fr.png"
+        className="w-6 h-6 my-0"
+      />
+    }
+    horizontal
+  />
+  <Card
+    title="德语 (de)"
+    icon={
+      <img
+        src="/images/navigation/languages/de.png"
+        className="w-6 h-6 my-0"
+      />
+    }
+    horizontal
+  />
+  <Card
+    title="印尼语 (id)"
+    icon={
+      <img
+        src="/images/navigation/languages/id.png"
+        className="w-6 h-6 my-0"
+      />
+    }
+    horizontal
+  />
+  <Card
+    title="意大利语 (it)"
+    icon={
+      <img
+        src="/images/navigation/languages/it.png"
+        className="w-6 h-6 my-0"
+      />
+    }
+    horizontal
+  />
+  <Card
+    title="日语 (jp)"
+    icon={
+      <img
+        src="/images/navigation/languages/jp.png"
+        className="w-6 h-6 my-0"
+      />
+    }
+    horizontal
+  />
+  <Card
+    title="韩语 (ko)"
+    icon={
+      <img
+        src="/images/navigation/languages/ko.png"
+        className="w-6 h-6 my-0"
+      />
+    }
+    horizontal
+  />
+  <Card
+    title="葡萄牙语 (pt-BR)"
+    icon={
+      <img
+        src="/images/navigation/languages/pt-br.png"
+        className="w-6 h-6 my-0"
+      />
+    }
+    horizontal
+  />
+  <Card
+    title="俄语 (ru)"
+    icon={
+      <img
+        src="/images/navigation/languages/ru.png"
+        className="w-6 h-6 my-0"
+      />
+    }
+    horizontal
+  />
+  <Card
+    title="西班牙语 (es)"
+    icon={
+      <img
+        src="/images/navigation/languages/es.png"
+        className="w-6 h-6 my-0"
+      />
+    }
+    horizontal
+  />
+  <Card
+    title="土耳其语 (tr)"
+    icon={
+      <img
+        src="/images/navigation/languages/tr.png"
+        className="w-6 h-6 my-0"
+      />
+    }
+    horizontal
+  />
+</CardGroup>
+
+```json
+{
+  "navigation": {
+    "languages": [
+      {
+        "language": "zh",
+        "groups": [
+          {
+            "group": "快速开始",
+            "pages": [
+              "zh/overview",
+              "zh/quickstart",
+              "zh/development"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "en",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "en/overview",
+              "en/quickstart",
+              "en/development"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+## 嵌套
+
+你可以使用锚点、标签页和下拉菜单的任何组合。这些组件可以相互嵌套，以创建你所需的导航结构。
+
+<CodeGroup>
+
+```json 锚点
+{
+  "navigation": {
+    "anchors": [
+      {
+        "anchor": "锚点 1",
+        "groups": [
+          {
+            "group": "组 1",
+            "pages": [
+              "some-folder/file-1",
+              "another-folder/file-2",
+              "just-a-file"
+            ]
+          }
+        ]
+      },
+      {
+        "anchor": "锚点 2",
+        "groups": [
+          {
+            "group": "组 2",
+            "pages": [
+              "some-other-folder/file-1",
+              "various-different-folders/file-2",
+              "another-file"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+```json 标签页
+{
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "标签页 1",
+        "groups": [
+          {
+            "group": "组 1",
+            "pages": [
+              "some-folder/file-1",
+              "another-folder/file-2",
+              "just-a-file"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "标签页 2",
+        "groups": [
+          {
+            "group": "组 2",
+            "pages": [
+              "some-other-folder/file-1",
+              "various-different-folders/file-2",
+              "another-file"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+</CodeGroup>
+
+## 面包屑
+
+面包屑在页面顶部显示完整的导航路径。某些主题默认启用面包屑，其他主题则没有。你可以使用 `docs.json` 中的 `styling` 属性控制是否为你的站点启用面包屑。
+
+<CodeGroup>
+
+```json 显示完整面包屑
+"styling": {
+  "eyebrows": "breadcrumbs"
+}
+```
+
+```json 仅显示父级部分
+"styling": {
+  "eyebrows": "section"
+}
+```
+
+</CodeGroup>
+
+## 交互配置
+
+使用 `docs.json` 中的 `interaction` 属性控制用户如何与导航元素交互。
+
+### 为组启用自动导航
+
+当用户展开导航组时，某些主题将自动导航到组中的第一个页面。你可以使用 `drilldown` 选项覆盖主题的默认行为：
+
+```json
+{
+  "interaction": {
+    "drilldown": true // 当用户展开下拉菜单时强制导航到第一个页面
+  }
+}
+```
+
+```json
+{
+  "interaction": {
+    "drilldown": false // 永不导航，仅展开/折叠
+  }
+}
+```
+
+- 设置为 `true` 以强制在选择导航组时自动导航到第一个页面。
+- 设置为 `false` 以防止导航，仅在选择时展开或折叠组。
+- 保持未设置以使用主题的默认行为。

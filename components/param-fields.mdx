@@ -1,0 +1,531 @@
+---
+title: 'Param Fields'
+description: '参数字段组件用于在 API 文档中定义和展示参数信息，支持多种参数类型和详细的属性说明，自动生成API测试界面'
+icon: 'terminal'
+---
+
+## 基础用法
+
+### 简单参数字段
+
+展示基本的参数信息：
+
+<ParamField path="title" type="string" required>
+  文档的标题。这是文档的主要标识，会显示在文档列表和页面顶部。
+</ParamField>
+
+<ParamField path="content" type="string">
+  文档的内容，支持 Markdown
+  格式。可以包含文本、图片、链接等各种元素。
+</ParamField>
+
+<ParamField
+  path="workspace_id"
+  type="string"
+  required
+>
+  工作空间的唯一标识符。文档将被创建在指定的工作空间中。
+</ParamField>
+
+```mdx
+<ParamField path="title" type="string" required>
+  文档的标题。这是文档的主要标识，会显示在文档列表和页面顶部。
+</ParamField>
+
+<ParamField path="content" type="string">
+  文档的内容，支持 Markdown 格式。
+</ParamField>
+
+<ParamField
+  path="workspace_id"
+  type="string"
+  required
+>
+  工作空间的唯一标识符。
+</ParamField>
+```
+
+### 带默认值的参数
+
+显示参数的默认值信息：
+
+<ParamField path="visibility" type="string" default="private">
+  文档的可见性设置。控制谁可以访问这个文档。
+
+可选值：
+
+- `private` - 仅创建者可见
+- `team` - 团队成员可见
+- `public` - 公开可见
+
+</ParamField>
+
+<ParamField
+  path="auto_save"
+  type="boolean"
+  default="true"
+>
+  是否启用自动保存功能。启用后，系统会定期自动保存文档内容。
+</ParamField>
+
+<ParamField
+  path="save_interval"
+  type="number"
+  default="5000"
+>
+  自动保存间隔时间，单位为毫秒。最小值为
+  1000，最大值为 30000。
+</ParamField>
+
+```mdx
+<ParamField
+  path="visibility"
+  type="string"
+  default="private"
+>
+  文档的可见性设置。控制谁可以访问这个文档。
+</ParamField>
+
+<ParamField
+  path="auto_save"
+  type="boolean"
+  default="true"
+>
+  是否启用自动保存功能。
+</ParamField>
+```
+
+## 实际应用场景
+
+### API 端点文档
+
+展示完整的 API 参数：
+
+**创建文档 API**
+
+```http
+POST /api/v1/documents
+```
+
+**请求参数：**
+
+<ParamField body="title" type="string" required>
+  文档标题，最大长度 100 个字符。
+</ParamField>
+
+<ParamField body="content" type="string">
+  文档内容，支持 Markdown 语法。最大长度 10MB。
+</ParamField>
+
+<ParamField
+  body="workspace_id"
+  type="string"
+  required
+>
+  目标工作空间 ID，格式：`ws_xxxxxxxxxx`
+</ParamField>
+
+<ParamField body="tags" type="string[]">
+  文档标签数组，每个标签最大长度 20 个字符，最多
+  10 个标签。
+</ParamField>
+
+<ParamField body="metadata" type="object">
+  文档元数据对象，包含以下字段：
+
+<ParamField body="metadata.author" type="string">
+  文档作者名称
+</ParamField>
+
+<ParamField
+  body="metadata.category"
+  type="string"
+>
+  文档分类
+</ParamField>
+
+  <ParamField body="metadata.priority" type="number" default="0">
+    文档优先级，范围 0-10
+  </ParamField>
+</ParamField>
+
+**查询参数：**
+
+<ParamField
+  query="workspace_id"
+  type="string"
+  required
+>
+  工作空间 ID，用于筛选指定工作空间的文档。
+</ParamField>
+
+<ParamField
+  query="page"
+  type="number"
+  default="1"
+>
+  页码，从 1 开始。最大值为 1000。
+</ParamField>
+
+<ParamField
+  query="limit"
+  type="number"
+  default="20"
+>
+  每页返回的文档数量，范围 1-100。
+</ParamField>
+
+<ParamField query="sort" type="string" default="created_at">
+  排序字段。可选值：
+
+- `created_at` - 按创建时间排序
+- `updated_at` - 按更新时间排序
+- `title` - 按标题排序
+
+</ParamField>
+
+<ParamField
+  query="order"
+  type="string"
+  default="desc"
+>
+  排序方向：`asc`（升序）或 `desc`（降序）
+</ParamField>
+
+**请求头：**
+
+<ParamField
+  header="Authorization"
+  type="string"
+  required
+>
+  API 认证令牌，格式：`Bearer your_api_token`
+</ParamField>
+
+<ParamField
+  header="Content-Type"
+  type="string"
+  required
+>
+  请求内容类型，必须为 `application/json`
+</ParamField>
+
+<ParamField header="X-Workspace-ID" type="string">
+  可选的工作空间 ID 头，优先级高于 body 中的
+  workspace_id
+</ParamField>
+
+### SDK 方法参数
+
+展示 SDK 方法的参数说明：
+
+**JavaScript SDK**
+
+```javascript
+await client.documents.create(options);
+```
+
+<ParamField path="options" type="object" required>
+  创建文档的选项对象。
+
+<ParamField
+  path="options.title"
+  type="string"
+  required
+>
+  文档标题
+</ParamField>
+
+<ParamField path="options.content" type="string">
+  文档内容
+</ParamField>
+
+<ParamField
+  path="options.workspaceId"
+  type="string"
+  required
+>
+  工作空间 ID
+</ParamField>
+
+<ParamField path="options.template" type="string">
+  模板 ID，如果指定，将基于模板创建文档
+</ParamField>
+
+  <ParamField path="options.collaboration" type="object">
+    协作设置
+
+    <ParamField path="options.collaboration.enabled" type="boolean" default="true">
+      是否启用协作功能
+    </ParamField>
+
+    <ParamField path="options.collaboration.permissions" type="object">
+      权限设置
+
+      <ParamField path="options.collaboration.permissions.read" type="string[]">
+        具有读权限的用户 ID 列表
+      </ParamField>
+
+      <ParamField path="options.collaboration.permissions.write" type="string[]">
+        具有写权限的用户 ID 列表
+      </ParamField>
+    </ParamField>
+
+  </ParamField>
+</ParamField>
+
+### 配置选项文档
+
+展示配置文件的选项说明：
+
+**Poetora 配置文件 (poetora.config.js)**
+
+<ParamField path="apiKey" type="string" required>
+  Poetora API 密钥，从控制台获取。
+</ParamField>
+
+<ParamField
+  path="baseURL"
+  type="string"
+  default="https://api.poetora.com/v1"
+>
+  API 基础 URL，通常不需要修改。
+</ParamField>
+
+<ParamField
+  path="timeout"
+  type="number"
+  default="30000"
+>
+  请求超时时间，单位毫秒。
+</ParamField>
+
+<ParamField path="retries" type="object">
+  重试配置
+
+<ParamField
+  path="retries.max"
+  type="number"
+  default="3"
+>
+  最大重试次数
+</ParamField>
+
+<ParamField
+  path="retries.delay"
+  type="number"
+  default="1000"
+>
+  重试延迟时间，单位毫秒
+</ParamField>
+
+  <ParamField path="retries.backoff" type="boolean" default="true">
+    是否使用指数退避算法
+  </ParamField>
+</ParamField>
+
+<ParamField path="cache" type="object">
+  缓存配置
+
+<ParamField
+  path="cache.enabled"
+  type="boolean"
+  default="true"
+>
+  是否启用缓存
+</ParamField>
+
+<ParamField
+  path="cache.ttl"
+  type="number"
+  default="300"
+>
+  缓存过期时间，单位秒
+</ParamField>
+
+  <ParamField path="cache.storage" type="string" default="memory">
+    缓存存储类型：`memory` 或 `redis`
+  </ParamField>
+</ParamField>
+
+## 组件属性
+
+### ParamField 属性
+
+<ParamField path="path" type="string">
+  参数路径或名称。用于定义 URL 路径中的参数，如 `/users/{id}` 中的 `id`。
+</ParamField>
+
+<ParamField query="query" type="string">
+  查询参数名称（与 path 二选一）。用于定义 URL 查询字符串中的参数，如 `?limit=10` 中的 `limit`。
+</ParamField>
+
+<ParamField body="body" type="string">
+  请求体参数名称（与 path 二选一）。用于定义 POST、PUT 等请求的请求体中的参数。
+</ParamField>
+
+<ParamField header="header" type="string">
+  请求头参数名称（与 path 二选一）。用于定义 HTTP 请求头中的参数，如 `Authorization`。
+</ParamField>
+
+<ParamField path="type" type="string" required>
+  参数类型。支持基础类型（string、number、boolean、object）和数组类型（string[]、number[]等）。
+</ParamField>
+
+<ParamField path="required" type="boolean" default="false">
+  是否为必需参数。设置为 `true` 时，该参数在 API 调用中必须提供。
+</ParamField>
+
+<ParamField path="default" type="string">
+  参数的默认值。当请求中未提供该参数时使用的默认值。
+</ParamField>
+
+<ParamField path="deprecated" type="boolean" default="false">
+  是否已废弃。设置为 `true` 时，参数会显示废弃标识，提醒开发者使用替代方案。
+</ParamField>
+
+### 支持的参数类型
+
+**基础类型：**
+
+- `string` - 字符串
+- `number` - 数字
+- `boolean` - 布尔值
+- `object` - 对象
+- `array` - 数组
+
+**复合类型：**
+
+- `string[]` - 字符串数组
+- `number[]` - 数字数组
+- `User` - 自定义对象类型
+- `User[]` - 自定义对象数组
+
+## 高级用法
+
+### 嵌套参数结构
+
+展示复杂的嵌套参数：
+
+<ParamField path="user" type="User" required>
+  用户信息对象
+
+<ParamField path="user.id" type="string" required>
+  用户唯一标识符
+</ParamField>
+
+  <ParamField path="user.profile" type="object" required>
+    用户基本信息
+
+    <ParamField path="user.profile.name" type="string" required>
+      用户真实姓名
+    </ParamField>
+
+    <ParamField path="user.profile.email" type="string" required>
+      用户邮箱地址，必须是有效的邮箱格式
+    </ParamField>
+
+    <ParamField path="user.profile.avatar" type="string">
+      用户头像 URL
+    </ParamField>
+
+  </ParamField>
+
+  <ParamField path="user.preferences" type="object">
+    用户偏好设置
+
+    <ParamField path="user.preferences.theme" type="string" default="auto">
+      界面主题：`light`、`dark` 或 `auto`
+    </ParamField>
+
+    <ParamField path="user.preferences.language" type="string" default="zh-CN">
+      界面语言，支持 ISO 639-1 语言代码
+    </ParamField>
+
+    <ParamField path="user.preferences.notifications" type="object">
+      通知设置
+
+      <ParamField path="user.preferences.notifications.email" type="boolean" default="true">
+        是否接收邮件通知
+      </ParamField>
+
+      <ParamField path="user.preferences.notifications.push" type="boolean" default="false">
+        是否接收推送通知
+      </ParamField>
+    </ParamField>
+
+  </ParamField>
+</ParamField>
+
+### 数组参数说明
+
+<ParamField path="documents" type="Document[]" required>
+  文档列表，每个文档包含以下字段：
+
+<ParamField
+  path="documents[].id"
+  type="string"
+  required
+>
+  文档 ID
+</ParamField>
+
+<ParamField
+  path="documents[].title"
+  type="string"
+  required
+>
+  文档标题
+</ParamField>
+
+  <ParamField path="documents[].status" type="string">
+    文档状态：`draft`、`published`、`archived`
+  </ParamField>
+</ParamField>
+
+### 废弃参数标记
+
+<ParamField path="legacy_format" type="boolean" deprecated>
+  **已废弃：** 请使用 `format` 参数代替。
+
+是否使用旧版格式，此参数将在 v3.0 版本中移除。
+
+</ParamField>
+
+<ParamField
+  path="format"
+  type="string"
+  default="v2"
+>
+  数据格式版本：`v1`、`v2`（推荐）
+</ParamField>
+
+## 最佳实践
+
+### 参数命名
+
+- **语义清晰** - 使用描述性的参数名称
+- **命名一致** - 保持命名风格的一致性
+- **避免缩写** - 除非是广泛认知的缩写
+- **层次分明** - 合理组织嵌套结构
+
+### 类型说明
+
+- **精确类型** - 使用最精确的类型描述
+- **格式约束** - 说明格式要求和限制
+- **取值范围** - 明确取值范围和约束
+- **示例值** - 提供典型的示例值
+
+### 文档组织
+
+- **逻辑分组** - 将相关参数分组展示
+- **重要性排序** - 优先展示必需参数
+- **完整性** - 覆盖所有可用参数
+- **可读性** - 使用清晰的描述语言
+
+### 维护更新
+
+- **版本同步** - 与 API 版本保持同步
+- **废弃标记** - 及时标记废弃参数
+- **变更说明** - 记录参数的变更历史
+- **测试验证** - 定期验证文档的准确性

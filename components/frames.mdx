@@ -1,0 +1,180 @@
+---
+title: 'Frames'
+description: '图片框组件用于为图片、视频或其他视觉内容提供一致的样式容器和可选标题。图片框能够居中内容并与周围文本提供视觉分离，提升文档的专业度'
+icon: 'frame'
+---
+
+# 图片框
+
+图片框组件用于包装图片、视频或其他视觉内容，提供一致的样式和可选的标题说明。它能让你的视觉内容更加专业和统一。
+
+## 基础用法
+
+### 简单图片框
+
+为图片添加图片框样式：
+
+<Frame>
+  <img
+    src="/images/components/hero-light.png"
+    alt="图片框展示"
+  />
+</Frame>
+
+```mdx
+<Frame>
+  <img
+    src="/images/hero.png"
+    alt="图片框展示"
+  />
+</Frame>
+```
+
+### 带标题的图片框
+
+添加描述性标题来提供更多上下文：
+
+<Frame caption="红樱桃图片框">
+  <img
+    src="/images/components/embed-cherry.png"
+    alt="Poetora 带标题的图片框"
+  />
+</Frame>
+
+```mdx
+<Frame caption="红樱桃图片框">
+  <img
+    src="/images/embed-cherry.png"
+    alt="红樱桃图片框"
+  />
+</Frame>
+```
+
+
+## 组件属性
+
+<ParamField path="caption" type="string">
+  图片或内容的标题说明。显示在框架底部的说明文字，用于描述框架内容的用途或含义。
+</ParamField>
+
+<ParamField path="border" type="boolean" default="true">
+  是否显示边框。设置为 `false` 时移除框架周围的边框线条。
+</ParamField>
+
+<ParamField path="shadow" type="boolean" default="true">
+  是否显示阴影效果。设置为 `false` 时移除框架的投影效果，呈现扁平样式。
+</ParamField>
+
+<ParamField path="rounded" type="boolean" default="true">
+  是否使用圆角样式。设置为 `false` 时使用直角边框，呈现更加方正的外观。
+</ParamField>
+
+## 样式定制
+
+### 不同样式变体
+
+可以通过属性控制图片框的外观：
+
+<Columns cols={2}>
+  <div>
+    **默认样式**
+    <Frame caption="带边框和阴影的默认样式">
+      <img
+        src="/images/components/embed-cherry.png"
+        alt="默认样式示例"
+      />
+    </Frame>
+  </div>
+  <div>
+    **简洁样式**
+    <Frame
+      caption="无边框的简洁样式"
+      border={false}
+      shadow={false}
+    >
+      <img
+        src="/images/components/embed-pear.png"
+        alt="简洁样式示例"
+      />
+    </Frame>
+  </div>
+</Columns>
+
+```mdx
+<!-- 默认样式 -->
+
+<Frame caption="带边框和阴影的默认样式">
+  <img src="/image.jpg" alt="图片描述" />
+</Frame>
+
+<!-- 简洁样式 -->
+
+<Frame
+  caption="无边框的简洁样式"
+  border={false}
+  shadow={false}
+>
+  <img src="/image.jpg" alt="图片描述" />
+</Frame>
+```
+
+### 自定义尺寸
+
+控制图片框内容的尺寸：
+
+<Frame caption="固定尺寸的图片展示 - 适合统一的视觉效果">
+  <div
+    style={{
+      width: '100%',
+      height: '200px',
+      overflow: 'hidden',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+  >
+    <img
+      src="/images/components/embed-pear.png"
+      alt="固定尺寸示例"
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+      }}
+    />
+  </div>
+</Frame>
+
+## 最佳实践
+
+### 图片选择
+
+- **高质量图片** - 使用清晰、高分辨率的图片
+- **相关性强** - 确保图片与内容主题相关
+- **版权清晰** - 使用有授权的图片素材
+- **文件优化** - 压缩图片大小以提升加载速度
+
+### 标题编写
+
+- **描述准确** - 准确描述图片内容和用途
+- **简洁明了** - 避免过长的标题文字
+- **信息丰富** - 提供必要的上下文信息
+- **一致风格** - 保持标题的格式和语调一致
+
+### 布局考虑
+
+- **空间平衡** - 合理安排图片和文字的比例
+- **视觉流程** - 考虑用户的阅读顺序
+- **响应式设计** - 确保在不同设备上的良好显示
+- **加载性能** - 优化图片加载策略
+
+### 可访问性
+
+- **替代文本** - 为所有图片提供有意义的 alt 文本
+- **对比度** - 确保标题文字的对比度足够
+- **键盘访问** - 支持键盘用户的导航
+- **屏幕阅读器** - 提供清晰的内容结构
+
+---
+
+图片框组件是展示视觉内容的专业工具。合理使用可以让你的文档更具视觉吸引力和专业度。接下来可以学习[代码组组件](/components/advanced/code-groups)来更好地展示代码示例。

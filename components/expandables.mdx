@@ -1,0 +1,282 @@
+---
+title: 'Expandables'
+description: '可展开项组件用于显示和隐藏嵌套内容，特别适用于在 API 文档中展示复杂对象属性。通过点击展开/折叠，用户可以深入了解对象的详细结构'
+icon: 'list-tree'
+---
+
+# 可展开项
+
+可展开项组件用于显示和隐藏嵌套内容，特别适用于在 API 文档中展示复杂对象属性。通过点击展开/折叠，用户可以深入了解对象的详细结构。
+
+## 基本用法
+
+可展开项通常与响应字段组合使用，创建层次化的文档结构：
+
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      用户的完整姓名
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      用户是否年满 21 岁
+    </ResponseField>
+
+    <ResponseField name="email" type="string" required>
+      用户的邮箱地址，必须是有效格式
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+```mdx 可展开项示例
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      用户的完整姓名
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      用户是否年满 21 岁
+    </ResponseField>
+
+    <ResponseField name="email" type="string" required>
+      用户的邮箱地址，必须是有效格式
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+```
+
+## 嵌套可展开项
+
+可展开项支持多层嵌套，适用于复杂的数据结构：
+
+<ResponseField name="order" type="Order Object">
+  <Expandable title="订单属性">
+    <ResponseField name="order_id" type="string" required>
+      订单唯一标识符
+    </ResponseField>
+
+    <ResponseField name="customer" type="Customer Object">
+      客户信息对象
+
+      <Expandable title="客户详细信息">
+        <ResponseField name="customer_id" type="string">
+          客户 ID
+        </ResponseField>
+
+        <ResponseField name="profile" type="Profile Object">
+          客户档案信息
+
+          <Expandable title="档案详情">
+            <ResponseField name="first_name" type="string">
+              客户名字
+            </ResponseField>
+
+            <ResponseField name="last_name" type="string">
+              客户姓氏
+            </ResponseField>
+
+            <ResponseField name="avatar_url" type="string | null">
+              头像图片 URL，如果未设置则为 null
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="items" type="Item[]">
+      订单商品列表
+
+      <Expandable title="商品属性">
+        <ResponseField name="product_id" type="string">
+          商品 ID
+        </ResponseField>
+
+        <ResponseField name="quantity" type="number">
+          购买数量
+        </ResponseField>
+
+        <ResponseField name="price" type="number">
+          单价（以分为单位）
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+```mdx 嵌套可展开项示例
+<ResponseField name="order" type="Order Object">
+  <Expandable title="订单属性">
+    <ResponseField name="order_id" type="string" required>
+      订单唯一标识符
+    </ResponseField>
+
+    <ResponseField name="customer" type="Customer Object">
+      客户信息对象
+
+      <Expandable title="客户详细信息">
+        <ResponseField name="customer_id" type="string">
+          客户 ID
+        </ResponseField>
+
+        <ResponseField name="profile" type="Profile Object">
+          客户档案信息
+
+          <Expandable title="档案详情">
+            <ResponseField name="first_name" type="string">
+              客户名字
+            </ResponseField>
+
+            <ResponseField name="last_name" type="string">
+              客户姓氏
+            </ResponseField>
+
+            <ResponseField name="avatar_url" type="string | null">
+              头像图片 URL，如果未设置则为 null
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="items" type="Item[]">
+      订单商品列表
+
+      <Expandable title="商品属性">
+        <ResponseField name="product_id" type="string">
+          商品 ID
+        </ResponseField>
+
+        <ResponseField name="quantity" type="number">
+          购买数量
+        </ResponseField>
+
+        <ResponseField name="price" type="number">
+          单价（以分为单位）
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+```
+
+## 默认展开状态
+
+通过 `defaultOpen` 属性控制可展开项的初始状态：
+
+<ResponseField name="config" type="Configuration Object">
+  <Expandable title="配置选项" defaultOpen={true}>
+    <ResponseField name="api_key" type="string" required>
+      API 密钥，用于身份验证
+    </ResponseField>
+
+    <ResponseField name="timeout" type="number" default="30000">
+      请求超时时间（毫秒）
+    </ResponseField>
+
+    <ResponseField name="retries" type="number" default="3">
+      失败重试次数
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+```mdx 默认展开示例
+<ResponseField name="config" type="Configuration Object">
+  <Expandable title="配置选项" defaultOpen={true}>
+    <ResponseField name="api_key" type="string" required>
+      API 密钥，用于身份验证
+    </ResponseField>
+
+    <ResponseField name="timeout" type="number" default="30000">
+      请求超时时间（毫秒）
+    </ResponseField>
+
+    <ResponseField name="retries" type="number" default="3">
+      失败重试次数
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+```
+
+## 组件属性
+
+<ParamField path="title" type="string" required>
+  可展开项的标题。显示在可点击的标题栏中，用于标识折叠内容的主题。
+</ParamField>
+
+<ParamField path="defaultOpen" type="boolean" default="false">
+  页面加载时是否默认展开。设置为 `true` 时，该可展开项在页面加载时将默认处于展开状态。
+</ParamField>
+
+## 使用场景
+
+### API 响应文档
+
+可展开项最常用于 API 响应文档，帮助开发者理解复杂的数据结构：
+
+```mdx API 响应示例
+<ResponseField name="data" type="APIResponse">
+  <Expandable title="响应数据结构">
+    <ResponseField name="status" type="string">
+      响应状态：success, error, pending
+    </ResponseField>
+
+    <ResponseField name="result" type="object">
+      具体的响应结果
+      <Expandable title="结果详情">
+        <ResponseField name="id" type="string">
+          资源 ID
+        </ResponseField>
+
+        <ResponseField name="created_at" type="timestamp">
+          创建时间戳
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+```
+
+### 配置文档
+
+用于展示配置选项的层次结构：
+
+```mdx 配置文档示例
+<ResponseField name="settings" type="Settings Object">
+  <Expandable title="应用设置">
+    <ResponseField name="theme" type="string">
+      主题设置：light, dark, auto
+    </ResponseField>
+
+    <ResponseField name="notifications" type="object">
+      通知设置
+      <Expandable title="通知选项">
+        <ResponseField name="email" type="boolean">
+          是否接收邮件通知
+        </ResponseField>
+
+        <ResponseField name="push" type="boolean">
+          是否接收推送通知
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+```
+
+## 最佳实践
+
+1. **合理使用嵌套层级** - 避免过深的嵌套，一般不超过 3-4 层
+2. **清晰的标题命名** - 使用描述性的标题，帮助用户快速理解内容
+3. **适当的默认状态** - 对于重要信息可以设置为默认展开
+4. **一致的数据类型** - 在同一文档中保持数据类型表示的一致性
+
+可展开项组件是构建清晰、层次化 API 文档的重要工具。它帮助开发者在不丢失细节的同时，保持文档的简洁性和可读性。

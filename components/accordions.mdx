@@ -1,0 +1,296 @@
+---
+title: 'Accordions'
+description: '手风琴组件允许用户展开和折叠内容区域，是组织和展示大量信息的理想选择。通过渐进式信息披露，帮助用户聚焦关键内容'
+icon: 'list-collapse'
+---
+
+## 基础用法
+
+### 单个手风琴
+
+最简单的手风琴用法，展示可折叠的内容：
+
+<Accordion title="什么是 Poetora？">
+
+Poetora 是一个现代化的云端文档编辑平台，专为开发者和内容创作者设计。它提供丰富的组件库、AI 写作助手和实时协作功能，让文档创作变得简单高效。
+
+你可以在手风琴中放置任何内容，包括其他组件和代码块：
+
+```javascript
+console.log('Hello, Poetora!');
+```
+
+</Accordion>
+
+````mdx
+<Accordion title="什么是 Poetora？">
+
+Poetora 是一个现代化的云端文档编辑平台，专为开发者和内容创作者设计。
+
+```javascript
+console.log('Hello, Poetora!');
+```
+
+</Accordion>
+````
+
+### 手风琴组
+
+使用 `<Accordions>` 将多个手风琴组织在一起，创建连贯的内容区域：
+
+<Accordions>
+  <Accordion title="快速开始">
+    注册 Poetora 账号后，你可以立即开始创建文档。无需安装任何软件，在浏览器中即可享受完整的编辑体验。
+
+    主要步骤：
+    1. 访问 Poetora 官网注册账号
+    2. 创建你的第一个工作空间
+    3. 选择模板或空白文档开始编辑
+
+  </Accordion>
+
+  <Accordion title="高级功能" icon="star">
+    Poetora 提供了许多高级功能来提升你的文档创作效率：
+
+    - **AI 写作助手** - 智能内容生成和优化
+    - **实时协作** - 多人同时编辑和评论
+    - **版本控制** - 完整的历史记录和回滚
+    - **自动发布** - 一键发布到多个平台
+
+  </Accordion>
+
+  <Accordion title="故障排除">
+    遇到问题时，可以通过以下方式获得帮助：
+
+    - 查看帮助文档和常见问题
+    - 联系在线客服获得实时支持
+    - 访问社区论坛与其他用户交流
+    - 提交工单获得技术支持
+
+  </Accordion>
+</Accordions>
+
+```mdx
+<Accordions>
+  <Accordion title="快速开始">
+    注册 Poetora 账号后，你可以立即开始创建文档...
+  </Accordion>
+
+<Accordion title="高级功能" icon="star">
+  Poetora
+  提供了许多高级功能来提升你的文档创作效率...
+</Accordion>
+
+  <Accordion title="故障排除">
+    遇到问题时，可以通过以下方式获得帮助...
+  </Accordion>
+</Accordions>
+```
+
+## 组件属性
+
+### Accordion 属性
+
+<ParamField path="title" type="string" required>
+  手风琴的标题文本。显示在可点击的标题栏中，用于标识内容区域的主题。
+</ParamField>
+
+<ParamField path="description" type="string">
+  标题下方的描述文本。提供关于手风琴内容的简要说明，显示在标题下方。
+</ParamField>
+
+<ParamField path="icon" type="string">
+  标题前显示的图标。支持 Font Awesome 和 Lucide 图标库中的图标名称，如 `"chevron-down"`、`"info"` 等。
+</ParamField>
+
+<ParamField path="defaultOpen" type="boolean" default="false">
+  是否默认展开。设置为 `true` 时，手风琴在页面加载时将默认处于展开状态。
+</ParamField>
+
+
+## 样式变体
+
+### 带描述的手风琴
+
+添加 `description` 属性来提供额外的上下文信息：
+
+<Accordion title="API 集成指南" description="了解如何将 Poetora 集成到你的应用程序中">
+
+Poetora 提供了完整的 REST API 和 SDK，让你可以轻松将文档功能集成到自己的应用中。
+
+**主要 API 端点：**
+
+- `/api/documents` - 文档管理
+- `/api/workspaces` - 工作空间操作
+- `/api/users` - 用户管理
+- `/api/collaboration` - 协作功能
+
+</Accordion>
+
+```mdx
+<Accordion
+  title="API 集成指南"
+  description="了解如何将 Poetora 集成到你的应用程序中"
+>
+  Poetora 提供了完整的 REST API 和 SDK...
+</Accordion>
+```
+
+### 带图标的手风琴
+
+使用 `icon` 属性为手风琴添加视觉标识：
+
+<Accordions>
+  <Accordion title="安全保障" icon="shield">
+    Poetora 采用企业级安全措施保护你的数据：
+    
+    - 端到端加密传输
+    - 定期安全审计
+    - 符合 SOC 2 标准
+    - 数据备份和灾难恢复
+  </Accordion>
+
+  <Accordion title="性能优化" icon="zap">
+    我们持续优化平台性能：
+    
+    - 全球 CDN 加速
+    - 智能缓存机制
+    - 高可用架构
+    - 99.9% 稳定性保证
+  </Accordion>
+</Accordions>
+
+```mdx
+<Accordions>
+  <Accordion title="安全保障" icon="shield">
+    Poetora 采用企业级安全措施保护你的数据...
+  </Accordion>
+
+  <Accordion title="性能优化" icon="zap">
+    我们持续优化平台性能...
+  </Accordion>
+</Accordions>
+```
+
+### 默认展开
+
+使用 `defaultOpen` 属性让重要内容默认展开：
+
+<Accordion title="重要公告" defaultOpen>
+📢 **系统维护通知**
+
+我们将在本周末进行系统维护，预计停机时间为 2 小时。维护期间将无法访问平台，请提前保存你的工作。
+
+**维护时间：** 2024年1月15日 02:00 - 04:00 (UTC+8)
+**影响范围：** 全平台服务
+**预期改进：** 性能提升 30%，新增协作功能
+
+</Accordion>
+
+```mdx
+<Accordion title="重要公告" defaultOpen>
+  📢 **系统维护通知**
+  我们将在本周末进行系统维护...
+</Accordion>
+```
+
+## 使用场景
+
+### FAQ 页面
+
+手风琴组件特别适合创建 FAQ（常见问题）页面：
+
+<Accordions>
+  <Accordion title="如何开始使用 Poetora？">
+    很简单！只需要在官网注册账号，完成邮箱验证后即可开始使用。新用户可以免费试用 14 天的专业版功能。
+  </Accordion>
+
+<Accordion title="支持哪些文件格式导入？">
+  Poetora 支持导入以下格式： - Markdown (.md,
+  .mdx) - Word 文档 (.docx) - HTML 文件 (.html) -
+  纯文本 (.txt) - Notion 导出文件
+</Accordion>
+
+<Accordion title="如何邀请团队成员？">
+  在工作空间设置中，点击"邀请成员"按钮，输入同事的邮箱地址并设置权限级别。被邀请人会收到邮件通知并可以立即加入。
+</Accordion>
+
+  <Accordion title="文档可以设置访问权限吗？">
+    是的，每个文档都可以单独设置访问权限：
+    - **私有** - 仅自己可见
+    - **团队** - 工作空间成员可见
+    - **公开** - 任何人都可访问
+    - **密码保护** - 需要密码才能查看
+  </Accordion>
+</Accordions>
+
+### 产品特性介绍
+
+使用手风琴展示产品的不同特性：
+
+<Accordions>
+  <Accordion title="🤖 AI 写作助手" icon="robot">
+    智能内容生成和优化：
+    - 根据大纲自动生成内容
+    - 语法和表达优化建议
+    - 多语言翻译支持
+    - 智能摘要生成
+  </Accordion>
+
+<Accordion title="👥 实时协作" icon="users">
+  强大的团队协作功能： - 多人同时编辑 -
+  实时评论和反馈 - 变更追踪和通知 - 权限精确控制
+</Accordion>
+
+  <Accordion title="📊 数据分析" icon="bar-chart">
+    深入了解文档表现：
+    - 阅读量和访问统计
+    - 用户行为分析
+    - A/B 测试支持
+    - 转化率跟踪
+  </Accordion>
+</Accordions>
+
+## 最佳实践
+
+### 内容组织
+
+- **逻辑分组** - 将相关内容放在同一个手风琴组中
+- **标题清晰** - 使用简洁明了的标题
+- **内容适量** - 每个手风琴项的内容不宜过长
+- **层级合理** - 避免过度嵌套，保持结构清晰
+
+### 交互体验
+
+- **重要内容优先** - 将最重要的内容设置为默认展开
+- **图标辅助** - 使用图标帮助用户快速识别内容类型
+- **描述补充** - 为复杂标题提供简短描述
+- **响应式设计** - 确保在移动设备上也有良好体验
+
+### 性能考虑
+
+- **内容懒加载** - 对于大量内容可以考虑懒加载
+- **图片优化** - 压缩手风琴中的图片大小
+- **嵌套限制** - 避免在手风琴中嵌套过多复杂组件
+
+## 可访问性
+
+手风琴组件支持完整的可访问性功能：
+
+- **键盘导航** - 支持 Tab、Enter、Space 等键盘操作
+- **屏幕阅读器** - 提供适当的 ARIA 标签和语义
+- **焦点管理** - 清晰的焦点指示和合理的焦点顺序
+- **状态提示** - 明确指示展开/折叠状态
+
+### 键盘快捷键
+
+| 按键              | 功能                        |
+| ----------------- | --------------------------- |
+| `Tab`             | 在手风琴项之间导航          |
+| `Enter` / `Space` | 展开/折叠当前手风琴项       |
+| `↑` / `↓`         | 在手风琴组中上下移动        |
+| `Home` / `End`    | 跳到第一个/最后一个手风琴项 |
+
+---
+
+手风琴组件是组织大量信息的有效工具。合理使用可以大大提升文档的可读性和用户体验。如果你需要展示复杂的嵌套信息，也可以考虑使用 [可展开项组件](/components/advanced/expandables)。

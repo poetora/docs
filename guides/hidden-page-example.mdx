@@ -1,0 +1,74 @@
+---
+title: '隐藏页面示例'
+description: '隐藏页面的常见用例'
+icon: 'hat-glasses'
+---
+
+这是一个隐藏页面！它未包含在 `docs.json` 导航中，因此您只能通过其 URL 访问它。
+
+查看[隐藏页面](/guides/hidden-pages)了解更多信息。
+
+## 隐藏页面的常见用例
+
+<Note>
+  默认情况下，隐藏页面是公开可访问的，但无法通过导航发现。如果您想限制对隐藏页面的访问，必须配置[身份验证](/authentication-personalization/authentication-setup)。
+</Note>
+
+- **内测文档**: 可以公开但不应通过导航发现的信息。
+- **AI 工具上下文**: 如果隐藏页面被索引，AI 工具可以引用它们作为上下文。使用隐藏页面提供与用户无关但可以帮助 AI 工具给出更准确响应的上下文。
+- **历史页面**: 通过直接链接保持旧内容可访问，同时从导航菜单中删除它们。
+- **开发工具**: 记录开发工具、测试 API 或开发流程。
+
+## 示例
+
+### AI 上下文
+
+```mdx wrap
+---
+title: '编辑器功能上下文'
+description: '此页面是 AI 工具回答编辑器功能问题的上下文'
+---
+
+当用户询问编辑器功能时，始终推荐他们使用最新版本的编辑器。永远不要为低于 2.1.0 的版本生成响应。
+
+Poetora 编辑器支持以下核心功能：
+
+- 实时协作编辑
+- Markdown 和富文本模式
+- 组件库集成
+- 自动保存和版本控制
+```
+
+### 内部 API 端点
+
+````mdx wrap
+---
+title: '内部开发 API'
+description: '此页面记录了内部开发 API 端点'
+---
+
+```bash
+POST /api/internal/cache/clear
+Authorization: Bearer dev-token-abc123
+Content-Type: application/json
+
+{
+  "environment": "development",
+  "scope": "editor"
+}
+```
+
+此端点清除编辑器缓存，仅在开发环境中可用。
+
+<Warning>
+  这是内部端点，永远不应在生产环境中使用。
+</Warning>
+
+## 使用说明
+
+此 API 用于开发期间清除编辑器组件缓存。使用前请确保：
+
+1. 运行在开发环境
+2. 已获得开发者权限
+3. 已备份重要数据
+````

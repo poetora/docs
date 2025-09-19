@@ -1,0 +1,389 @@
+---
+title: 'Columns'
+description: '列布局组件用于将内容组织成多列网格形式，提供灵活的页面布局选项，帮助优化内容展示效果'
+icon: 'columns-2'
+---
+
+## 基础用法
+
+### 两列布局
+
+最常用的两列并排布局：
+
+<Columns cols={2}>
+  <div>
+    **左侧内容**
+    这是左侧列的内容。可以包含文本、图片、组件等任何内容。列布局会自动调整宽度，确保内容在不同屏幕上都有良好的显示效果。
+  </div>
+  <div>
+    **右侧内容**
+    这是右侧列的内容。两列之间会自动保持适当的间距，创造整洁的视觉效果。在移动设备上，列会自动堆叠为单列显示。
+  </div>
+</Columns>
+
+```mdx
+<Columns cols={2}>
+  <div>**左侧内容** 这是左侧列的内容...</div>
+  <div>**右侧内容** 这是右侧列的内容...</div>
+</Columns>
+```
+
+### 三列布局
+
+创建三列网格来展示更多并行信息：
+
+<Columns cols={3}>
+  <div>
+    **功能特色** 🚀
+
+    **快速部署**
+    - 零配置启动
+    - 一键发布
+    - 自动优化
+
+  </div>
+  <div>
+    **技术优势** ⚡
+
+    **高性能**
+    - 实时同步
+    - 智能缓存
+    - 快速响应
+
+  </div>
+  <div>
+    **用户体验** 🎨
+
+    **易于使用**
+    - 直观界面
+    - 丰富组件
+    - 智能提示
+
+  </div>
+</Columns>
+
+```mdx
+<Columns cols={3}>
+  <div>
+    **功能特色** 🚀
+
+    **快速部署**
+    - 零配置启动
+    - 一键发布
+    - 自动优化
+
+  </div>
+  <div>
+    **技术优势** ⚡
+
+    **高性能**
+    - 实时同步
+    - 智能缓存
+    - 快速响应
+
+  </div>
+  <div>
+    **用户体验** 🎨
+
+    **易于使用**
+    - 直观界面
+    - 丰富组件
+    - 智能提示
+
+  </div>
+</Columns>
+```
+
+## 与其他组件结合
+
+### 卡片网格
+
+结合卡片组件创建功能展示网格：
+
+<Columns cols={2}>
+  <Card title="文档编辑" icon="book-open-check">
+    强大的富文本编辑器，支持实时预览、智能提示和多种格式。让文档创作变得简单高效。
+  </Card>
+  <Card title="团队协作" icon="users">
+    实时多人编辑，智能冲突解决，完善的权限管理。提升团队协作效率。
+  </Card>
+  <Card title="AI 助手" icon="bot">
+    智能内容生成，语法检查，翻译支持。AI
+    让写作更加轻松。
+  </Card>
+  <Card title="云端存储" icon="cloud">
+    自动保存，版本控制，跨设备同步。永不丢失你的重要内容。
+  </Card>
+</Columns>
+
+```mdx
+<Columns cols={2}>
+  <Card title="文档编辑" icon="edit">
+    强大的富文本编辑器，支持实时预览...
+  </Card>
+  <Card title="团队协作" icon="users">
+    实时多人编辑，智能冲突解决...
+  </Card>
+  <Card title="AI 助手" icon="robot">
+    智能内容生成，语法检查...
+  </Card>
+  <Card title="云端存储" icon="cloud">
+    自动保存，版本控制...
+  </Card>
+</Columns>
+```
+
+### 代码对比
+
+并排展示不同版本或语言的代码：
+
+<Columns cols={2}>
+  <div>
+    **React 实现**
+    ```jsx
+    import { PoetoraEditor } from '@poetora/react';
+    
+    function MyEditor() {
+      const [content, setContent] = useState('');
+      
+      return (
+        <PoetoraEditor
+          value={content}
+          onChange={setContent}
+          autoSave={true}
+        />
+      );
+    }
+    ```
+  </div>
+  <div>
+    **Vue 实现**
+    ```vue
+    <template>
+      <PoetoraEditor
+        v-model="content"
+        :auto-save="true"
+      />
+    </template>
+    
+    <script setup>
+    import { ref } from 'vue';
+    import { PoetoraEditor } from '@poetora/vue';
+    
+    const content = ref('');
+    </script>
+    ```
+  </div>
+</Columns>
+
+### 功能对比表
+
+使用列布局创建对比表格：
+
+<Columns cols={3}>
+  <div>
+    **免费版** <br />
+    💰 **¥0/月** <br />
+    ✅ 5 个文档<br />
+    ✅ 社区支持<br />
+    ❌ AI 功能<br />
+    ❌ 自定义域名<br />
+  </div>
+  <div>
+    **专业版** ⭐<br />
+    💰 **¥68/月** <br />
+    ✅ 无限文档<br />
+    ✅ 优先支持<br />
+    ✅ AI 写作助手<br />
+    ❌ 自定义域名<br />
+  </div>
+  <div>
+    **企业版**<br />
+    💰 **¥68/月** <br />
+    ✅ 专属支持<br />
+    ✅ SSO 登录<br />
+    ✅ API 访问<br />
+  </div>
+</Columns>
+
+## 组件属性
+
+<ParamField path="cols" type="number" default="2">
+  列数。设置分栏布局的列数，支持 1-6 列。数值越大，每列宽度越窄。
+</ParamField>
+
+<ParamField path="gap" type="'small' | 'medium' | 'large'" default="'medium'">
+  列间距大小。控制列与列之间的间距：
+  - `small` - 较小间距
+  - `medium` - 中等间距（默认）
+  - `large` - 较大间距
+</ParamField>
+
+<ParamField path="align" type="'start' | 'center' | 'end' | 'stretch'" default="'stretch'">
+  列高度对齐方式。控制不同高度列的对齐方式：
+  - `start` - 顶部对齐
+  - `center` - 居中对齐
+  - `end` - 底部对齐
+  - `stretch` - 拉伸至相同高度（默认）
+</ParamField>
+
+## 高级用法
+
+### 不等宽列
+
+创建不同宽度的列布局：
+
+<Columns cols={3}>
+  <div style={{ gridColumn: 'span 2' }}>
+    **主要内容区域**
+    这是一个较宽的内容区域，占据了两列的宽度。这里可以放置主要的文章内容、详细说明或重要信息。
+    通过设置 `gridColumn: 'span 2'`，这个区域会跨越两个列的宽度，给重要内容更多的展示空间。
+  </div>
+  <div>
+    **侧边栏**
+
+    这是侧边栏区域，通常用于放置：
+    - 导航链接
+    - 相关文章
+    - 广告内容
+    - 快速操作
+
+  </div>
+</Columns>
+
+```mdx
+<Columns cols={3}>
+  <div style={{ gridColumn: 'span 2' }}>
+    **主要内容区域** 这是一个较宽的内容区域...
+  </div>
+  <div>**侧边栏** 这是侧边栏区域...</div>
+</Columns>
+```
+
+### 复杂网格布局
+
+创建更复杂的网格结构：
+
+<Columns cols={4}>
+  <div style={{ gridColumn: 'span 4' }}>**页面标题** 这是页面的主标题区域，跨越整个宽度。</div>
+  <div style={{ gridColumn: 'span 3' }}>
+    **主内容区**
+    这里是主要的内容区域，包含文章正文、产品介绍或详细信息。占据大部分宽度，让内容有足够的展示空间。
+    可以包含：
+    - 文章段落
+    - 图片和媒体
+    - 代码示例
+    - 交互组件
+  </div>
+  <div>
+    **边栏**
+
+    **快速导航**
+    - 概述
+    - 特性
+    - 价格
+    - 联系
+
+    **相关链接**
+    - 帮助文档
+    - API 参考
+    - 社区论坛
+
+  </div>
+  <div style={{ gridColumn: 'span 2' }}>
+    **左下区域**
+
+    这里可以放置次要内容或补充信息。
+
+  </div>
+  <div style={{ gridColumn: 'span 2' }}>
+    **右下区域**
+
+    这里可以放置相关内容或行动号召。
+
+  </div>
+</Columns>
+
+### 响应式间距
+
+使用不同的间距设置：
+
+<Columns cols={3} gap="small">
+  <Card title="紧凑布局" icon="rows-3">
+    使用小间距创建紧凑的布局，适合信息密度较高的场景。
+  </Card>
+  <Card title="标准间距" icon="layout-panel-left">
+    中等间距是最常用的选择，平衡了空间利用和视觉舒适度。
+  </Card>
+  <Card title="宽松布局" icon="expand">
+    大间距创建更宽松的布局，适合需要突出重点的场景。
+  </Card>
+</Columns>
+
+<Columns cols={2} gap="large">
+  <div>
+    **大间距示例**
+
+    这个布局使用了较大的间距，创造了更多的视觉空间。适合用于：
+    - 重要内容展示
+    - 减少视觉压力
+    - 突出关键信息
+
+  </div>
+  <div>
+    **视觉效果**
+
+    大间距让内容之间有更多的呼吸空间，提升阅读体验和视觉舒适度。
+
+  </div>
+</Columns>
+
+## 最佳实践
+
+### 内容组织
+
+- **逻辑分组** - 将相关内容放在相邻的列中
+- **重要性排序** - 将最重要的内容放在最左侧
+- **平衡布局** - 确保各列内容量相对均衡
+- **响应式考虑** - 考虑在不同屏幕尺寸下的显示效果
+
+### 视觉设计
+
+- **对齐一致** - 保持各列内容的对齐方式一致
+- **间距统一** - 使用一致的内边距和外边距
+- **高度平衡** - 避免某一列内容过长或过短
+- **色彩协调** - 保持各列的色彩风格协调
+
+### 响应式适配
+
+- **移动优先** - 优先考虑移动设备的显示效果
+- **断点设置** - 在不同屏幕尺寸下调整列数
+- **内容优先级** - 在小屏幕上优先显示重要内容
+- **交互优化** - 确保在触摸设备上的良好交互
+
+### 性能优化
+
+- **图片优化** - 压缩和优化列中的图片资源
+- **内容懒加载** - 对大量内容实施懒加载策略
+- **CSS 优化** - 避免复杂的 CSS 选择器
+- **布局稳定** - 避免内容加载时的布局跳动
+
+## 可访问性
+
+列布局组件支持完整的可访问性功能：
+
+- **语义化结构** - 使用适当的 HTML 语义标签
+- **键盘导航** - 支持键盘在列间导航
+- **屏幕阅读器** - 提供清晰的内容结构描述
+- **焦点管理** - 合理的焦点顺序和指示
+
+### 屏幕阅读器支持
+
+- 正确的标题层次结构
+- 适当的地标角色（landmark roles）
+- 清晰的内容分组
+- 有意义的链接文本
+
+---
+
+列布局组件是创建现代网页布局的强大工具。合理使用可以让你的文档更具视觉吸引力和信息组织性。接下来可以学习[框架组件](/components/basic/frames)来美化你的图片和内容展示。

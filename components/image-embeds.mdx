@@ -1,0 +1,401 @@
+---
+title: '图片和嵌入内容'
+description: '在文档中添加图片、嵌入视频和包含交互式内容，让你的文档更加生动和实用'
+icon: 'image'
+---
+
+文档仓库中的所有静态资源都会自动在你的域名的相应路径上提供服务。例如，如果你的仓库中有 `/images/my-logo.png`，该图片将在 `https://docs.yoursite.com/images/my-logo.png` 上可用。
+
+<Frame>
+  <img
+    className='rounded-xl'
+    src='/images/components/hero-light.png'
+    alt='展示文档编辑界面的截图，包含丰富的组件和直观的编辑体验'
+  />
+</Frame>
+
+## 图片
+
+添加图片可以为文档提供视觉上下文、示例或装饰效果。
+
+### 基本图片语法
+
+使用 [Markdown 语法](https://www.markdownguide.org/basic-syntax/#images) 向文档添加图片：
+
+```mdx
+![描述图片内容的替代文本](/path/to/image.png)
+```
+
+<Tip>
+  始终包含描述性的替代文本，以改善可访问性和
+  SEO。替代文本应该清楚地描述图片显示的内容。
+</Tip>
+
+图片文件必须小于 20MB。对于更大的文件，请托管在 CDN 服务上，如 [Amazon S3](https://aws.amazon.com/s3) 或 [Cloudinary](https://cloudinary.com)。
+
+### HTML 图片嵌入
+
+要更好地控制图片显示，请使用 HTML `<img>` 标签：
+
+```html
+<img
+  src="/images/dashboard.png"
+  alt="主仪表板界面"
+  height="300"
+  className="rounded-lg"
+/>
+```
+
+#### 禁用缩放功能
+
+要禁用图片的默认点击缩放功能，添加 `noZoom` 属性：
+
+```html
+<img
+  src="/images/screenshot.png"
+  alt="描述性替代文本"
+  noZoom
+  height="200"
+/>
+```
+
+#### 图片链接
+
+要使图片成为可点击的链接，请将图片包装在锚标签中并添加 `noZoom` 属性：
+
+```html
+<a href="https://poetora.com" target="_blank">
+  <img
+    src="/images/logo.png"
+    alt="Poetora 标志"
+    noZoom
+    height="100"
+  />
+</a>
+```
+
+<Note>
+  锚标签内的图片会自动显示指针光标，表示它们是可点击的。
+</Note>
+
+#### 浅色和深色模式图片
+
+要为浅色和深色主题显示不同的图片，请使用 Tailwind CSS 类：
+
+```html
+<!-- 浅色模式图片 -->
+<img
+  className="block dark:hidden"
+  src="/images/light-mode.png"
+  alt="浅色模式界面"
+/>
+
+<!-- 深色模式图片 -->
+<img
+  className="hidden dark:block"
+  src="/images/dark-mode.png"
+  alt="深色模式界面"
+/>
+```
+
+### 响应式图片
+
+为确保图片在不同设备上都能良好显示，建议使用响应式图片技术：
+
+<Frame caption='响应式图片可以根据设备屏幕大小自动调整分辨率'>
+  <img
+    src='/images/components/hero-light.png'
+    alt='响应式设计示例'
+  />
+</Frame>
+
+```html
+<img
+  src="/images/screenshot-800.jpg"
+  srcset="
+    /images/screenshot-400.jpg   400w,
+    /images/screenshot-800.jpg   800w,
+    /images/screenshot-1200.jpg 1200w
+  "
+  sizes="(max-width: 768px) 400px, 
+         (max-width: 1024px) 800px, 
+         1200px"
+  alt="产品界面截图"
+/>
+```
+
+## 视频
+
+Poetora 支持在 Markdown 中使用 HTML 标签，为你提供创建丰富内容的灵活性。
+
+<Tip>
+  始终在视频元素中包含备用文本内容，以支持不支持视频播放的浏览器。
+</Tip>
+
+### YouTube 嵌入
+
+使用 iframe 元素嵌入 YouTube 视频：
+
+```html
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="https://www.youtube.com/embed/4KzFe50RQkQ"
+  title="YouTube 视频播放器"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
+```
+
+<Frame caption='嵌入的 YouTube 视频示例'>
+  <iframe
+    className='w-full aspect-video rounded-xl'
+    src='https://www.youtube.com/embed/4KzFe50RQkQ'
+    title='YouTube 视频播放器'
+    frameBorder='0'
+    allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+    allowFullScreen
+  ></iframe>
+</Frame>
+
+### 自托管视频
+
+使用 HTML `<video>` 元素显示自托管的视频内容：
+
+```html
+<video
+  controls
+  className="w-full aspect-video rounded-xl"
+  src="link-to-your-video.com"
+></video>
+```
+
+### 自动播放视频
+
+要自动播放视频，请使用：
+
+```html
+<video
+  autoplay
+  muted
+  loop
+  playsinline
+  className="w-full aspect-video rounded-xl"
+  src="/videos/demo.mp4"
+></video>
+```
+
+<Note>
+  在使用 JSX
+  语法时，请将双词属性写成驼峰式：`autoPlay`、`playsInline`、`allowFullScreen`。
+</Note>
+
+### Bilibili 视频嵌入
+
+可以嵌入 Bilibili 视频：
+
+```html
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="//player.bilibili.com/player.html?aid=视频ID&page=1"
+  title="Bilibili 视频播放器"
+  frameborder="0"
+  allowfullscreen
+></iframe>
+```
+
+## 交互式嵌入内容
+
+### Iframe 嵌入
+
+使用 iframe 元素嵌入外部内容：
+
+```html
+<iframe
+  src="https://example.com/embed"
+  title="嵌入的内容"
+  className="w-full h-96 rounded-xl"
+></iframe>
+```
+
+### 代码演示嵌入
+
+嵌入 CodePen、JSFiddle 或其他代码演示平台：
+
+<Frame caption='CodePen 代码演示示例'>
+  <iframe
+    className='w-full h-96 rounded-xl'
+    src='https://codepen.io/team/codepen/embed/PNaGbb'
+    title='CodePen 演示'
+    frameBorder='0'
+    allowFullScreen
+  ></iframe>
+</Frame>
+
+```html
+<iframe
+  className="w-full h-96 rounded-xl"
+  src="https://codepen.io/team/codepen/embed/PNaGbb"
+  title="CodePen 演示"
+  frameborder="0"
+  allowfullscreen
+></iframe>
+```
+
+### 地图嵌入
+
+嵌入地图（如 Google Maps 或高德地图）：
+
+```html
+<iframe
+  className="w-full h-96 rounded-xl"
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d..."
+  title="地图位置"
+  frameborder="0"
+  allowfullscreen
+></iframe>
+```
+
+## 图片画廊
+
+使用列布局创建图片画廊：
+
+<Columns cols={3}>
+  <Frame caption='梨'>
+    <img
+      src='/images/components/embed-pear.png'
+      alt='梨'
+    />
+  </Frame>
+  <Frame caption='南瓜'>
+    <img
+      src='/images/components/embed-pumpkin.png'
+      alt='南瓜'
+    />
+  </Frame>
+  <Frame caption='樱桃'>
+    <img
+      src='/images/components/embed-cherry.png'
+      alt='樱桃'
+    />
+  </Frame>
+</Columns>
+
+```mdx 图片画廊示例
+<Columns cols={3}>
+  <Frame caption='梨'>
+    <img
+      src='/images/pear.png'
+      alt='梨'
+    />
+  </Frame>
+  <Frame caption='南瓜'>
+    <img
+      src='/images/pumpkin.png'
+      alt='南瓜'
+    />
+  </Frame>
+  <Frame caption='樱桃'>
+    <img
+      src='/images/cherry.png'
+      alt='樱桃'
+    />
+  </Frame>
+</Columns>
+```
+
+## 文件格式支持
+
+### 图片格式
+
+支持的图片格式：
+
+- **JPEG/JPG** - 适用于照片和复杂图像
+- **PNG** - 适用于截图和带透明背景的图片
+- **WebP** - 现代格式，提供更好的压缩和质量
+- **SVG** - 矢量图形，适用于图标和简单图形
+- **GIF** - 适用于简单动画
+
+## 性能优化
+
+### 图片优化建议
+
+1. **选择合适的格式**
+
+   - 照片使用 JPEG
+   - 截图使用 PNG
+   - 简单图形使用 SVG
+   - 现代浏览器优先使用 WebP
+
+2. **压缩图片**
+
+   - 保持文件大小小于 500KB
+   - 使用工具如 TinyPNG 或 ImageOptim
+
+3. **懒加载**
+   ```html
+   <img
+     src="/image.jpg"
+     loading="lazy"
+     alt="描述"
+   />
+   ```
+
+## 可访问性
+
+### 图片可访问性
+
+1. **替代文本**
+
+   - 为所有图片提供有意义的 alt 文本
+   - 装饰性图片可以使用空的 alt 属性
+
+2. **图片描述**
+   - 对于复杂图片，提供详细描述
+   - 使用 `longdesc` 属性或周围文本
+
+### 视频可访问性
+
+1. **字幕支持**
+
+   ```html
+   <video controls>
+     <source src="/video.mp4" type="video/mp4" />
+     <track
+       kind="subtitles"
+       src="/subtitles.vtt"
+       srclang="zh"
+       label="中文字幕"
+     />
+     <track
+       kind="subtitles"
+       src="/subtitles-en.vtt"
+       srclang="en"
+       label="English"
+     />
+   </video>
+   ```
+
+2. **转录文本**
+   - 为重要视频提供文字转录
+   - 描述视觉内容和音频内容
+
+## 最佳实践
+
+1. **文件命名** - 使用描述性的文件名
+2. **目录组织** - 按类型或主题组织媒体文件
+3. **版权遵守** - 确保有权使用所有媒体内容
+4. **移动优化** - 确保在移动设备上良好显示
+5. **加载速度** - 优化文件大小，提升页面加载速度
+
+## 相关资源
+
+<Card
+  title='框架组件参考'
+  icon='frame'
+  href='/components/frames'
+>
+  了解如何使用框架组件来展示图片
+</Card>
+
+通过合理使用图片和嵌入内容，可以让你的文档更加生动、易懂和实用。记住始终考虑用户体验和可访问性。

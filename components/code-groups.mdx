@@ -1,0 +1,602 @@
+---
+title: 'Code Groups'
+description: '代码组组件用于在一个容器中展示多个代码示例，通常用于显示不同编程语言的实现方法或同一功能的不同版本。这是技术文档和 API 参考的理想选择'
+icon: 'group'
+---
+
+## 基础用法
+
+### 多语言代码示例
+
+展示相同功能在不同编程语言中的实现：
+
+<CodeGroup>
+
+```javascript hello.js
+// JavaScript 实现
+function greetUser(name) {
+  return `Hello, ${name}! Welcome to Poetora.`;
+}
+
+const message = greetUser('Developer');
+console.log(message);
+```
+
+```python hello.py
+# Python 实现
+def greet_user(name):
+    return f"Hello, {name}! Welcome to Poetora."
+
+message = greet_user('Developer')
+print(message)
+```
+
+```java Hello.java
+// Java 实现
+public class Hello {
+    public static String greetUser(String name) {
+        return String.format("Hello, %s! Welcome to Poetora.", name);
+    }
+
+    public static void main(String[] args) {
+        String message = greetUser("Developer");
+        System.out.println(message);
+    }
+}
+```
+
+```go hello.go
+// Go 实现
+package main
+
+import "fmt"
+
+func greetUser(name string) string {
+    return fmt.Sprintf("Hello, %s! Welcome to Poetora.", name)
+}
+
+func main() {
+    message := greetUser("Developer")
+    fmt.Println(message)
+}
+```
+
+</CodeGroup>
+
+````mdx
+<CodeGroup>
+
+```javascript hello.js
+// JavaScript 实现
+function greetUser(name) {
+  return `Hello, ${name}! Welcome to Poetora.`;
+}
+```
+
+```python hello.py
+# Python 实现
+def greet_user(name):
+    return f"Hello, {name}! Welcome to Poetora."
+```
+
+```java Hello.java
+// Java 实现
+public class Hello {
+    public static String greetUser(String name) {
+        return String.format("Hello, %s! Welcome to Poetora.", name);
+    }
+}
+```
+
+</CodeGroup>
+````
+
+### 下拉菜单样式
+
+对于语言较多的情况，可以使用下拉菜单样式：
+
+<CodeGroup dropdown>
+
+```bash curl
+# cURL 请求示例
+curl -X POST https://api.poetora.com/v1/documents \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "新文档",
+    "content": "这是文档内容",
+    "workspace_id": "ws_123"
+  }'
+```
+
+```javascript fetch
+// JavaScript Fetch API
+const response = await fetch(
+  'https://api.poetora.com/v1/documents',
+  {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      title: '新文档',
+      content: '这是文档内容',
+      workspace_id: 'ws_123',
+    }),
+  }
+);
+
+const document = await response.json();
+console.log(document);
+```
+
+```python requests
+# Python requests 库
+import requests
+
+url = 'https://api.poetora.com/v1/documents'
+headers = {
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json'
+}
+data = {
+    'title': '新文档',
+    'content': '这是文档内容',
+    'workspace_id': 'ws_123'
+}
+
+response = requests.post(url, headers=headers, json=data)
+document = response.json()
+print(document)
+```
+
+```php guzzle
+<?php
+// PHP Guzzle HTTP 客户端
+use GuzzleHttp\Client;
+
+$client = new Client();
+$response = $client->post('https://api.poetora.com/v1/documents', [
+    'headers' => [
+        'Authorization' => 'Bearer YOUR_API_KEY',
+        'Content-Type' => 'application/json'
+    ],
+    'json' => [
+        'title' => '新文档',
+        'content' => '这是文档内容',
+        'workspace_id' => 'ws_123'
+    ]
+]);
+
+$document = json_decode($response->getBody(), true);
+var_dump($document);
+?>
+```
+
+```ruby net-http
+# Ruby Net::HTTP
+require 'net/http'
+require 'json'
+
+uri = URI('https://api.poetora.com/v1/documents')
+http = Net::HTTP.new(uri.host, uri.port)
+http.use_ssl = true
+
+request = Net::HTTP::Post.new(uri)
+request['Authorization'] = 'Bearer YOUR_API_KEY'
+request['Content-Type'] = 'application/json'
+request.body = {
+  title: '新文档',
+  content: '这是文档内容',
+  workspace_id: 'ws_123'
+}.to_json
+
+response = http.request(request)
+document = JSON.parse(response.body)
+puts document
+```
+
+</CodeGroup>
+
+````mdx
+<CodeGroup dropdown>
+
+```bash curl
+# cURL 请求示例
+curl -X POST https://api.poetora.com/v1/documents \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+```javascript fetch
+// JavaScript Fetch API
+const response = await fetch(
+  'https://api.poetora.com/v1/documents',
+  {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer YOUR_API_KEY',
+    },
+  }
+);
+```
+
+</CodeGroup>
+````
+
+## 实际应用场景
+
+### SDK 使用示例
+
+展示不同 SDK 的使用方法：
+
+<CodeGroup>
+
+```javascript @poetora/javascript-sdk
+// JavaScript SDK
+import { PoetoraClient } from '@poetora/javascript-sdk';
+
+const client = new PoetoraClient({
+  apiKey: process.env.POETORA_API_KEY,
+  baseURL: 'https://api.poetora.com/v1',
+});
+
+// 创建文档
+const document = await client.documents.create({
+  title: '我的新文档',
+  content: '# 标题\n\n这是文档内容。',
+  workspaceId: 'ws_123456',
+});
+
+console.log('文档创建成功:', document.id);
+
+// 获取文档
+const doc = await client.documents.get(
+  document.id
+);
+console.log('文档标题:', doc.title);
+
+// 更新文档
+await client.documents.update(document.id, {
+  title: '更新后的标题',
+  content: doc.content + '\n\n新增内容',
+});
+
+// 删除文档
+await client.documents.delete(document.id);
+```
+
+```python @poetora/python-sdk
+# Python SDK
+from poetora import PoetoraClient
+import os
+
+client = PoetoraClient(
+    api_key=os.getenv('POETORA_API_KEY'),
+    base_url='https://api.poetora.com/v1'
+)
+
+# 创建文档
+document = client.documents.create(
+    title='我的新文档',
+    content='# 标题\n\n这是文档内容。',
+    workspace_id='ws_123456'
+)
+
+print(f'文档创建成功: {document.id}')
+
+# 获取文档
+doc = client.documents.get(document.id)
+print(f'文档标题: {doc.title}')
+
+# 更新文档
+client.documents.update(
+    document.id,
+    title='更新后的标题',
+    content=doc.content + '\n\n新增内容'
+)
+
+# 删除文档
+client.documents.delete(document.id)
+```
+
+```ruby @poetora/ruby-sdk
+# Ruby SDK
+require 'poetora'
+
+client = Poetora::Client.new(
+  api_key: ENV['POETORA_API_KEY'],
+  base_url: 'https://api.poetora.com/v1'
+)
+
+# 创建文档
+document = client.documents.create(
+  title: '我的新文档',
+  content: "# 标题\n\n这是文档内容。",
+  workspace_id: 'ws_123456'
+)
+
+puts "文档创建成功: #{document.id}"
+
+# 获取文档
+doc = client.documents.get(document.id)
+puts "文档标题: #{doc.title}"
+
+# 更新文档
+client.documents.update(
+  document.id,
+  title: '更新后的标题',
+  content: doc.content + "\n\n新增内容"
+)
+
+# 删除文档
+client.documents.delete(document.id)
+```
+
+```go @poetora/go-sdk
+// Go SDK
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+
+    "github.com/poetora/go-sdk"
+)
+
+func main() {
+    client := poetora.NewClient(poetora.Config{
+        APIKey:  os.Getenv("POETORA_API_KEY"),
+        BaseURL: "https://api.poetora.com/v1",
+    })
+
+    ctx := context.Background()
+
+    // 创建文档
+    document, err := client.Documents.Create(ctx, &poetora.CreateDocumentRequest{
+        Title:       "我的新文档",
+        Content:     "# 标题\n\n这是文档内容。",
+        WorkspaceID: "ws_123456",
+    })
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Printf("文档创建成功: %s\n", document.ID)
+
+    // 获取文档
+    doc, err := client.Documents.Get(ctx, document.ID)
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Printf("文档标题: %s\n", doc.Title)
+
+    // 更新文档
+    _, err = client.Documents.Update(ctx, document.ID, &poetora.UpdateDocumentRequest{
+        Title:   "更新后的标题",
+        Content: doc.Content + "\n\n新增内容",
+    })
+    if err != nil {
+        panic(err)
+    }
+
+    // 删除文档
+    err = client.Documents.Delete(ctx, document.ID)
+    if err != nil {
+        panic(err)
+    }
+}
+```
+
+</CodeGroup>
+
+### 配置文件示例
+
+展示不同格式的配置文件：
+
+<CodeGroup>
+
+```json package.json
+{
+  "name": "my-poetora-app",
+  "version": "1.0.0",
+  "description": "使用 Poetora SDK 的示例应用",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@poetora/javascript-sdk": "^2.1.0",
+    "express": "^4.18.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "nodemon": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+```
+
+```yaml docker-compose.yml
+# Docker Compose 配置
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - POETORA_API_KEY=${POETORA_API_KEY}
+      - DATABASE_URL=${DATABASE_URL}
+    volumes:
+      - ./uploads:/app/uploads
+    depends_on:
+      - database
+      - redis
+
+  database:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=poetora_app
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - '6379:6379'
+
+volumes:
+  postgres_data:
+  redis_data:
+```
+
+```toml pyproject.toml
+# Python 项目配置
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "my-poetora-app"
+version = "1.0.0"
+description = "使用 Poetora Python SDK 的示例应用"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Your Name", email = "your.email@example.com"},
+]
+dependencies = [
+    "poetora>=2.0.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.20.0",
+    "python-dotenv>=1.0.0",
+]
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+```
+
+```ini config.ini
+# 通用配置文件
+[database]
+host = localhost
+port = 5432
+name = poetora_app
+user = postgres
+password = ${DB_PASSWORD}
+pool_size = 10
+max_overflow = 20
+
+[poetora]
+api_key = ${POETORA_API_KEY}
+base_url = https://api.poetora.com/v1
+timeout = 30
+retry_attempts = 3
+workspace_id = ws_123456
+
+[redis]
+host = localhost
+port = 6379
+db = 0
+max_connections = 10
+
+[logging]
+level = INFO
+format = %(asctime)s - %(name)s - %(levelname)s - %(message)s
+file = logs/app.log
+max_bytes = 10485760
+backup_count = 5
+
+[server]
+host = 0.0.0.0
+port = 3000
+workers = 4
+debug = false
+```
+
+</CodeGroup>
+
+## 组件属性
+
+<ParamField path="dropdown" type="boolean" default="false">
+  是否使用下拉菜单样式。设置为 `true` 时，代码组将以下拉菜单的形式显示，节省页面空间。
+</ParamField>
+
+<ParamField path="defaultTab" type="string">
+  默认显示的代码标签。指定页面加载时默认激活的代码块标签名称，如 `"JavaScript"`、`"Python"` 等。
+</ParamField>
+
+## 最佳实践
+
+### 代码组织
+
+- **逻辑分组** - 将相关的代码示例放在一起
+- **版本标注** - 清楚标注不同版本或变体
+- **语言排序** - 按流行度或相关性排列语言
+- **命名一致** - 使用一致的文件名和标识符
+
+### 内容质量
+
+- **可运行性** - 确保代码示例可以实际运行
+- **完整性** - 提供必要的导入和依赖信息
+- **注释说明** - 添加关键部分的注释解释
+- **错误处理** - 包含适当的错误处理逻辑
+
+### 维护管理
+
+- **版本同步** - 保持代码示例与实际 API 同步
+- **测试验证** - 定期测试代码示例的有效性
+- **文档更新** - 及时更新过时的信息
+- **用户反馈** - 收集并响应用户的问题和建议
+
+## 性能考虑
+
+### 代码高亮
+
+- **语言支持** - 确保支持所展示的编程语言
+- **主题适配** - 适配浅色和深色主题
+- **加载优化** - 按需加载语法高亮支持
+- **渲染性能** - 优化大型代码块的渲染
+
+### 交互优化
+
+- **切换流畅** - 确保标签切换的流畅性
+- **记忆选择** - 记住用户的语言偏好
+- **键盘支持** - 支持键盘导航
+- **移动适配** - 优化移动设备的交互体验
+
+---
+
+代码组组件是技术文档的核心工具，能够清晰地展示不同实现方式。合理使用可以大大提升开发者文档的实用性和用户体验。接下来可以学习[可展开项组件](/components/advanced/expandables)来处理复杂的嵌套信息。

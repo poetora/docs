@@ -1,0 +1,358 @@
+---
+title: 'Cards'
+description: '卡片组件用于创建视觉化的内容容器，可以包含文本、图标、图片和链接。它们是组织信息和创建导航的理想选择'
+icon: 'square-mouse-pointer'
+---
+
+## 基础卡片
+
+### 简单卡片
+
+最基础的卡片形式，包含标题和内容：
+
+<Card title="快速开始">
+  了解如何在 5 分钟内创建你的第一个文档，掌握
+  Poetora 的基础功能。
+</Card>
+
+```mdx
+<Card title="快速开始">
+  了解如何在 5 分钟内创建你的第一个文档，掌握
+  Poetora 的基础功能。
+</Card>
+```
+
+### 带图标的卡片
+
+添加图标让卡片更具视觉吸引力：
+
+<Card title="API 文档" icon="code">
+  探索 Poetora 的完整 API
+  接口，了解如何将文档功能集成到你的应用中。
+</Card>
+
+```mdx
+<Card title="API 文档" icon="code">
+  探索 Poetora 的完整 API
+  接口，了解如何将文档功能集成到你的应用中。
+</Card>
+```
+
+### 链接卡片
+
+创建可点击的导航卡片：
+
+<Card
+  title="组件库"
+  icon="puzzle"
+  href="/components/"
+>
+  查看所有可用的组件和使用示例，构建丰富的文档内容。
+</Card>
+
+```mdx
+<Card
+  title="组件库"
+  icon="puzzle"
+  href="/components/"
+>
+  查看所有可用的组件和使用示例，构建丰富的文档内容。
+</Card>
+```
+
+## 卡片样式
+
+### 横向布局
+
+使用 `horizontal` 属性创建横向布局的紧凑卡片：
+
+<Card title="实时协作" icon="users" horizontal>
+  多人同时编辑，实时查看其他用户的修改。
+</Card>
+
+```mdx
+<Card title="实时协作" icon="users" horizontal>
+  多人同时编辑，实时查看其他用户的修改。
+</Card>
+```
+
+### 图片卡片
+
+添加图片让卡片更加生动：
+
+<Card
+  title="主题定制"
+  img="/images/themes-preview.png"
+>
+  自定义你的文档外观，选择预设主题或创建专属品牌风格。
+</Card>
+
+```mdx
+<Card
+  title="主题定制"
+  img="/images/themes-preview.png"
+>
+  自定义你的文档外观，选择预设主题或创建专属品牌风格。
+</Card>
+```
+
+### 自定义链接文本
+
+使用 `cta` 属性自定义行动号召文本：
+
+<Card title="免费试用" icon="gift" href="/signup" cta="立即注册" arrow={true}>
+
+体验 Poetora 的所有专业功能，14 天免费试用，无需信用卡。
+
+</Card>
+
+```mdx
+<Card
+  title="免费试用"
+  icon="gift"
+  href="/signup"
+  cta="立即注册"
+  arrow={true}
+>
+  体验 Poetora 的所有专业功能，14
+  天免费试用，无需信用卡。
+</Card>
+```
+
+## 卡片组
+
+使用 [列布局组件](/components/basic/columns) 可以并排显示多个卡片：
+
+<Columns cols={2}>
+  <Card title="文档编辑" icon="file-pen-line">
+    强大的富文本编辑器，支持实时预览和智能提示。
+  </Card>
+  <Card title="团队协作" icon="users">
+    邀请团队成员，实时编辑和评论，提升协作效率。
+  </Card>
+</Columns>
+
+<Columns cols={3}>
+  <Card title="模板库" icon="book">
+    丰富的文档模板，快速开始你的项目。
+  </Card>
+  <Card title="版本控制" icon="git-branch">
+    完整的版本历史，随时回滚到任意时点。
+  </Card>
+  <Card title="发布系统" icon="share">
+    一键发布，支持多种格式和平台。
+  </Card>
+</Columns>
+
+```mdx
+<Columns cols={2}>
+  <Card title="文档编辑" icon="edit">
+    强大的富文本编辑器，支持实时预览和智能提示。
+  </Card>
+  <Card title="团队协作" icon="users">
+    邀请团队成员，实时编辑和评论，提升协作效率。
+  </Card>
+</Columns>
+```
+
+## 组件属性
+
+<ParamField path="title" type="string" required>
+  卡片标题。显示在卡片顶部的主要标题文本，必填项。
+</ParamField>
+
+<ParamField path="icon" type="string">
+  图标名称。支持 Font Awesome 和 Lucide 图标库中的图标名称，如 `"rocket"`、`"settings"` 等。
+</ParamField>
+
+<ParamField path="color" type="string">
+  图标颜色。使用十六进制颜色代码定义图标颜色，如 `"#FF5733"`、`"#3B82F6"` 等。
+</ParamField>
+
+<ParamField path="href" type="string">
+  链接地址。点击卡片时跳转的 URL，可以是相对路径或绝对路径。
+</ParamField>
+
+<ParamField path="horizontal" type="boolean" default="false">
+  是否使用横向布局。设置为 `true` 时，卡片内容水平排列而非垂直排列。
+</ParamField>
+
+<ParamField path="img" type="string">
+  图片 URL 或路径。显示在卡片中的图片资源，支持相对路径和绝对 URL。
+</ParamField>
+
+<ParamField path="cta" type="string">
+  自定义链接文本。自定义卡片底部的行动按钮文本，默认为 "了解更多"。
+</ParamField>
+
+<ParamField path="arrow" type="boolean" default="false">
+  是否显示箭头图标。设置为 `true` 时在卡片右侧显示指向箭头。
+</ParamField>
+
+## 实际使用示例
+
+### 功能介绍
+
+<Columns cols={2}>
+  <Card title="🤖 AI 写作助手" icon="bot">
+    智能内容生成、语法检查、翻译支持，让写作变得轻松高效。
+  </Card>
+  <Card title="☁️ 云端同步" icon="cloud">
+    文档自动保存到云端，随时随地访问，永不丢失。
+  </Card>
+  <Card title="🎨 丰富组件" icon="palette">
+    20+ 专业组件，创建交互式文档，提升阅读体验。
+  </Card>
+  <Card title="📊 数据分析" icon="chart-bar">
+    详细的访问统计和用户行为分析，优化内容策略。
+  </Card>
+</Columns>
+
+### 导航菜单
+
+创建清晰的导航结构：
+
+<Columns cols={3}>
+  <Card
+    title="用户指南"
+    icon="book"
+    href="/guides/"
+  >
+    学习如何使用 Poetora 的各种功能
+  </Card>
+  <Card title="API 参考" icon="code" href="/api/">
+    完整的 API 文档和代码示例
+  </Card>
+  <Card
+    title="社区论坛"
+    icon="message-circle"
+    href="/community/"
+  >
+    与其他用户交流经验和技巧
+  </Card>
+</Columns>
+
+### 产品对比
+
+<Columns cols={2}>
+  <Card title="基础版" icon="package">
+    **免费** - 5 个文档 - 基础组件 - 社区支持 -
+    2GB 存储空间
+  </Card>
+  <Card
+    title="专业版"
+    icon="star"
+    color="#FFD700"
+  >
+    **$9/月** - 无限文档 - 全部组件 - AI 功能 -
+    优先支持 - 100GB 存储空间
+  </Card>
+</Columns>
+
+### 学习路径
+
+<Card
+  title="📚 学习路径：从新手到专家"
+  img="/images/components/learning-path.png"
+>
+  **第一阶段：基础入门** (1-2 周)
+  - 账号注册和基本设置
+  - 学习基础组件使用
+  - 创建第一个文档
+  
+  **第二阶段：进阶技巧** (2-3 周)
+  - 掌握高级组件
+  - 团队协作功能
+  - 自定义主题和样式
+</Card>
+
+## 最佳实践
+
+### 内容组织
+
+- **标题简洁** - 使用简短而描述性的标题
+- **内容聚焦** - 每个卡片专注于一个主题
+- **层次清晰** - 重要信息优先显示
+- **行动导向** - 明确告诉用户下一步做什么
+
+### 视觉设计
+
+- **图标一致** - 使用统一风格的图标
+- **颜色搭配** - 避免过多颜色造成视觉混乱
+- **间距均匀** - 保持卡片之间适当的间距
+- **对齐整齐** - 确保卡片网格对齐
+
+### 响应式布局
+
+- **移动优先** - 考虑移动设备的显示效果
+- **自适应列数** - 根据屏幕大小调整列数
+- **内容简化** - 在小屏幕上突出核心信息
+- **触控友好** - 确保足够的点击区域
+
+### 性能优化
+
+- **图片优化** - 压缩图片并使用适当格式
+- **懒加载** - 对大量卡片实施懒加载
+- **内容精简** - 避免在卡片中放置过多内容
+- **链接预加载** - 对重要页面实施预加载
+
+## 高级用法
+
+### 动态内容
+
+卡片可以包含动态生成的内容：
+
+<Card title="今日统计" icon="trending-up">
+  📈 **文档访问量:** 1,234 次
+  👥 **活跃用户:** 89 人
+  📝 **新建文档:** 23 个
+</Card>
+
+### 条件显示
+
+根据用户权限或状态显示不同的卡片内容：
+
+<Card
+  title="高级功能"
+  icon="crown"
+  color="#FFD700"
+>
+  🎉 **恭喜！** 你已升级到专业版，现在可以使用以下高级功能：
+  - AI 写作助手
+  - 无限存储空间
+  - 优先客服支持
+  - 高级分析报告
+</Card>
+
+### 交互反馈
+
+<Card
+  title="操作成功"
+  icon="circle-check"
+  color="#10B981"
+>
+  ✅ **文档已发布**
+  你的文档已成功发布到公网，现在任何人都可以通过链接访问：
+  `https://your-doc.poetora.app/guide`
+</Card>
+
+## 可访问性
+
+卡片组件支持完整的可访问性功能：
+
+- **键盘导航** - 支持 Tab 键在卡片间导航
+- **屏幕阅读器** - 提供清晰的内容描述
+- **焦点指示** - 清晰的焦点高亮效果
+- **语义化标签** - 使用适当的 HTML 语义
+
+### 键盘操作
+
+| 按键    | 功能                   |
+| ------- | ---------------------- |
+| `Tab`   | 在可点击的卡片间导航   |
+| `Enter` | 激活当前聚焦的卡片链接 |
+| `Space` | 激活当前聚焦的卡片链接 |
+
+---
+
+卡片组件是构建用户友好界面的重要工具。合理使用可以让你的文档更具吸引力和导航性。接下来可以学习[标签页组件](/components/basic/tabs)来组织更复杂的内容结构。

@@ -1,0 +1,461 @@
+---
+title: 'Fields'
+description: '字段组件用于为 API 或 SDK 参考文档设置参数。Poetora 提供两种类型的字段：ParamField 和 ResponseField'
+icon: 'settings'
+---
+
+## 参数字段 (ParamField)
+
+`<ParamField>` 组件用于定义 API 或 SDK 的参数。添加 ParamField 会自动创建 API 测试界面。
+
+<ParamField path="user_id" type="string" required>
+  用户的唯一标识符，必须是有效的 UUID v4 格式
+</ParamField>
+
+```mdx 参数字段示例
+<ParamField path="user_id" type="string" required>
+  用户的唯一标识符，必须是有效的 UUID v4 格式
+</ParamField>
+```
+
+### 不同位置的参数
+
+#### 路径参数
+
+<ParamField path="id" type="string" required>
+  资源的唯一标识符，在 URL 路径中使用
+</ParamField>
+
+#### 查询参数
+
+<ParamField
+  query="limit"
+  type="number"
+  default="10"
+>
+  返回结果的最大数量，范围：1-100
+</ParamField>
+
+<ParamField
+  query="offset"
+  type="number"
+  default="0"
+>
+  跳过的结果数量，用于分页
+</ParamField>
+
+<ParamField query="search" type="string">
+  搜索关键词，支持模糊匹配
+</ParamField>
+
+#### 请求体参数
+
+<ParamField body="name" type="string" required>
+  用户的显示名称，长度限制 2-50 个字符
+</ParamField>
+
+<ParamField body="email" type="string" required>
+  用户的邮箱地址，必须是有效格式且在系统中唯一
+</ParamField>
+
+<ParamField body="age" type="number">
+  用户年龄，可选字段，范围：13-120
+</ParamField>
+
+#### 请求头参数
+
+<ParamField
+  header="Authorization"
+  type="string"
+  required
+>
+  Bearer token 用于 API 身份验证。格式：`Bearer
+  YOUR_API_KEY`
+</ParamField>
+
+<ParamField
+  header="Content-Type"
+  type="string"
+  default="application/json"
+>
+  请求内容类型，通常为 application/json
+</ParamField>
+
+```mdx 不同位置参数示例
+<!-- 路径参数 -->
+
+<ParamField path="id" type="string" required>
+  资源的唯一标识符
+</ParamField>
+
+<!-- 查询参数 -->
+
+<ParamField
+  query="limit"
+  type="number"
+  default="10"
+>
+  返回结果的最大数量
+</ParamField>
+
+<!-- 请求体参数 -->
+
+<ParamField body="name" type="string" required>
+  用户的显示名称
+</ParamField>
+
+<!-- 请求头参数 -->
+
+<ParamField
+  header="Authorization"
+  type="string"
+  required
+>
+  Bearer token 用于身份验证
+</ParamField>
+```
+
+### 复杂数据类型
+
+#### 数组类型
+
+<ParamField body="tags" type="string[]">
+  标签列表，每个标签长度不超过 20 个字符
+</ParamField>
+
+<ParamField body="permissions" type="object[]">
+  权限列表，每个权限对象包含 resource 和 actions
+  字段
+</ParamField>
+
+#### 对象类型
+
+<ParamField body="profile" type="object">
+  用户档案信息，包含个人详情和偏好设置
+</ParamField>
+
+#### 可选和弃用参数
+
+<ParamField
+  body="legacy_id"
+  type="string"
+  deprecated
+>
+  旧版本的用户 ID，建议使用新的 user_id 字段
+</ParamField>
+
+<ParamField
+  query="debug"
+  type="boolean"
+  default="false"
+>
+  是否启用调试模式，仅在开发环境中使用
+</ParamField>
+
+```mdx 复杂数据类型示例
+<!-- 数组类型 -->
+
+<ParamField body="tags" type="string[]">
+  标签列表
+</ParamField>
+
+<!-- 对象类型 -->
+
+<ParamField body="profile" type="object">
+  用户档案信息
+</ParamField>
+
+<!-- 弃用参数 -->
+
+<ParamField
+  body="legacy_id"
+  type="string"
+  deprecated
+>
+  旧版本的用户 ID，已弃用
+</ParamField>
+```
+
+### ParamField 属性
+
+<ParamField path="path" type="string">
+  路径参数名称。用于定义 URL 路径中的参数，例如 `/users/{id}` 中的 `id`。
+</ParamField>
+
+<ParamField query="query" type="string">
+  查询参数名称。用于定义 URL 查询字符串中的参数，例如 `?limit=10` 中的 `limit`。
+</ParamField>
+
+<ParamField body="body" type="string">
+  请求体参数名称。用于定义 POST、PUT 等请求的请求体中的参数。
+</ParamField>
+
+<ParamField header="header" type="string">
+  请求头参数名称。用于定义 HTTP 请求头中的参数，例如 `Authorization`、`Content-Type` 等。
+</ParamField>
+
+<ParamField path="type" type="string" required>
+  参数类型。支持的类型包括：
+  - **基础类型**: `string`、`number`、`boolean`、`object`
+  - **数组类型**: `string[]`、`number[]`、`object[]`
+  - **自定义类型**: 如 `User`、`Document` 等
+</ParamField>
+
+<ParamField path="required" type="boolean" default="false">
+  是否为必需参数。设置为 `true` 时，该参数在 API 调用中必须提供。
+</ParamField>
+
+<ParamField path="deprecated" type="boolean" default="false">
+  是否已弃用。设置为 `true` 时，参数会显示弃用标识，提醒开发者使用替代方案。
+</ParamField>
+
+<ParamField path="default" type="any">
+  参数的默认值。当请求中未提供该参数时使用的默认值。
+</ParamField>
+
+<ParamField path="placeholder" type="string">
+  API 测试界面中的占位符文本。帮助用户了解应该输入什么样的值。
+</ParamField>
+
+## 响应字段
+
+`<ResponseField>` 组件用于定义 API 的返回值。
+
+<ResponseField
+  name="user_id"
+  type="string"
+  required
+>
+  新创建用户的唯一标识符
+</ResponseField>
+
+```mdx 响应字段示例
+<ResponseField
+  name="user_id"
+  type="string"
+  required
+>
+  新创建用户的唯一标识符
+</ResponseField>
+```
+
+### 常见响应类型
+
+#### 基础数据类型
+
+<ResponseField name="id" type="string" required>
+  资源的唯一标识符
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  显示名称
+</ResponseField>
+
+<ResponseField name="count" type="number">
+  项目总数
+</ResponseField>
+
+<ResponseField name="is_active" type="boolean">
+  是否处于活跃状态
+</ResponseField>
+
+#### 时间戳和日期
+
+<ResponseField name="created_at" type="timestamp">
+  创建时间，ISO 8601 格式
+</ResponseField>
+
+<ResponseField name="updated_at" type="timestamp">
+  最后更新时间
+</ResponseField>
+
+#### 数组和对象
+
+<ResponseField name="tags" type="string[]">
+  标签列表
+</ResponseField>
+
+<ResponseField name="metadata" type="object">
+  元数据信息，键值对格式
+</ResponseField>
+
+<ResponseField
+  name="permissions"
+  type="Permission[]"
+>
+  权限列表，每个权限包含资源和操作信息
+</ResponseField>
+
+```mdx 响应类型示例
+<!-- 基础类型 -->
+
+<ResponseField name="id" type="string" required>
+  唯一标识符
+</ResponseField>
+
+<!-- 时间戳 -->
+
+<ResponseField name="created_at" type="timestamp">
+  创建时间
+</ResponseField>
+
+<!-- 数组类型 -->
+
+<ResponseField name="tags" type="string[]">
+  标签列表
+</ResponseField>
+```
+
+### 带标签的响应字段
+
+<ResponseField
+  name="status"
+  type="string"
+  pre={['response']}
+  post={['nullable']}
+>
+  响应状态码，可能为 null
+</ResponseField>
+
+<ResponseField
+  name="data"
+  type="object"
+  pre={['encrypted']}
+>
+  加密的响应数据
+</ResponseField>
+
+```mdx 带标签响应字段示例
+<ResponseField
+  name="status"
+  type="string"
+  pre={['response']}
+  post={['nullable']}
+>
+  响应状态码，可能为 null
+</ResponseField>
+
+<ResponseField
+  name="data"
+  type="object"
+  pre={['encrypted']}
+>
+  加密的响应数据
+</ResponseField>
+```
+
+### ResponseField 属性
+
+<ResponseField name="name" type="string" required>
+  响应字段的名称。定义 API 响应中返回的字段名称，例如 `user_id`、`email` 等。
+</ResponseField>
+
+<ResponseField name="type" type="string" required>
+  响应值的预期类型。可以是任意字符串，常见类型包括：
+  - **基础类型**: `string`、`number`、`boolean`、`object`、`array`
+  - **特殊类型**: `timestamp`、`url`、`email`、`uuid` 等
+  - **自定义类型**: 如 `User`、`Document`、`ApiResponse` 等
+</ResponseField>
+
+<ResponseField name="required" type="boolean" default="false">
+  是否为必需字段。设置为 `true` 时，表示该字段在 API 响应中始终存在。
+</ResponseField>
+
+<ResponseField name="deprecated" type="boolean" default="false">
+  是否已弃用。设置为 `true` 时，字段会显示弃用标识，提醒开发者该字段将在未来版本中移除。
+</ResponseField>
+
+<ResponseField name="default" type="string">
+  字段的默认值。当响应中该字段为空或未提供时显示的默认值。
+</ResponseField>
+
+<ResponseField name="pre" type="string[]">
+  字段名称前显示的标签。用于添加额外的标识，如 `["NEW"]`、`["BETA"]` 等。
+</ResponseField>
+
+<ResponseField name="post" type="string[]">
+  字段名称后显示的标签。用于添加补充信息，如版本号、状态等。
+</ResponseField>
+
+## 完整 API 示例
+
+以下是一个完整的 API 端点文档示例：
+
+### 创建用户
+
+`POST /api/users`
+
+#### 请求参数
+
+<ParamField
+  header="Authorization"
+  type="string"
+  required
+>
+  Bearer token 用于身份验证
+</ParamField>
+
+<ParamField
+  header="Content-Type"
+  type="string"
+  default="application/json"
+>
+  请求内容类型
+</ParamField>
+
+<ParamField body="name" type="string" required>
+  用户显示名称，长度 2-50 个字符
+</ParamField>
+
+<ParamField body="email" type="string" required>
+  用户邮箱地址，必须唯一
+</ParamField>
+
+<ParamField body="profile" type="object">
+  可选的用户档案信息
+</ParamField>
+
+<ParamField body="tags" type="string[]">
+  用户标签列表
+</ParamField>
+
+#### 响应字段
+
+<ResponseField
+  name="user_id"
+  type="string"
+  required
+>
+  新创建用户的唯一标识符
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  用户显示名称
+</ResponseField>
+
+<ResponseField name="email" type="string">
+  用户邮箱地址
+</ResponseField>
+
+<ResponseField name="created_at" type="timestamp">
+  账户创建时间，ISO 8601 格式
+</ResponseField>
+
+<ResponseField name="profile" type="object">
+  用户档案信息
+</ResponseField>
+
+<ResponseField name="is_verified" type="boolean">
+  邮箱是否已验证
+</ResponseField>
+
+## 最佳实践
+
+1. **清晰的字段描述** - 提供准确、详细的字段说明
+2. **类型一致性** - 在整个 API 文档中保持数据类型表示的一致性
+3. **必需字段标记** - 明确标识哪些字段是必需的
+4. **默认值说明** - 为有默认值的字段提供明确的默认值
+5. **弃用字段处理** - 对于弃用的字段，提供替代方案的建议
+6. **示例值** - 在描述中包含示例值，帮助开发者理解
+
+字段组件是构建专业 API 文档的核心工具。正确使用这些组件可以自动生成 API 测试界面，大大提升开发者的使用体验。

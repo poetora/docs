@@ -1,0 +1,80 @@
+---
+title: '自定义 404 页面'
+description: '自定义 404 错误页面的标题和描述'
+icon: 'wand'
+---
+
+您可以控制当用户导航到损坏或缺失链接时出现的 404 错误页面的标题和描述。
+
+在自定义 404 页面时，使用描述来引导用户访问文档中有用的资源或链接，这些可以帮助他们找到所需内容。
+
+## 配置
+
+在 `docs.json` 文件的 `errors.404` 部分配置您的 404 页面：
+
+```json
+"errors": {
+  "404": {
+    "redirect": false,
+    "title": "页面走丢了",
+    "description": "抱歉，您访问的页面**不存在**。请检查 URL 是否正确，或返回[首页](/)继续浏览。"
+  }
+}
+```
+
+## 参数
+
+<ResponseField name="redirect" type="boolean">
+  找不到页面时是否自动重定向到首页。
+  
+  设置为 `true` 重定向到首页。
+
+设置为 `false` 显示自定义 404 页面。
+
+</ResponseField>
+
+<ResponseField name="title" type="string">
+  404
+  错误页面的自定义标题。这将替换默认的"页面未找到"标题。
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  404 错误页面的自定义描述。支持 Markdown 格式。
+</ResponseField>
+
+## 设计建议
+
+创建有效的 404 页面时，考虑以下最佳实践：
+
+### 提供有用的导航
+
+```json
+"errors": {
+  "404": {
+    "title": "内容未找到",
+    "description": "该页面可能已移动或删除。您可以：\n\n- 返回[文档首页](/)\n- 浏览[组件库](/components)\n- 查看[使用指南](/guides)\n- 联系[技术支持](mailto:support@poetora.com)"
+  }
+}
+```
+
+### 保持品牌一致性
+
+```json
+"errors": {
+  "404": {
+    "title": "页面正在宇宙中漂流 🚀",
+    "description": "看起来这个页面迷失在数字空间中了！不用担心，让我们帮您找到正确的方向：\n\n**热门页面：**\n- [快速开始](/quickstart) - 开始您的 Poetora 之旅\n- [编辑器指南](/editor/getting-started) - 学习编辑器功能\n- [组件库](/components) - 探索所有可用组件"
+  }
+}
+```
+
+### 搜索建议
+
+```json
+"errors": {
+  "404": {
+    "title": "找不到页面",
+    "description": "很抱歉，我们找不到您要查找的页面。试试这些选项：\n\n- 使用顶部的**搜索栏**查找相关内容\n- 检查 URL 拼写是否正确\n- 浏览[站点地图](/sitemap)查看所有可用页面\n- 如果您认为这是个错误，请[报告问题](https://github.com/poetora/docs/issues)"
+  }
+}
+```

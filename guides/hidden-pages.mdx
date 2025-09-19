@@ -1,0 +1,76 @@
+---
+title: '隐藏页面'
+description: '从导航中排除页面但保持可访问性'
+icon: 'eye-closed'
+---
+
+隐藏页面从站点导航中移除，但对知道其 URL 的任何人仍然公开可访问。
+
+使用隐藏页面来处理您希望在站点上可访问或作为 AI 工具的上下文引用，但不通过导航发现的内容。
+
+## 隐藏页面
+
+如果页面未包含在您的 `docs.json` 导航中，则该页面被隐藏。要隐藏页面，请从导航结构中删除它。
+
+隐藏页面使用与基于文件路径的常规页面相同的 URL 结构。例如，`guides/team-workflow.mdx` 将在 `docs.poetora.com/guides/team-workflow` 可访问。
+
+查看[隐藏页面示例](/guides/hidden-page-example)。
+
+<Note>
+  某些导航元素（如侧边栏、下拉菜单和标签页）可能在隐藏页面上显示为空或移位布局。
+</Note>
+
+## 隐藏页面组
+
+如果在您的 `docs.json` 文件中将 `hidden` 属性设置为 `true`，则页面组被隐藏：
+
+```json highlight={4}
+"groups": [
+  {
+    "group": "团队协作",
+    "hidden": true,
+    "pages": [
+      "collaboration/workflows",
+      "collaboration/permissions"
+    ]
+  },
+  {
+    "group": "API 参考",
+    "pages": [
+      "api/authentication",
+      "api/endpoints"
+    ]
+  }
+]
+```
+
+在此示例中，`团队协作` 组被隐藏，但 `API 参考` 组可见。
+
+### 隐藏标签页
+
+您也可以通过在 `docs.json` 文件中添加 `hidden` 属性来隐藏标签页：
+
+```json highlight={4}
+"tabs": [
+  {
+    "tab": "内部文档",
+    "hidden": true,
+    "pages": [
+      "internal/setup",
+      "internal/deployment"
+    ]
+  }
+]
+```
+
+## 搜索、SEO 和 AI 索引
+
+默认情况下，隐藏页面从搜索引擎索引、文档内部搜索以及作为 AI 助手的上下文中排除。要在搜索结果中包含隐藏页面并作为助手的上下文，请将 `seo` 属性添加到您的 `docs.json`：
+
+```json
+"seo": {
+    "indexing": "all"
+}
+```
+
+要排除特定页面，请在其前言中添加 `noindex: "true"`。

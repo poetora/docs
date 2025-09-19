@@ -1,0 +1,80 @@
+---
+title: '编辑器入门指南'
+sidebarTitle: '入门指南'
+description: '学习如何使用 Web 编辑器创建和编辑文档'
+icon: 'play'
+---
+
+Web 编辑器是一个可视化界面，用于直接在浏览器中创建、编辑和审查文档。
+
+- **可视化编辑**: 使用所见即所得 (WYSIWYG) 编辑器进行更改，显示内容发布后的外观
+- **Git 同步**: 所有更改自动与你的 Git 仓库同步以维护版本控制
+- **团队协作**: 多人可以同时处理文档
+- **组件集成**: 使用斜杠命令添加提示框、代码块和其他组件
+- **无需设置**: 直接从仪表板开始编写
+
+## Web 编辑器工作流程
+
+以下是你在 Web 编辑器中的典型工作方式：
+
+<Steps>
+  <Step title="选择你的分支">
+    创建分支或直接在部署分支上进行更改。我们建议创建分支，以便在上线前预览更改。
+  </Step>
+  <Step title="打开你的文件">
+    在侧边栏中导航到现有文件或使用文件资源管理器创建新文件。
+  </Step>
+  <Step title="编辑你的内容">
+    在 Web
+    编辑器中进行更改。尝试使用右上角的切换按钮在可视化模式和
+    Markdown 模式之间切换，看看你更喜欢哪种模式。
+  </Step>
+  <Step title="预览你的更改">
+    可视化模式显示你的更改在实时站点上的外观。使用此功能验证一切看起来正确。
+  </Step>
+  <Step title="发布你的更改">
+    如果你在部署分支上工作，直接从 Web
+    编辑器发布更改。在其他分支上，你将在发布前创建拉取请求进行审查。
+  </Step>
+</Steps>
+
+## 编辑器模式
+
+Web 编辑器有两种模式，以适应不同的编辑偏好和需求。使用编辑器工具栏右上角的切换按钮在编辑模式之间切换。
+
+<Frame>
+  <img
+    src="/images/editor/mode-toggle-light.png"
+    alt="Poetora 编辑器模式切换"
+  />
+</Frame>
+
+### 可视化模式
+
+可视化模式提供 WYSIWYG 体验，你在编辑器中所做的更改就是将发布到文档站点的更改。当你想要实时查看更改外观时，此模式是理想的选择。
+
+按 `/` 打开组件菜单并添加样式内容、提示框、代码片段或其他组件。
+
+<Frame>
+  <img
+    src="/images/editor/visual-mode-light.png"
+    alt="Poetora 编辑器可视化模式"
+  />
+</Frame>
+
+### Markdown 模式
+
+Markdown 模式提供对文档底层 `MDX` 代码的直接访问。当你需要对组件属性进行精确控制或当你更喜欢使用 Markdown 语法编写时，此模式是理想的选择。
+
+<Frame>
+  <img
+    src="/images/editor/markdown-mode-light.png"
+    alt="Poetora 编辑器 Markdown 模式"
+  />
+</Frame>
+
+## 下一步
+
+- 学习基础 [Git 概念](/editor/git-concepts)
+- 探索使用 Web 编辑器的 [内容管理](/editor/content-management)
+- 了解不同场景的 [发布选项](/editor/publishing)

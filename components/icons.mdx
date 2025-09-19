@@ -1,0 +1,372 @@
+---
+title: 'Icons'
+description: '图标组件允许你在文档中使用来自 Font Awesome 和 Lucide 图标库的图标，为文档增加视觉元素和改善用户体验'
+icon: 'flame-kindling'
+---
+
+# 图标组件
+
+图标组件允许你在文档中使用来自 Font Awesome 和 Lucide 图标库的图标，为文档增加视觉元素和改善用户体验。
+
+## 基本用法
+
+使用 `<Icon>` 组件插入图标：
+
+<Icon icon="flag" size={32} />
+
+```mdx 基本图标示例
+<Icon icon="flag" size={32} />
+```
+
+## 内联图标
+
+图标可以与文本内联显示，增强文档的可读性：
+
+<Icon icon="rocket" iconType="solid" />
+快速开始你的 Poetora 文档之旅！
+
+<Icon icon="book" /> 阅读完整的 API
+文档了解更多详情。
+
+<Icon icon="heart" color="#FF6B6B" /> 感谢使用
+Poetora 平台。
+
+```mdx 内联图标示例
+<Icon icon="rocket" iconType="solid" />
+快速开始你的 Poetora 文档之旅！
+
+<Icon icon="book" /> 阅读完整的 API
+文档了解更多详情。
+
+<Icon icon="heart" color="#FF6B6B" /> 感谢使用
+Poetora 平台。
+```
+
+## 图标大小
+
+通过 `size` 属性控制图标大小：
+
+<div
+  style={{
+    display: 'flex',
+    alignItems: 'center',
+    gap: '16px',
+    margin: '16px 0',
+  }}
+>
+  <Icon icon="star" size={16} /> 小图标 (16px)
+  <Icon icon="star" size={24} /> 默认大小 (24px)
+  <Icon icon="star" size={32} /> 中等大小 (32px)
+  <Icon icon="star" size={48} /> 大图标 (48px)
+</div>
+
+```mdx 不同大小的图标
+<Icon icon="star" size={16} /> 小图标 (16px)
+<Icon icon="star" size={24} /> 默认大小 (24px)
+<Icon icon="star" size={32} /> 中等大小 (32px)
+<Icon icon="star" size={48} /> 大图标 (48px)
+```
+
+## 图标颜色
+
+使用 `color` 属性自定义图标颜色：
+
+<div
+  style={{
+    display: 'flex',
+    gap: '16px',
+    margin: '16px 0',
+  }}
+>
+  <Icon icon="circle" color="#FF6B6B" size={32} />
+  <Icon icon="circle" color="#4ECDC4" size={32} />
+  <Icon icon="circle" color="#45B7D1" size={32} />
+  <Icon icon="circle" color="#96CEB4" size={32} />
+  <Icon icon="circle" color="#FFEAA7" size={32} />
+</div>
+
+```mdx 彩色图标示例
+<Icon icon="circle" color="#FF6B6B" size={32} />
+<Icon icon="circle" color="#4ECDC4" size={32} />
+<Icon icon="circle" color="#45B7D1" size={32} />
+<Icon icon="circle" color="#96CEB4" size={32} />
+<Icon icon="circle" color="#FFEAA7" size={32} />
+```
+
+## Font Awesome 图标类型
+
+Font Awesome 图标支持多种样式类型：
+
+<div
+  style={{
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px',
+    margin: '16px 0',
+  }}
+>
+  <div>
+    <Icon
+      icon="heart"
+      iconType="regular"
+      size={24}
+    />{' '}
+    Regular (默认)
+  </div>
+  <div>
+    <Icon
+      icon="heart"
+      iconType="solid"
+      size={24}
+    />{' '}
+    Solid
+  </div>
+  <div>
+    <Icon
+      icon="heart"
+      iconType="light"
+      size={24}
+    />{' '}
+    Light
+  </div>
+  <div>
+    <Icon
+      icon="heart"
+      iconType="thin"
+      size={24}
+    />{' '}
+    Thin
+  </div>
+  <div>
+    <Icon
+      icon="heart"
+      iconType="duotone"
+      size={24}
+    />{' '}
+    Duotone
+  </div>
+</div>
+
+```mdx Font Awesome 图标类型
+<Icon icon="heart" iconType="regular" /> Regular
+(默认)
+<Icon icon="heart" iconType="solid" /> Solid
+<Icon icon="heart" iconType="light" /> Light
+<Icon icon="heart" iconType="thin" /> Thin
+<Icon icon="heart" iconType="duotone" /> Duotone
+```
+
+## 常用图标示例
+
+### 界面导航图标
+
+<div
+  style={{
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '16px',
+    margin: '16px 0',
+  }}
+>
+  <span>
+    <Icon icon="house" /> 首页
+  </span>
+  <span>
+    <Icon icon="settings" /> 设置
+  </span>
+  <span>
+    <Icon icon="user" /> 用户
+  </span>
+  <span>
+    <Icon icon="search" /> 搜索
+  </span>
+  <span>
+    <Icon icon="bell" /> 通知
+  </span>
+  <span>
+    <Icon icon="menu" /> 菜单
+  </span>
+</div>
+
+### 文档操作图标
+
+<div
+  style={{
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '16px',
+    margin: '16px 0',
+  }}
+>
+  <span>
+    <Icon icon="file-pen-line" /> 编辑
+  </span>
+  <span>
+    <Icon icon="save" /> 保存
+  </span>
+  <span>
+    <Icon icon="copy" /> 复制
+  </span>
+  <span>
+    <Icon icon="trash" /> 删除
+  </span>
+  <span>
+    <Icon icon="download" /> 下载
+  </span>
+  <span>
+    <Icon icon="share" /> 分享
+  </span>
+</div>
+
+### 状态指示图标
+
+<div
+  style={{
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '16px',
+    margin: '16px 0',
+  }}
+>
+  <span>
+    <Icon icon="circle-check" color="#22C55E" />{' '}
+    成功
+  </span>
+  <span>
+    <Icon icon="circle-alert" color="#F59E0B" />{' '}
+    警告
+  </span>
+  <span>
+    <Icon icon="circle-x" color="#EF4444" /> 错误
+  </span>
+  <span>
+    <Icon icon="info" color="#3B82F6" /> 信息
+  </span>
+  <span>
+    <Icon icon="loader" /> 加载中
+  </span>
+</div>
+
+### 开发相关图标
+
+<div
+  style={{
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '16px',
+    margin: '16px 0',
+  }}
+>
+  <span>
+    <Icon icon="code" /> 代码
+  </span>
+  <span>
+    <Icon icon="terminal" /> 终端
+  </span>
+  <span>
+    <Icon icon="git-branch" /> Git
+  </span>
+  <span>
+    <Icon icon="database" /> 数据库
+  </span>
+  <span>
+    <Icon icon="server" /> 服务器
+  </span>
+  <span>
+    <Icon icon="cloud" /> 云服务
+  </span>
+</div>
+
+```mdx 常用图标分类
+<!-- 界面导航 -->
+
+<Icon icon="home" /> 首页
+<Icon icon="settings" /> 设置
+<Icon icon="user" /> 用户
+
+<!-- 文档操作 -->
+
+<Icon icon="edit" /> 编辑
+<Icon icon="save" /> 保存
+<Icon icon="copy" /> 复制
+
+<!-- 状态指示 -->
+
+<Icon icon="check-circle" color="#22C55E" /> 成功
+<Icon icon="alert-circle" color="#F59E0B" /> 警告
+<Icon icon="x-circle" color="#EF4444" /> 错误
+
+<!-- 开发相关 -->
+
+<Icon icon="code" /> 代码
+<Icon icon="terminal" /> 终端
+<Icon icon="git-branch" /> Git
+```
+
+## 自定义图标
+
+### 使用 SVG 图标
+
+你也可以使用自定义的 SVG 图标：
+
+```mdx SVG 图标示例
+<Icon icon="/icons/custom-logo.svg" size={32} />
+```
+
+### 使用外部图标 URL
+
+```mdx 外部图标示例
+<Icon
+  icon="https://example.com/icons/custom-icon.svg"
+  size={24}
+/>
+```
+
+## 组件属性
+
+<ParamField path="icon" type="string" required>
+  图标名称、SVG 文件路径或外部 URL。支持：
+  - **Font Awesome 图标**: 如 `"rocket"`、`"user"`、`"settings"`
+  - **Lucide 图标**: 如 `"check"`、`"arrow-right"`、`"heart"`
+  - **SVG 文件路径**: 如 `"/icons/custom-icon.svg"`
+  - **外部 URL**: 如 `"https://example.com/icon.svg"`
+</ParamField>
+
+<ParamField path="iconType" type="string" default="regular">
+  Font Awesome 图标类型。仅对 Font Awesome 图标有效，支持以下类型：
+  - `regular` - 常规样式
+  - `solid` - 实心样式
+  - `light` - 轻量样式
+  - `thin` - 超细样式
+  - `sharp-solid` - 尖锐实心样式
+  - `duotone` - 双色样式
+  - `brands` - 品牌图标样式
+</ParamField>
+
+<ParamField path="color" type="string">
+  图标颜色。使用十六进制颜色代码定义图标颜色，如 `"#FF5733"`、`"#3B82F6"`、`"#10B981"` 等。
+</ParamField>
+
+<ParamField path="size" type="number" default="24">
+  图标大小。以像素为单位设置图标的宽度和高度，常用值：16、20、24、32、48。
+</ParamField>
+
+## 图标库参考
+
+### Font Awesome 图标
+
+Font Awesome 提供了数千个高质量图标，访问 [Font Awesome 官网](https://fontawesome.com/icons) 浏览完整图标库。
+
+### Lucide 图标
+
+Lucide 是一个现代化的图标库，提供简洁美观的线条图标，访问 [Lucide 官网](https://lucide.dev/icons) 查看所有可用图标。
+
+## 最佳实践
+
+1. **保持一致性** - 在同一文档中使用相同的图标风格和大小
+2. **语义化使用** - 选择与内容含义相符的图标
+3. **适度使用** - 避免过度使用图标，保持文档的简洁性
+4. **无障碍考虑** - 确保图标不是传达信息的唯一方式
+5. **加载性能** - 对于大量图标，考虑使用图标字体而非单独的 SVG 文件
+
+图标组件是增强文档视觉效果和用户体验的重要工具。合理使用图标可以让你的文档更加专业、易读和用户友好。

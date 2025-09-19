@@ -1,0 +1,191 @@
+---
+title: 'SEO 优化'
+description: 'SEO 最佳实践和元标签配置，提升搜索可见性'
+icon: 'search'
+---
+
+Poetora 自动处理许多 SEO 最佳实践，包括：
+
+- 元标签生成
+- 网站地图和 `robots.txt` 文件生成
+- 语义化 HTML 结构
+- 移动端优化
+
+您可以通过在 `docs.json` 或页面前言中添加 `metatags` 字段来完全自定义站点的元标签。
+
+## 全局元标签
+
+您可以通过在 `docs.json` 中添加 `metadata` 字段来设置默认元标签。
+
+```json
+"seo": {
+    "metatags": {
+        "og:image": "https://poetora.com/images/og-default.png"
+    }
+}
+```
+
+## 页面特定元标签
+
+将元标签添加到页面的元数据中：
+
+```mdx
+---
+title: '您的页面标题'
+'og:image': 'https://poetora.com/images/page-specific-og.png'
+---
+```
+
+<Warning>
+  在页面元数据中放置带冒号的元标签时，需要用引号包围它们。
+</Warning>
+
+## 常用元标签参考
+
+以下是您可以添加到 `docs.json` 中的元标签综合列表。这些元标签有助于改善站点的 SEO、社交分享和浏览器兼容性。
+
+您可以使用 [metatags.io](https://metatags.io/) 预览您的元标签在不同平台上的显示效果。
+
+```json expandable
+"seo": {
+    "metatags": {
+      "robots": "index, follow",
+      "charset": "UTF-8",
+      "viewport": "width=device-width, initial-scale=1.0",
+      "description": "Poetora 美观易用的下一代文档编辑平台",
+      "keywords": "文档编辑, 协作工具, Markdown, 富文本编辑器",
+      "author": "Poetora Team",
+      "googlebot": "index, follow",
+      "google": "notranslate",
+      "google-site-verification": "poetora_verification_token",
+      "generator": "Poetora",
+      "theme-color": "#3B82F6",
+      "color-scheme": "light dark",
+      "canonical": "https://poetora.com",
+      "format-detection": "telephone=no",
+      "referrer": "origin",
+      "refresh": "30",
+      "rating": "general",
+      "revisit-after": "7 days",
+      "language": "zh-CN",
+      "copyright": "Copyright 2024 Poetora",
+      "reply-to": "support@poetora.com",
+      "distribution": "global",
+      "coverage": "Worldwide",
+      "category": "Documentation Tools",
+      "target": "all",
+      "HandheldFriendly": "True",
+      "MobileOptimized": "320",
+      "apple-mobile-web-app-capable": "yes",
+      "apple-mobile-web-app-status-bar-style": "black",
+      "apple-mobile-web-app-title": "Poetora Docs",
+      "application-name": "Poetora Documentation",
+      "msapplication-TileColor": "#3B82F6",
+      "msapplication-TileImage": "/images/tile-icon.png",
+      "msapplication-config": "/browserconfig.xml",
+      "og:title": "Poetora - 下一代文档编辑平台",
+      "og:type": "website",
+      "og:url": "https://poetora.com",
+      "og:image": "https://poetora.com/images/og-banner.png",
+      "og:description": "美观易用的文档编辑平台，专为开发者和内容创作者设计",
+      "og:site_name": "Poetora Documentation",
+      "og:locale": "zh_CN",
+      "og:video": "https://poetora.com/demo-video.mp4",
+      "twitter:card": "summary_large_image",
+      "twitter:site": "@poetora_app",
+      "twitter:creator": "@poetora_team",
+      "twitter:title": "Poetora - 下一代文档编辑平台",
+      "twitter:description": "美观易用的文档编辑平台，专为开发者和内容创作者设计",
+      "twitter:image": "https://poetora.com/images/twitter-card.png",
+      "twitter:image:alt": "Poetora 编辑器界面截图",
+      "twitter:player": "https://poetora.com/embed/demo",
+      "twitter:player:width": "800",
+      "twitter:player:height": "600",
+      "twitter:app:name:iphone": "Poetora",
+      "twitter:app:id:iphone": "poetora_ios_id",
+      "twitter:app:url:iphone": "poetora://",
+      "article:published_time": "2024-01-01T00:00:00+00:00",
+      "article:modified_time": "2024-01-02T00:00:00+00:00",
+      "article:author": "Poetora Team",
+      "article:section": "Documentation",
+      "article:tag": "编辑器, 文档工具, 协作",
+      "profile:first_name": "Poetora",
+      "profile:last_name": "Team",
+      "profile:username": "poetora_official",
+      "video:actor": "Poetora Demo",
+      "video:director": "Poetora Team",
+      "video:duration": "180",
+      "video:release_date": "2024-01-01",
+      "video:tag": "演示, 教程, 编辑器"
+  }
+}
+```
+
+## 网站地图和 robots.txt 文件
+
+Poetora 自动生成 `sitemap.xml` 文件和 `robots.txt` 文件。您可以通过在文档站点的 URL 后添加 `/sitemap.xml` 来查看您的网站地图。
+
+默认情况下，只包含 `docs.json` 中包含的页面。要包含隐藏链接，请将 `seo.indexing` 添加到您的 `docs.json`：
+
+```json
+"seo": {
+    "indexing": "all"
+}
+```
+
+### 自定义网站地图和 robots.txt 文件
+
+要添加自定义 `sitemap.xml` 或 `robots.txt` 文件，请在项目根目录创建 `sitemap.xml` 或 `robots.txt` 文件。添加自定义文件将覆盖同名的自动生成文件。如果删除自定义文件，将再次使用默认文件。
+
+## 禁用索引
+
+如果您想阻止页面被搜索引擎索引，可以在页面的[前言](pages)中包含以下内容：
+
+```
+---
+noindex: true
+---
+```
+
+您还可以通过在 `docs.json` 中将 `metadata.robots` 字段设置为 `"noindex"` 来为文档中的所有页面指定 `noindex`：
+
+```json
+"seo": {
+    "metatags": {
+      "robots": "noindex"
+    }
+  }
+```
+
+## SEO 最佳实践
+
+<Accordions>
+<Accordion title="编写描述性标题和描述">
+- 使用清晰、描述性的页面标题（50-60 个字符）
+- 编写引人注目的描述（150-160 个字符）
+- 包含相关关键词
+- 使每个页面标题和描述都独特
+</Accordion>
+
+<Accordion title="优化内容结构">
+  - 使用正确的标题层次结构（H1 → H2 → H3） -
+  先为人类编写，再为搜索引擎编写 -
+  在标题和内容中包含相关关键词 - 保持 URL
+  简短、描述性且按层次组织 -
+  用子标题和列表分解长内容
+</Accordion>
+
+<Accordion title="内部链接策略">
+  - 链接到文档中的相关页面 -
+  使用描述性锚文本而不是"点击这里" -
+  通过链接相关概念创建主题集群 -
+  使用自动交叉引用功能
+</Accordion>
+
+<Accordion title="图片 SEO">
+- 为图片使用描述性文件名
+- 始终包含 alt 文本以提高可访问性和 SEO
+- 优化图片文件大小以加快加载速度
+- 使用支持内容的相关图片
+</Accordion>
+</Accordions>

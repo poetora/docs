@@ -1,0 +1,176 @@
+{
+  "$schema": "https://poetora.com/docs.json",
+  "theme": "ora",
+  "name": "Poetora",
+  "colors": {
+    "primary": "#40b971",
+    "light": "#81DAA5",
+    "dark": "#57A667"
+  },
+  "favicon": "/favicon.ico",
+  "icons": {
+    "library": "lucide"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "文档中心",
+        "icon": "book",
+        "groups": [
+          {
+            "group": "快速开始",
+            "pages": ["index", "quickstart"]
+          },
+          {
+            "group": "Web 编辑器",
+            "pages": [
+              "editor/getting-started",
+              "editor/content-management",
+              "editor/git-concepts",
+              "editor/publishing"
+            ]
+          },
+          {
+            "group": "核心配置",
+            "pages": [
+              "pages",
+              "settings",
+              "navigation"
+            ]
+          },
+          {
+            "group": "组件库",
+            "pages": [
+              "components/text-formatting",
+              "components/image-embeds",
+              "components/lists-tables",
+              "components/code",
+              "components/accordions",
+              "components/callouts",
+              "components/cards",
+              "components/columns",
+              "components/code-groups",
+              "components/expandables",
+              "components/tabs",
+              "components/steps",
+              "components/frames",
+              "components/fields",
+              "components/icons",
+              "components/update"
+            ]
+          },
+          {
+            "group": "使用指南",
+            "pages": [
+              "guides/hidden-pages",
+              "guides/seo",
+              "guides/custom-404-page"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg",
+    "href": "https://poetora.com"
+  },
+  "background": {
+    "decoration": "gradient",
+    "color": {
+      "light": "#ECECEC",
+      "dark": "#1E1A1A"
+    }
+  },
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "立即使用",
+      "href": "https://poetora.com/signup"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/poetora/poetora",
+      "twitter": "https://twitter.com/poetora"
+    },
+    "links": [
+      {
+        "header": "产品",
+        "items": [
+          {
+            "label": "功能特色",
+            "href": "https://poetora.com/features"
+          },
+          {
+            "label": "定价计划",
+            "href": "https://poetora.com/pricing"
+          },
+          {
+            "label": "API 文档",
+            "href": "https://api.poetora.com/docs"
+          }
+        ]
+      },
+      {
+        "header": "资源",
+        "items": [
+          {
+            "label": "帮助中心",
+            "href": "https://help.poetora.com"
+          },
+          {
+            "label": "社区论坛",
+            "href": "https://community.poetora.com"
+          },
+          {
+            "label": "博客",
+            "href": "https://poetora.com/blog"
+          },
+          {
+            "label": "状态页面",
+            "href": "https://status.poetora.com"
+          }
+        ]
+      },
+      {
+        "header": "公司",
+        "items": [
+          {
+            "label": "关于我们",
+            "href": "https://poetora.com/about"
+          },
+          {
+            "label": "联系我们",
+            "href": "https://poetora.com/contact"
+          },
+          {
+            "label": "职业机会",
+            "href": "https://poetora.com/careers"
+          }
+        ]
+      },
+      {
+        "header": "法律",
+        "items": [
+          {
+            "label": "隐私政策",
+            "href": "https://poetora.com/privacy"
+          },
+          {
+            "label": "服务条款",
+            "href": "https://poetora.com/terms"
+          },
+          {
+            "label": "安全中心",
+            "href": "https://poetora.com/security"
+          }
+        ]
+      }
+    ]
+  },
+  "contextual": {
+    "options": ["copy", "chatgpt"]
+  }
+}

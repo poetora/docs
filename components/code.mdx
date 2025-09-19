@@ -1,0 +1,542 @@
+---
+title: '代码块'
+description: '在文档中显示内联代码和代码块，支持语法高亮、标题、行高亮等丰富的展示选项'
+icon: 'code'
+---
+
+## 添加代码示例
+
+你可以添加内联代码片段或代码块。代码块支持语法高亮、标题、行高亮、图标等元选项。
+
+### 内联代码
+
+要将 `单词` 或 `短语` 标记为代码，请用反引号 (\`) 包围它。
+
+```mdx
+要将 `单词` 或 `短语` 标记为代码，请用反引号 (``) 包围它。
+```
+
+### 代码块
+
+使用三个反引号包围代码创建[围栏代码块](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks)。代码块可以复制，如果启用了助手功能，用户可以要求 AI 解释代码。
+
+指定编程语言以启用语法高亮和元选项。在语言后添加任何元选项，如标题或图标。
+
+```java HelloWorld.java lines icon="java"
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+````mdx
+```java HelloWorld.java lines icon="java"
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+````
+
+## 代码块选项
+
+你可以为代码块添加元选项来自定义其外观。
+
+<Note>
+  在添加任何其他元选项之前，必须为代码块指定编程语言。
+</Note>
+
+### 选项语法
+
+- **字符串和布尔选项**：用 `""`、`''` 或不加引号包装
+- **表达式选项**：用 `{}`、`""` 或 `''` 包装
+
+### 语法高亮
+
+通过在代码块开头的反引号后指定编程语言来启用语法高亮。
+
+我们使用 [Shiki](https://shiki.style/) 进行语法高亮，支持所有可用语言。查看 Shiki 文档中的完整[语言列表](https://shiki.style/languages)。
+
+```javascript
+function greetUser(name) {
+  console.log(
+    `Hello, ${name}! Welcome to Poetora.`
+  );
+}
+```
+
+````mdx
+```javascript
+function greetUser(name) {
+  console.log(
+    `Hello, ${name}! Welcome to Poetora.`
+  );
+}
+```
+````
+
+### 标题
+
+添加标题来标记你的代码示例。使用 `title="你的标题"` 或单行字符串。
+
+```javascript 代码块示例
+const message = 'Hello, Poetora!';
+console.log(message);
+```
+
+````mdx
+```javascript 代码块示例
+const message = 'Hello, Poetora!';
+console.log(message);
+```
+````
+
+### 图标
+
+使用 `icon` 属性为代码块添加图标。查看[图标组件](/components/icons)了解所有可用选项。
+
+```javascript icon="square-js"
+const message = 'Hello, Poetora!';
+console.log(message);
+```
+
+````mdx
+```javascript icon="square-js"
+const message = 'Hello, Poetora!';
+console.log(message);
+```
+````
+
+### 行高亮
+
+使用 `highlight` 与要高亮的行号或范围来高亮代码块中的特定行。
+
+```javascript 行高亮示例 highlight={1-2,5}
+const greeting = 'Hello, Poetora!';
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+
+````mdx
+```javascript 行高亮示例 highlight={1-2,5}
+const greeting = 'Hello, Poetora!';
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+````
+
+### 行聚焦
+
+使用 `focus` 与行号或范围来聚焦代码块中的特定行。
+
+```javascript 行聚焦示例 focus={2,4-5}
+const greeting = 'Hello, Poetora!';
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+
+````mdx
+```javascript 行聚焦示例 focus={2,4-5}
+const greeting = 'Hello, Poetora!';
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+````
+
+### 显示行号
+
+使用 `lines` 在代码块左侧显示行号。
+
+```javascript 显示行号示例 lines
+const greeting = 'Hello, Poetora!';
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+
+````mdx
+```javascript 显示行号示例 lines
+const greeting = 'Hello, Poetora!';
+function sayHello() {
+  console.log(greeting);
+}
+sayHello();
+```
+````
+
+### 可展开
+
+使用 `expandable` 允许用户展开和折叠长代码块。
+
+```python 可展开示例 expandable
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional
+from dataclasses import dataclass
+
+@dataclass
+class User:
+    id: str
+    name: str
+    email: str
+    created_at: datetime
+    is_active: bool = True
+
+class UserManager:
+    def __init__(self):
+        self.users: Dict[str, User] = {}
+
+    def create_user(self, name: str, email: str) -> User:
+        user_id = f"user_{len(self.users) + 1}"
+        user = User(
+            id=user_id,
+            name=name,
+            email=email,
+            created_at=datetime.now()
+        )
+        self.users[user_id] = user
+        return user
+
+    def get_user(self, user_id: str) -> Optional[User]:
+        return self.users.get(user_id)
+
+    def list_active_users(self) -> List[User]:
+        return [user for user in self.users.values() if user.is_active]
+
+    def deactivate_user(self, user_id: str) -> bool:
+        user = self.get_user(user_id)
+        if user:
+            user.is_active = False
+            return True
+        return False
+
+# 使用示例
+manager = UserManager()
+user = manager.create_user("张三", "zhangsan@example.com")
+print(f"创建用户: {user.name} ({user.email})")
+
+active_users = manager.list_active_users()
+print(f"活跃用户数量: {len(active_users)}")
+```
+
+````mdx
+```python 可展开示例 expandable
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional
+
+# ... 长代码内容 ...
+
+# 使用示例
+manager = UserManager()
+user = manager.create_user("张三", "zhangsan@example.com")
+```
+````
+
+### 文本换行
+
+使用 `wrap` 启用长行的文本换行。这可以防止水平滚动，使长行更易阅读。
+
+```javascript 换行示例 wrap
+const veryLongVariableName =
+  '这是一个非常长的字符串，会换行到下一行，而不是产生水平滚动条。';
+function processLongText() {
+  console.log(veryLongVariableName);
+}
+processLongText();
+```
+
+````mdx
+```javascript 换行示例 wrap
+const veryLongVariableName =
+  '这是一个非常长的字符串，会换行到下一行';
+function processLongText() {
+  console.log(veryLongVariableName);
+}
+```
+````
+
+### 差异显示
+
+显示代码块中添加或删除行的视觉差异。添加的行用绿色高亮，删除的行用红色高亮。
+
+要创建差异，在代码块的行末添加这些特殊注释：
+
+- `// [!code ++]`：将行标记为添加（绿色高亮）
+- `// [!code --]`：将行标记为删除（红色高亮）
+
+对于多个连续行，在冒号后指定行数：
+
+- `// [!code ++:3]`：标记当前行加上接下来的两行为添加
+- `// [!code --:5]`：标记当前行加上接下来的四行为删除
+
+注释语法必须匹配你的编程语言（例如，JavaScript 使用 `//`，Python 使用 `#`）。
+
+```javascript 差异示例 icon="code" lines
+const greeting = 'Hello, Poetora!'; // [!code ++]
+function sayHello() {
+  console.log('Hello, World!'); // [!code --]
+  console.log(greeting); // [!code ++]
+}
+sayHello();
+```
+
+````text
+```javascript 差异示例 icon="code" lines
+const greeting = "Hello, Poetora!"; // [!code ++]
+function sayHello() {
+  console.log("Hello, World!"); // [!code --]
+  console.log(greeting); // [!code ++]
+}
+sayHello();
+```
+````
+
+## 多语言代码示例
+
+使用[代码组组件](/components/code-groups)展示同一概念的多种编程语言实现：
+
+<CodeGroup>
+  ```javascript Node.js
+  const response = await fetch('/api/documents', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      title: '我的文档',
+      content: '# 标题\n\n这是内容。'
+    })
+  });
+  
+  const document = await response.json();
+  console.log('文档创建成功:', document.id);
+  ```
+
+```python Python
+import requests
+import json
+
+response = requests.post('/api/documents', {
+  headers={
+    'Authorization': f'Bearer {api_key}',
+    'Content-Type': 'application/json'
+  },
+  data=json.dumps({
+    'title': '我的文档',
+    'content': '# 标题\n\n这是内容。'
+  })
+})
+
+document = response.json()
+print(f'文档创建成功: {document["id"]}')
+```
+
+```bash cURL
+curl -X POST '/api/documents' \
+  -H 'Authorization: Bearer YOUR_API_KEY' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "title": "我的文档",
+    "content": "# 标题\n\n这是内容。"
+  }'
+```
+
+</CodeGroup>
+
+## 常用编程语言
+
+Poetora 支持所有主流编程语言的语法高亮：
+
+<Tabs>
+  <Tab title="前端语言">
+    ```javascript JavaScript
+    const app = express();
+    app.get('/', (req, res) => {
+      res.send('Hello Poetora!');
+    });
+    ```
+
+    ```typescript TypeScript
+    interface User {
+      id: string;
+      name: string;
+      email: string;
+    }
+
+    const user: User = {
+      id: '1',
+      name: 'Alice',
+      email: 'alice@example.com'
+    };
+    ```
+
+    ```html HTML
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Poetora 文档</title>
+    </head>
+    <body>
+      <h1>欢迎使用 Poetora</h1>
+    </body>
+    </html>
+    ```
+
+    ```css CSS
+    .poetora-theme {
+      background-color: #f8fafc;
+      color: #1a202c;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .dark .poetora-theme {
+      background-color: #1a202c;
+      color: #f8fafc;
+    }
+    ```
+
+  </Tab>
+
+  <Tab title="后端语言">
+    ```python Python
+    def create_document(title, content):
+        """创建新文档"""
+        document = {
+            'id': str(uuid.uuid4()),
+            'title': title,
+            'content': content,
+            'created_at': datetime.now()
+        }
+        return document
+    ```
+
+    ```java Java
+    public class DocumentService {
+        public Document createDocument(String title, String content) {
+            return new Document()
+                .setId(UUID.randomUUID().toString())
+                .setTitle(title)
+                .setContent(content)
+                .setCreatedAt(Instant.now());
+        }
+    }
+    ```
+
+    ```go Go
+    package main
+
+    import (
+        "fmt"
+        "time"
+    )
+
+    type Document struct {
+        ID        string    `json:"id"`
+        Title     string    `json:"title"`
+        Content   string    `json:"content"`
+        CreatedAt time.Time `json:"created_at"`
+    }
+
+    func CreateDocument(title, content string) *Document {
+        return &Document{
+            ID:        generateID(),
+            Title:     title,
+            Content:   content,
+            CreatedAt: time.Now(),
+        }
+    }
+    ```
+
+    ```csharp C#
+    public class DocumentService
+    {
+        public Document CreateDocument(string title, string content)
+        {
+            return new Document
+            {
+                Id = Guid.NewGuid().ToString(),
+                Title = title,
+                Content = content,
+                CreatedAt = DateTime.UtcNow
+            };
+        }
+    }
+    ```
+
+  </Tab>
+
+  <Tab title="配置文件">
+    ```json JSON
+    {
+      "name": "poetora-docs",
+      "version": "1.0.0",
+      "description": "Poetora 文档站点",
+      "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start"
+      }
+    }
+    ```
+
+    ```yaml YAML
+    name: poetora-docs
+    version: 1.0.0
+    description: Poetora 文档站点
+
+    dependencies:
+      - next
+      - react
+      - typescript
+
+    scripts:
+      dev: next dev
+      build: next build
+      start: next start
+    ```
+
+    ```toml TOML
+    [package]
+    name = "poetora-docs"
+    version = "1.0.0"
+    description = "Poetora 文档站点"
+
+    [scripts]
+    dev = "next dev"
+    build = "next build"
+    start = "next start"
+    ```
+
+    ```xml XML
+    <?xml version="1.0" encoding="UTF-8"?>
+    <project>
+      <name>poetora-docs</name>
+      <version>1.0.0</version>
+      <description>Poetora 文档站点</description>
+    </project>
+    ```
+
+  </Tab>
+</Tabs>
+
+## 最佳实践
+
+1. **选择合适的语言标识符** - 使用正确的语言名称启用语法高亮
+2. **添加有意义的标题** - 为代码块提供描述性标题
+3. **使用行高亮突出重点** - 高亮关键代码行
+4. **提供完整的示例** - 包含可运行的完整代码
+5. **添加注释说明** - 为复杂代码添加中文注释
+6. **考虑代码长度** - 对于长代码块考虑使用可展开选项
+
+通过合理使用代码展示功能，可以让你的技术文档更加清晰、易懂和实用。

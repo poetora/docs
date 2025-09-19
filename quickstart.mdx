@@ -1,0 +1,247 @@
+---
+title: '快速开始'
+description: '几分钟内部署你的文档站点'
+icon: 'rocket'
+---
+
+本快速开始指南将向你展示如何在几分钟内设置和部署你的文档站点。
+
+完成本指南后，你将拥有一个可以自定义和扩展的实时文档站点。
+
+<Info>
+
+**前提条件**: 开始之前，请[创建账号](https://poetora.com/start)并完成新手引导。
+
+</Info>
+
+## 开始使用
+
+完成新手引导流程后，你的文档站点将自动部署到以下格式的唯一 URL：
+
+```
+https://<your-project-name>.poetora.app
+```
+
+在你的[仪表板](https://dashboard.poetora.com/)概览页面上查找你的 URL。
+
+你的站点 URL 立即可用。在设置文档站点时，使用此 URL 进行测试并与团队共享。
+
+<Frame>
+  <img
+    src="/images/quickstart/poetora-domain-light.png"
+    alt="Poetora Domain"
+  />
+</Frame>
+
+### 安装 GitHub 应用
+
+Poetora 提供 GitHub 应用，当你推送更改到仓库时自动部署。
+
+按照新手引导清单或仪表板中的说明安装 GitHub 应用。
+
+1. 在你的 Poetora 仪表板中导航到**设置**。
+2. 从侧边栏选择 **GitHub 应用**。
+3. 选择**安装 GitHub 应用**。这将打开一个新标签页到 GitHub 应用安装页面。
+4. 选择你想要安装应用的组织或用户账户。
+5. 选择你想要连接的仓库。
+
+<Info>
+  如果你将文档移动到不同的仓库，请更新 GitHub
+  应用权限。
+</Info>
+
+<Frame>
+  <img
+    src="/images/quickstart/github-app-installation-light.png"
+    alt="Poetora GitHub App"
+  />
+</Frame>
+
+### 授权你的 GitHub 账户
+
+1. 在你的 Poetora 仪表板中导航到**设置**。
+2. 从侧边栏选择**我的个人资料**。
+3. 选择**授权 GitHub 账户**。这将打开一个新标签页到 GitHub 授权页面。
+
+<Info>
+  根据你的组织设置，GitHub
+  组织的管理员可能需要授权你的账户。
+</Info>
+
+## 编辑工作流程
+
+Poetora 提供两种创建和维护文档的工作流程：
+
+<Card
+  title="基于代码的工作流程"
+  icon="terminal"
+  horizontal
+  href="#基于代码的工作流程"
+>
+  适用于喜欢在本地环境中使用现有工具的用户。点击跳转到此部分。
+</Card>
+
+<Card
+  title="Web 编辑器工作流程"
+  icon="mouse-pointer-2"
+  horizontal
+  href="#web-编辑器工作流程"
+>
+  适用于喜欢在 Web
+  浏览器中使用可视化界面的用户。点击跳转到此部分。
+</Card>
+
+## 基于代码的工作流程
+
+基于代码的工作流程与你现有的开发环境和 Git 仓库集成。此工作流程最适合希望将文档与代码一起管理的技术团队。
+
+### 编辑文档
+
+设置环境后，你可以开始编辑文档文件。例如，更新介绍页面的标题：
+
+1. 打开在新手引导期间创建的仓库。
+2. 打开 `index.mdx` 并找到文件顶部：
+
+```mdx index.mdx
+---
+title: '介绍'
+description: '这是文档的介绍'
+---
+```
+
+3. 将 `title` 字段更新为 `"Hello World"`。
+
+```mdx index.mdx {2}
+---
+title: 'Hello World'
+description: '这是文档的介绍'
+---
+```
+
+### 推送更改
+
+当你准备发布更改时，将它们推送到你的仓库。
+
+Poetora 自动检测更改，构建你的文档，并将更新部署到你的站点。在你的 GitHub 仓库提交历史或[仪表板](https://dashboard.poetora.com)中监控部署状态。
+
+部署完成后，你的最新更新将在 `<your-project-name>.poetora.app` 上可用。
+
+<Card
+  title="跳转到添加自定义域名"
+  icon="arrow-down"
+  href="#添加自定义域名"
+  horizontal
+>
+  可选择跳过 Web
+  编辑器工作流程，直接跳转到添加自定义域名。
+</Card>
+
+## Web 编辑器工作流程
+
+Web 编辑器工作流程提供所见即所得 (WYSIWYG) 界面来创建和编辑文档。此工作流程最适合希望在 Web 浏览器中工作而无需额外本地开发工具的人员。
+
+### 访问 Web 编辑器
+
+1. 登录到你的[仪表板](https://dashboard.poetora.com)。
+2. 在左侧边栏选择**编辑器**。
+
+<Info>
+  如果你尚未安装 GitHub 应用，当你打开 Web
+  编辑器时将提示你安装应用。
+</Info>
+
+### 编辑文档
+
+在 Web 编辑器中，你可以在侧边栏中浏览文档文件。让我们更新介绍页面：
+
+在文件资源管理器中找到并选择 `index.mdx`。
+
+然后，在编辑器中，将标题字段更新为 "Hello World"。
+
+<Tip>
+  编辑器提供丰富的格式化工具和组件集。在编辑器中输入
+  `/` 打开命令菜单并访问这些工具。
+</Tip>
+
+### 发布你的更改
+
+当你对编辑满意时，选择右上角的**发布**按钮。你的更改将立即部署到你的文档站点。
+
+<Tip>
+  使用分支通过拉取请求预览和审查更改，然后再部署到实时站点。
+</Tip>
+
+有关使用 Web 编辑器的更多详细信息，包括使用分支和拉取请求进行协作和预览更改，请参阅我们的 [Web 编辑器文档](/editor/getting-started)。
+
+## 添加自定义域名
+
+虽然你的 `<your-project-name>.poetora.app` 子域名适用于测试和开发，但大多数团队更喜欢为生产文档使用自定义域名。
+
+要添加自定义域名，请导航到仪表板中的[域名设置](https://dashboard.poetora.com/settings/deployment/custom-domain)页面。
+
+输入你的域名（例如，`docs.yourcompany.com`）并按照提供的说明配置域名提供商的 DNS 设置。
+
+| 记录类型 | 名称            | 值                | TTL  |
+| -------- | --------------- | ----------------- | ---- |
+| CNAME    | docs (或子域名) | cname.poetora.app | 3600 |
+
+<Info>
+  DNS 更改可能需要长达 48
+  小时才能传播，尽管更改通常很快就会完成。
+</Info>
+
+## 下一步
+
+恭喜！你已成功使用 Poetora 部署了文档站点。以下是增强文档的建议后续步骤：
+
+<Card
+  title="配置全局设置"
+  icon="settings"
+  href="settings"
+  horizontal
+>
+  使用 `docs.json`
+  文件配置站点范围的样式、导航、集成等。
+</Card>
+<Card
+  title="自定义主题"
+  icon="paintbrush"
+  href="/settings#param-theme"
+  horizontal
+>
+  了解如何自定义文档站点的颜色、字体和整体外观。
+</Card>
+<Card
+  title="组织导航"
+  icon="map"
+  href="navigation"
+  horizontal
+>
+  使用直观的导航结构化你的文档，帮助用户找到所需内容。
+</Card>
+<Card
+  title="添加交互式组件"
+  icon="puzzle"
+  href="/components/accordions"
+  horizontal
+>
+  使用手风琴、标签页和代码示例等交互式组件增强你的文档。
+</Card>
+
+## 故障排除
+
+如果在设置过程中遇到问题，请查看这些常见的故障排除解决方案：
+
+<Accordions>
+  <Accordion title="更改未反映在实时站点上">
+    部署可能需要几分钟时间。检查你的 GitHub
+    Actions（对于基于代码的工作流程）或 Poetora
+    仪表板中的部署日志，以确保没有构建错误。
+  </Accordion>
+  <Accordion title="自定义域名无法连接">
+    验证你的 DNS 记录设置正确，并为 DNS
+    传播留出足够时间（最多 48 小时）。你可以使用
+    [DNSChecker](https://dnschecker.org)
+    等工具验证你的 CNAME 记录。
+  </Accordion>
+</Accordions>
