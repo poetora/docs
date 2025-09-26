@@ -1,5 +1,5 @@
 ---
-title: 'Columns'
+title: '列'
 description: '列布局组件用于将内容组织成多列网格形式，提供灵活的页面布局选项，帮助优化内容展示效果'
 icon: 'columns-2'
 ---
@@ -142,10 +142,10 @@ icon: 'columns-2'
     **React 实现**
     ```jsx
     import { PoetoraEditor } from '@poetora/react';
-    
+
     function MyEditor() {
       const [content, setContent] = useState('');
-      
+
       return (
         <PoetoraEditor
           value={content}
@@ -165,11 +165,11 @@ icon: 'columns-2'
         :auto-save="true"
       />
     </template>
-    
+
     <script setup>
     import { ref } from 'vue';
     import { PoetoraEditor } from '@poetora/vue';
-    
+
     const content = ref('');
     </script>
     ```
