@@ -72,8 +72,16 @@
           {
             "group": "优化",
             "pages": [
-              "optimize/seo",
-              "optimize/custom-404-page"
+              {
+                "group": "AI 集成",
+                "icon": "bot",
+                "pages": [
+                  "ai/contextual-menu",
+                  "ai/model-context-protocol",
+                  "ai/markdown-export"
+                ]
+              },
+              "optimize/seo"
             ]
           }
         ]
