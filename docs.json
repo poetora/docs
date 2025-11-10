@@ -35,28 +35,36 @@
             "group": "定制化",
             "pages": [
               "customize/fonts",
-              "customize/custom-scripts"
+              "customize/custom-scripts",
+              "customize/react-components"
             ]
           },
           {
-            "group": "组件库",
+            "group": "创建内容",
             "pages": [
-              "components/text-formatting",
-              "components/image-embeds",
-              "components/lists-tables",
-              "components/code",
-              "components/accordions",
-              "components/callouts",
-              "components/cards",
-              "components/columns",
-              "components/code-groups",
-              "components/expandables",
-              "components/tabs",
-              "components/steps",
-              "components/frames",
-              "components/fields",
-              "components/icons",
-              "components/update"
+              {
+                "group": "组件库",
+                "icon": "component",
+                "pages": [
+                  "components/text-formatting",
+                  "components/image-embeds",
+                  "components/lists-tables",
+                  "components/code",
+                  "components/accordions",
+                  "components/callouts",
+                  "components/cards",
+                  "components/columns",
+                  "components/code-groups",
+                  "components/expandables",
+                  "components/tabs",
+                  "components/steps",
+                  "components/frames",
+                  "components/fields",
+                  "components/icons",
+                  "components/update"
+                ]
+              },
+              "create/reusable-snippets"
             ]
           },
           {
