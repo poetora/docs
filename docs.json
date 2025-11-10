@@ -43,14 +43,14 @@
           {
             "group": "创建内容",
             "pages": [
+              "create/text",
+              "create/code",
+              "create/image-embeds",
+              "create/lists-tables",
               {
                 "group": "组件库",
                 "icon": "component",
                 "pages": [
-                  "components/text-formatting",
-                  "components/image-embeds",
-                  "components/lists-tables",
-                  "components/code",
                   "components/accordions",
                   "components/callouts",
                   "components/cards",
@@ -65,15 +65,15 @@
                   "components/update"
                 ]
               },
-              "create/reusable-snippets"
+              "create/reusable-snippets",
+              "create/changelogs"
             ]
           },
           {
-            "group": "使用指南",
+            "group": "优化",
             "pages": [
-              "guides/hidden-pages",
-              "guides/seo",
-              "guides/custom-404-page"
+              "optimize/seo",
+              "optimize/custom-404-page"
             ]
           }
         ]
