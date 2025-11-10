@@ -1,0 +1,334 @@
+---
+title: '可视化编辑器'
+description: '学习如何使用 Web 编辑器创建、维护和发布文档'
+icon: 'play'
+---
+
+Web 编辑器是一个可视化界面，用于直接在浏览器中创建、编辑和审查文档。
+
+- **可视化编辑**: 使用所见即所得 (WYSIWYG) 编辑器进行更改，显示内容发布后的外观
+- **Git 同步**: 所有更改自动与你的 Git 仓库同步以维护版本控制
+- **团队协作**: 多人可以同时处理文档
+- **组件集成**: 使用斜杠命令添加提示框、代码块和其他组件
+- **无需设置**: 直接从仪表板开始编写
+
+## Web 编辑器工作流程
+
+以下是在可视化编辑器中的典型工作方式：
+
+<Steps>
+  <Step title="选择你的 branch">
+    创建一个 branch，或直接在部署用分支上进行更改。我们建议创建一个 branch，这样你可以在更改上线前进行预览。
+  </Step>
+
+  <Step title="打开你的文件">
+    通过侧边栏导航到现有文件，或使用文件资源管理器新建文件。
+  </Step>
+
+  <Step title="编辑你的内容">
+    在可视化编辑器中进行修改。按下 <kbd>/</kbd> 打开组件菜单。
+  </Step>
+
+  <Step title="预览你的更改">
+    可视化模式会展示你的更改在上线网站上的实际效果。用它来确认一切显示正确。
+  </Step>
+
+  <Step title="发布你的更改">
+    如果你在部署用分支上工作，可直接在可视化编辑器中发布更改。若在其他分支上，则需先创建拉取请求(Pull Request)进行审核，再发布。
+  </Step>
+</Steps>
+
+## 编辑器模式
+
+Web 编辑器有两种模式，以适应不同的编辑偏好和需求。使用编辑器工具栏右上角的切换按钮在编辑模式之间切换。
+
+<Frame>
+  <img
+    src="/images/editor/mode-toggle-light.png"
+    alt="Poetora 编辑器模式切换"
+  />
+</Frame>
+
+### 可视化模式
+
+可视化模式提供 WYSIWYG 体验，你在编辑器中所做的更改就是将发布到文档站点的更改。当你想要实时查看更改外观时，此模式是理想的选择。
+
+按 `/` 打开组件菜单并添加样式内容、提示框、代码片段或其他组件。
+
+<Frame>
+  <img
+    src="/images/editor/visual-mode-light.png"
+    alt="Poetora 编辑器可视化模式"
+  />
+</Frame>
+
+### Markdown 模式
+
+Markdown 模式提供对文档底层 `MDX` 代码的直接访问。当你需要对组件属性进行精确控制或当你更喜欢使用 Markdown 语法编写时，此模式是理想的选择。
+
+<Frame>
+  <img
+    src="/images/editor/markdown-mode-light.png"
+    alt="Poetora 编辑器 Markdown 模式"
+  />
+</Frame>
+
+## 浏览你的文件
+
+使用侧边栏文件资源管理器浏览你的文档文件。点击任何文件即可在编辑器中打开。
+
+## 创建新页面
+
+<Steps>
+  <Step title="创建新文件">
+    在文件资源管理器侧边栏中选择**创建新文件**图标。
+    <img
+      src="/images/editor/create-new-file-light.png"
+      alt="Poetora 编辑器创建新文件"
+    />
+  </Step>
+  <Step title="输入文件名">
+    文件名默认以 `.mdx` 结尾，文档页面必须是 `.mdx` 结尾的文件，你也可以创建其他文件类型比如 js/css
+  </Step>
+  <Step title="创建并打开">
+    按 <kbd>Enter</kbd>{' '}
+    创建文件。它将在编辑器中自动打开，准备添加内容。
+  </Step>
+</Steps>
+
+## 组织你的导航
+
+通过编辑 `docs.json` 文件将新页面添加到你的站点导航中。
+
+<Steps>
+  <Step title="打开 docs.json">
+    使用文件资源管理器在根目录中找到并打开
+    `docs.json` 文件。
+  </Step>
+  <Step title="定位导航部分">
+    在 `docs.json`
+    文件中找到你想要添加新页面的位置。
+  </Step>
+  <Step title="添加你的页面">
+    在相应组的 `pages`
+    数组中插入你的页面文件名（不包含 `.mdx`
+    扩展名）。
+  </Step>
+</Steps>
+
+### 示例：添加主题页面
+
+```json title="将主题页面添加到配置组" highlight="18"
+{
+  "navigation": {
+    "groups": [
+      {
+        "group": "快速开始",
+        "pages": [
+          "index",
+          "quickstart",
+          "installation"
+        ]
+      },
+      {
+        "group": "配置",
+        "pages": [
+          "settings",
+          "dashboard",
+          "themes"
+        ]
+      }
+    ]
+  }
+}
+```
+
+## 编辑内容
+
+在编辑器中使用可视化模式或 Markdown 模式对页面进行更改。
+
+在可视化模式下，按 <kbd>/</kbd> 打开组件菜单。添加内容块、提示框、代码块和其他组件来自定义你的文档。
+
+<Frame>
+  <img
+    src="/images/editor/slash-command-menu-light.png"
+    alt="Poetora 编辑器组件菜单"
+  />
+</Frame>
+
+在 Markdown 模式下，你可以直接编辑页面的 `MDX`。当你需要以下功能时，这可能会有所帮助：
+
+- 设置特定的组件属性
+- 使用复杂的嵌套组件
+- 从其他源复制和粘贴 `MDX` 内容
+
+参见 [格式化文本](/zh/create/text) 和 [格式化代码](/zh/create/code)，了解更多关于使用 Markdown 语法写作的信息。
+
+## 发布你的更改
+
+你当前工作的分支将决定编辑器如何发布你的更改：
+
+* **部署用分支**：发布会立即更新你的线上站点。
+* **其他分支**：发布会创建一个拉取请求（Pull Request)，以便你在将其部署到生产环境之前先审阅更改。
+
+<Frame>
+  <img
+    src="/images/editor/publish-flow-light.png"
+    alt="Poetora Web 编辑器中的发布按钮"
+    className="block dark:hidden"
+  />
+  <img
+    src="/images/editor/publish-flow-dark.png"
+    alt="Poetora Web 编辑器中的发布按钮"
+    className="hidden dark:block"
+  />
+</Frame>
+
+如果你已将 Poetora 授权给你的 GitHub 用户，你的提交将会像由你本人完成一样被签署；否则，将由 Poetora GitHub 应用进行签署。
+
+### 拉取请求（PR）与变更审查
+
+拉取请求（Pull Request）允许你从你的分支（Branch) 提交变更，便于他人在合并到线上文档前进行审查。这样有助于确保变更准确无误，并让团队有机会就内容进行协作。
+
+<Tip>
+  即使你独自作业，拉取请求也有助于预览变更并维护清晰的更新历史。
+</Tip>
+
+<div id="create-a-pull-request">
+  #### 创建拉取请求（PR）
+</div>
+
+<Steps>
+  <Step title="保存你的工作">
+    选择 **保存更改**，将所有更改保存到你的 branch。
+  </Step>
+
+  <Step title="创建拉取请求">
+    在编辑器工具栏中选择 **发布拉取请求**。
+  </Step>
+
+  <Step title="添加标题和说明">
+    编写清晰的标题和说明，解释：
+
+    * 做了哪些更改
+    * 为什么进行这些更改
+    * 需要重点审阅的部分
+  </Step>
+
+  <Step title="创建并分享">
+    选择 **发布拉取请求**。编辑器会提供一个链接以查看你的拉取请求。
+  </Step>
+</Steps>
+
+<div id="review-pull-requests">
+  #### 审阅拉取请求（PR）
+</div>
+
+创建拉取请求（PR）后：
+
+1. **审阅更改**：你和团队成员可以在 Git 托管平台（如 GitHub 或 GitLab）中审阅你的拉取请求（PR）。
+2. **留下反馈**：添加评论或请求修改。
+3. **进一步修改**：可在可视化编辑器中继续修改。保存更改时，编辑器会将其推送到你的拉取请求（PR）。
+4. **批准**：当你对更改满意时，批准该拉取请求（PR）。
+5. **合并**：当你准备将更改部署到生产环境时，合并该拉取请求（PR）。
+
+## 键盘快捷键
+
+可视化编辑器支持复制、粘贴、撤销、全选等常见快捷键，以及以下快捷键：
+
+| 命令            | macOS                                                | Windows                                                  |
+| :------------ | :--------------------------------------------------- | :------------------------------------------------------- |
+| **搜索文件**      | <kbd>Cmd</kbd>   + <kbd>P</kbd>                      | <kbd>Control</kbd>   + <kbd>P</kbd>                      |
+| **为选中文本添加链接** | <kbd>Cmd</kbd>   + <kbd>K</kbd>                      | <kbd>Control</kbd>   + <kbd>K</kbd>                      |
+| **插入换行**      | <kbd>Cmd</kbd>   + <kbd>Enter</kbd>                  | <kbd>Control</kbd>   + <kbd>Enter</kbd>                  |
+| **加粗**        | <kbd>Cmd</kbd>   + <kbd>B</kbd>                      | <kbd>Control</kbd>   + <kbd>B</kbd>                      |
+| **斜体**        | <kbd>Cmd</kbd>   + <kbd>I</kbd>                      | <kbd>Control</kbd>   + <kbd>I</kbd>                      |
+| **下划线**       | <kbd>Cmd</kbd>   + <kbd>U</kbd>                      | <kbd>Control</kbd>   + <kbd>U</kbd>                      |
+| **删除线**       | <kbd>Cmd</kbd>   + <kbd>Shift</kbd>   + <kbd>S</kbd> | <kbd>Control</kbd>   + <kbd>Shift</kbd>   + <kbd>S</kbd> |
+| **代码**        | <kbd>Cmd</kbd>   + <kbd>E</kbd>                      | <kbd>Control</kbd>   + <kbd>E</kbd>                      |
+| **正文**        | <kbd>Cmd</kbd>   + <kbd>Alt</kbd>   + <kbd>0</kbd>   | <kbd>Control</kbd>   + <kbd>Alt</kbd>   + <kbd>0</kbd>   |
+| **标题 1**      | <kbd>Cmd</kbd>   + <kbd>Alt</kbd>   + <kbd>1</kbd>   | <kbd>Control</kbd>   + <kbd>Alt</kbd>   + <kbd>1</kbd>   |
+| **标题 2**      | <kbd>Cmd</kbd>   + <kbd>Alt</kbd>   + <kbd>2</kbd>   | <kbd>Control</kbd>   + <kbd>Alt</kbd>   + <kbd>2</kbd>   |
+| **标题 3**      | <kbd>Cmd</kbd>   + <kbd>Alt</kbd>   + <kbd>3</kbd>   | <kbd>Control</kbd>   + <kbd>Alt</kbd>   + <kbd>3</kbd>   |
+| **标题 4**      | <kbd>Cmd</kbd>   + <kbd>Alt</kbd>   + <kbd>4</kbd>   | <kbd>Control</kbd>   + <kbd>Alt</kbd>   + <kbd>4</kbd>   |
+| **有序列表**      | <kbd>Cmd</kbd>   + <kbd>Shift</kbd>   + <kbd>7</kbd> | <kbd>Control</kbd>   + <kbd>Shift</kbd>   + <kbd>7</kbd> |
+| **无序列表**      | <kbd>Cmd</kbd>   + <kbd>Shift</kbd>   + <kbd>8</kbd> | <kbd>Control</kbd>   + <kbd>Shift</kbd>   + <kbd>8</kbd> |
+| **引用**        | <kbd>Cmd</kbd>   + <kbd>Shift</kbd>   + <kbd>B</kbd> | <kbd>Control</kbd>   + <kbd>Shift</kbd>   + <kbd>B</kbd> |
+| **下标**        | <kbd>Cmd</kbd>   + <kbd>,</kbd>                      | <kbd>Control</kbd>   + <kbd>,</kbd>                      |
+| **上标**        | <kbd>Cmd</kbd>   + <kbd>.</kbd>                      | <kbd>Control</kbd>   + <kbd>.</kbd>                      |
+
+## 故障排查
+
+查找使用可视化编辑器时可能遇到的常见问题的解决方案。
+
+<AccordionGroup>
+  <Accordion title="发布后更改未显示">
+    **可能原因：**
+
+    * 部署仍在进行
+    * 浏览器缓存问题
+    * 构建或部署错误
+
+    **解决方案：**
+
+    1. 在控制台中检查部署状态。
+    2. 强制刷新浏览器（<kbd>Ctrl</kbd>
+
+       * <kbd>F5</kbd>
+
+       或 <kbd>Cmd</kbd>
+
+       * <kbd>Shift</kbd>
+
+       * <kbd>R</kbd>
+
+       )
+    3. 清除浏览器缓存。
+  </Accordion>
+
+  <Accordion title="发布时出现权限错误">
+    **可能原因：**
+
+    * 对 Git 存储库权限不足
+    * 与 Git 提供商的认证问题
+
+    **解决方案：**
+
+    1. 确认你对存储库具有正确的访问权限。
+    2. 检查你的 Git 集成是否已正确配置。
+    3. 查看[编辑器权限](/zh/dashboard/permissions)文档。
+  </Accordion>
+
+  <Accordion title="编辑器加载问题">
+    **可能原因：**
+
+    * 网络连接问题
+    * 文档存储库体量较大
+
+    **解决方案：**
+
+    1. 检查你的网络连接。
+    2. 刷新页面。
+    3. 若问题仍然存在，请联系支持。
+  </Accordion>
+
+  <Accordion title="文件未加载或出现错误">
+    **可能原因：**
+
+    * 文件中存在无效的 MDX 语法
+    * 文件缺失或损坏
+    * 文件过大导致超时
+
+    **解决方案：**
+
+    1. 检查文件语法是否存在 MDX 格式错误。
+    2. 验证该文件是否存在于你的存储库中。
+  </Accordion>
+</AccordionGroup>
+
+<div id="next-steps">
+  ## 后续步骤
+</div>
+
+* 学习基础的 [Git 概念](/zh/guides/git-concepts)
+* 学习在 [branch](/zh/guides/branches) 上协作的最佳实践

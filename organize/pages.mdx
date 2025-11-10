@@ -41,7 +41,11 @@ keywords: ['tags', 'tag']
   在侧边栏中显示在页面标题旁边的标签。
 </ResponseField>
 
-```yaml 前言示例 wrap
+<ResponseField name="<custom>" type="string">
+  任意有效的 YAML frontmatter。例如：product: "API" 或 version: "1.0.0"。
+</ResponseField>
+
+```yaml Frontmatter 示例 wrap
 ---
 title: '关于前言'
 description: '前言是控制页面显示和行为的元数据'

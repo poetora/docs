@@ -28,7 +28,7 @@ icon: 'map'
 }
 ```
 
-## 组
+## 分组
 
 使用组将侧边栏导航组织成部分。组可以相互嵌套，用标签标记，并用图标样式化。
 
@@ -255,6 +255,58 @@ icon: 'map'
       {
         "dropdown": "博客",
         "href": "https://external-link.com/blog"
+      }
+    ]
+  }
+}
+```
+
+## 产品
+
+“产品”用于在导航中创建专门的分区，以组织针对特定产品的文档。使用“产品”将文档中的不同产品、服务或重要功能彼此区分开。
+
+在 `navigation` 对象中，`products` 是一个数组，其中每个条目都是一个对象，必须包含 `product` 字段，并且可以包含其他导航字段，例如 groups、pages、icons，或指向外部页面的链接。
+
+```json
+{
+  "navigation": {
+    "products": [
+      {
+        "product": "Core API",
+        "description": "核心 API 说明",    
+        "icon": "api",
+        "groups": [
+          {
+            "group": "快速入门",
+            "pages": [
+              "core-api/quickstart",
+              "core-api/authentication"
+            ]
+          },
+          {
+            "group": "端点",
+            "pages": [
+              "core-api/users",
+              "core-api/orders"
+            ]
+          }
+        ]
+      },
+      {
+        "product": "Analytics Platform",
+        "description": "Analytics 平台说明",
+        "icon": "chart-bar",
+        "pages": [
+          "analytics/overview",
+          "analytics/dashboard",
+          "analytics/reports"
+        ]
+      },
+      {
+        "product": "Mobile SDK",
+        "description": "移动端 SDK 说明",
+        "icon": "smartphone",
+        "href": "https://mobile-sdk-docs.example.com"
       }
     ]
   }

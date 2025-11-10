@@ -1,0 +1,1348 @@
+---
+title: '全局设置'
+description: '使用 `docs.json` 文件配置站点范围的设置'
+icon: 'settings-2'
+keywords: ['docs.json', '设置', '自定义', '配置']
+---
+
+`docs.json` 文件让你将 Markdown 文件集合转换为可导航的、自定义的文档站点。这个必需的配置文件控制样式、导航、集成等。将其视为文档的蓝图。
+
+`docs.json` 中的设置全局应用于所有页面。
+
+## 设置你的 `docs.json`
+
+开始时，你只需要指定 `theme`、`name`、`colors.primary` 和 `navigation`。其他字段是可选的，随着文档需求的增长，你可以添加它们。
+
+为了获得最佳编辑体验，在 `docs.json` 文件顶部包含模式引用。这在大多数代码编辑器中启用自动完成、验证和有用的工具提示：
+
+```json
+{
+  "$schema": "https://poetora.com/docs.json",
+  "theme": "ora",
+  "name": "你的文档",
+  "colors": {
+    "primary": "#ff0000"
+  },
+  "navigation": {
+    // 你的导航结构
+  }
+  // 其余配置
+}
+```
+
+## 参考
+
+本节包含 `docs.json` 文件的完整参考。
+
+### 自定义
+
+<ResponseField name="theme" required>
+  你站点的布局主题。
+
+现在只有一个 `ora` 主题，所以值必须是 `ora`。
+
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  你的项目、组织或产品的名称。
+</ResponseField>
+
+<ResponseField name="colors" type="object" required>
+  文档中使用的颜色。颜色在不同主题中的应用方式不同。如果你只提供一个主色，它将用于所有颜色元素。
+
+  <Expandable title="颜色">
+    <ResponseField name="primary" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" required>
+      文档的主色。通常在浅色模式下用于强调，具体因主题而异。
+
+      必须是以 `#` 开头的十六进制代码。
+    </ResponseField>
+
+    <ResponseField name="light" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+      深色模式下用于强调的颜色。
+
+      必须是以 `#` 开头的十六进制代码。
+    </ResponseField>
+
+    <ResponseField name="dark" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+      在浅色和深色模式下用于按钮与悬停状态的颜色，具体因主题而异。
+
+      必须是以 `#` 开头的十六进制代码。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  用于 SEO 和 AI 索引的站点描述。
+</ResponseField>
+
+<ResponseField name="logo" type="string or object">
+  浅色和深色模式的 logo。
+
+  <Expandable title="Logo">
+    <ResponseField name="light" type="string" required>
+      指向浅色模式 logo 文件的路径。包含文件扩展名。示例：`/logo.png`
+    </ResponseField>
+    <ResponseField name="dark" type="string" required>
+      指向深色模式 logo 文件的路径。包含文件扩展名。示例：`/logo-dark.png`
+    </ResponseField>
+    <ResponseField name="href" type="string (uri)">
+      点击 logo 时重定向的 URL。如果未提供，logo 将链接到你的主页。示例：`https://poetora.com`
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="favicon" type="string or object">
+  指向你的 favicon 文件的路径，包含文件扩展名。自动调整为适当的 favicon 大小。
+  可以是单个文件或浅色和深色模式的单独文件。示例：`/favicon.png`
+
+  <Expandable title="Favicon">
+    <ResponseField name="light" type="string" required>
+      浅色模式的 favicon 文件路径。包含文件扩展名。示例：`/favicon.png`
+    </ResponseField>
+    <ResponseField name="dark" type="string" required>
+      深色模式的 favicon 文件路径。包含文件扩展名。示例：`/favicon-dark.png`
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+
+<ResponseField name="thumbnails" type="object">
+  用于社交媒体与页面预览的缩略图自定义。
+
+  <Expandable title="Thumbnails">
+    <ResponseField name="appearance" type="&#x22;light&#x22; | &#x22;dark&#x22;">
+      缩略图的视觉主题。若未指定，将使用由 `colors` 字段定义的站点配色方案。
+    </ResponseField>
+
+    <ResponseField name="background" type="string">
+      缩略图的背景图片。可为相对路径或绝对 URL。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="styling" type="object">
+  视觉样式配置。
+
+  <Expandable title="Styling">
+    <ResponseField name="eyebrows" type="&#x22;section&#x22; | &#x22;breadcrumbs&#x22;">
+      页面 eyebrow 的样式。选择 `section` 显示所属分区名称，或选择 `breadcrumbs` 显示完整导航路径。默认值为 `section`。
+    </ResponseField>
+
+    <ResponseField name="codeblocks" type="&#x22;system&#x22; | &#x22;dark&#x22; | string | object">
+      代码块主题配置。默认值为 `"system"`。
+
+      **简单配置：**
+
+      * `"system"`：匹配站点当前模式（浅色或深色）
+      * `"dark"`：始终使用深色模式
+
+      **自定义主题配置：**
+
+      * 使用字符串为所有代码块指定单个 [Shiki 主题](https://shiki.style/themes)
+      * 使用对象为浅色和深色模式分别指定 [Shiki 主题](https://shiki.style/themes)
+
+      <ResponseField name="theme" type="string">
+        一个同时用于浅色与深色模式的 Shiki 主题名称。
+
+        ```json  theme={null}
+        "styling": {
+          "codeblocks": {
+            "theme": "dracula"
+          }
+        }
+        ```
+      </ResponseField>
+
+      <ResponseField name="theme" type="object">
+        分别为浅色与深色模式设置不同主题。
+
+        <Expandable title="theme">
+          <ResponseField name="light" type="string" required>
+            浅色模式的 Shiki 主题名称。
+          </ResponseField>
+
+          <ResponseField name="dark" type="string" required>
+            深色模式的 Shiki 主题名称。
+          </ResponseField>
+
+          ```json  theme={null}
+          "styling": {
+            "codeblocks": {
+              "theme": {
+                "light": "github-light",
+                "dark": "github-dark"
+              }
+            }
+          }
+          ```
+        </Expandable>
+      </ResponseField>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="icons" type="object">
+  图标库设置。
+
+  <Expandable title="Icons">
+    <ResponseField name="library" type="&#x22;fontawesome&#x22; | &#x22;lucide&#x22;" required>
+      全站文档使用的图标库。默认值为 `fontawesome`。
+
+      <Note>
+        无论库设置为何，你都可以为任意单个图标指定外部托管图标的 URL、项目中的图标文件路径，或 JSX 兼容的 SVG 代码。
+      </Note>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="fonts" type="object">
+  为文档设置自定义字体。默认字体随主题不同而变化。
+
+  <Expandable title="Fonts">
+    <ResponseField name="family" type="string" required>
+      字体系列，例如 “Open Sans”。支持 [Google Fonts](https://fonts.google.com) 的 family 名称。
+    </ResponseField>
+
+    <ResponseField name="weight" type="number">
+      字重，例如 400 或 700。可变字体支持精确字重，如 550。
+    </ResponseField>
+
+    <ResponseField name="source" type="string (uri)">
+      取以下之一：
+
+      * 托管字体的 URL，例如 [https://poetora-assets.b-cdn.net/fonts/Hubot-Sans.woff2。](https://poetora-assets.b-cdn.net/fonts/Hubot-Sans.woff2。)
+      * 本地字体文件的路径，例如 `/fonts/Hubot-Sans.woff2`。
+
+      当你指定 Google 字体的 `family` 名称时，[Google Fonts](https://fonts.google.com) 会自动加载，因此无需提供 source URL。
+    </ResponseField>
+
+    <ResponseField name="format" type="&#x22;woff&#x22; | &#x22;woff2&#x22;">
+      字体文件格式。使用 `source` 字段时必填。
+    </ResponseField>
+
+    <ResponseField name="heading" type="object">
+      专用于标题的字体设置覆盖。
+
+      <Expandable title="Heading">
+        <ResponseField name="family" type="string" required>
+          字体系列，例如 “Open Sans”、“Playfair Display”。支持 [Google Fonts](https://fonts.google.com) 的 family 名称。
+        </ResponseField>
+
+        <ResponseField name="weight" type="number">
+          字重，例如 400、700。可变字体支持精确字重，如 550。
+        </ResponseField>
+
+        <ResponseField name="source" type="string (uri)">
+          取以下之一：
+
+          * 托管字体的 URL，例如 [https://poetora-assets.b-cdn.net/fonts/Hubot-Sans.woff2。](https://poetora-assets.b-cdn.net/fonts/Hubot-Sans.woff2。)
+          * 本地字体文件的路径，例如 `/fonts/Hubot-Sans.woff2`。
+
+          当你指定 Google 字体的 `family` 名称时，[Google Fonts](https://fonts.google.com) 会自动加载，因此无需提供 source URL。
+        </ResponseField>
+
+        <ResponseField name="format" type="&#x22;woff&#x22; | &#x22;woff2&#x22;">
+          字体文件格式。使用 `source` 字段时必填。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="body" type="object">
+      专用于正文的字体设置覆盖。
+
+      <Expandable title="Body">
+        <ResponseField name="family" type="string" required>
+          字体系列，例如 “Open Sans”、“Playfair Display”。支持 [Google Fonts](https://fonts.google.com) 的 family 名称。
+        </ResponseField>
+
+        <ResponseField name="weight" type="number">
+          字重，例如 400、700。可变字体支持精确字重，如 550。
+        </ResponseField>
+
+        <ResponseField name="source" type="string (uri)">
+          取以下之一：
+
+          * 托管字体的 URL，例如 [https://poetora-assets.b-cdn.net/fonts/Hubot-Sans.woff2。](https://poetora-assets.b-cdn.net/fonts/Hubot-Sans.woff2。)
+          * 本地字体文件的路径，例如 `/fonts/Hubot-Sans.woff2`。
+
+          当你指定 Google 字体的 `family` 名称时，[Google Fonts](https://fonts.google.com) 会自动加载，因此无需提供 source URL。
+        </ResponseField>
+
+        <ResponseField name="format" type="&#x22;woff&#x22; | &#x22;woff2&#x22;">
+          字体文件格式。使用 `source` 字段时必填。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="appearance" type="object">
+  明/暗模式切换设置。
+
+  <Expandable title="Appearance">
+    <ResponseField name="default" type="&#x22;system&#x22; | &#x22;light&#x22; | &#x22;dark&#x22;">
+      默认主题模式。选择 `system` 以匹配用户操作系统设置，或选择 `light`/`dark` 强制使用特定模式。默认为 `system`。
+    </ResponseField>
+
+    <ResponseField name="strict" type="boolean">
+      是否隐藏明/暗模式切换。默认为 `true`。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="background" type="object">
+  背景颜色与装饰设置。
+
+  <Expandable title="Background">
+    <ResponseField name="image" type="string or object">
+      站点的背景图像。可以是单个文件，或分别为 light 与 dark 模式提供独立文件。
+
+      <Expandable title="Image">
+        <ResponseField name="light" type="string" required>
+          light 模式的背景图像路径。需包含文件扩展名。示例：`/background.png`。
+        </ResponseField>
+
+        <ResponseField name="dark" type="string" required>
+          dark 模式的背景图像路径。需包含文件扩展名。示例：`/background-dark.png`。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="decoration" type="&#x22;gradient&#x22; | &#x22;grid&#x22; | &#x22;windows&#x22;">
+      主题的背景装饰效果。
+    </ResponseField>
+
+    <ResponseField name="color" type="object">
+      为 light 与 dark 模式自定义背景颜色。
+
+      <Expandable title="Color">
+        <ResponseField name="light" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+          light 模式的背景颜色。
+
+          必须是以 `#` 开头的十六进制色值。
+        </ResponseField>
+
+        <ResponseField name="dark" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+          dark 模式的背景颜色。
+
+          必须是以 `#` 开头的十六进制色值。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+### 结构
+
+<ResponseField name="navbar" type="object">
+  导航栏中的外部链接项目。
+
+  <Expandable title="Navbar">
+    <ResponseField name="links" type="array of object">
+      要在导航栏中显示的链接。
+
+      <Expandable title="Links">
+        <ResponseField name="label" type="string" required>
+          链接文本。
+        </ResponseField>
+
+        <ResponseField name="href" type="string (uri)" required>
+          链接目标。必须为有效的外部 URL。
+        </ResponseField>
+
+        <ResponseField name="icon" type="string">
+          要显示的 icon。
+
+          选项：
+
+          * [Font Awesome icon](https://fontawesome.com/icons) 名称
+          * [Lucide icon](https://lucide.dev/icons) 名称
+          * 用花括号包裹的 JSX 兼容 SVG 代码
+          * 指向外部托管 icon 的 URL
+          * 项目中 icon 文件的路径
+
+          针对自定义 SVG icon：
+
+          1. 使用 [SVGR 转换器](https://react-svgr.com/playground/)将你的 SVG 转换为 JSX。
+          2. 将 SVG 代码粘贴到 SVG 输入框。
+          3. 从 JSX 输出框中复制完整的 `<svg>...</svg>` 元素。
+          4. 用花括号包裹 JSX 兼容的 SVG 代码：`icon={<svg ...> ... </svg>}`。
+          5. 按需调整 `height` 和 `width`。
+        </ResponseField>
+
+        <ResponseField name="iconType" type="string">
+          [Font Awesome](https://fontawesome.com/icons) icon 的样式。仅在使用 Font Awesome icon 时生效。
+
+          选项：`regular`、`solid`、`light`、`thin`、`sharp-solid`、`duotone`、`brands`。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="primary" type="object">
+      导航栏中的主按钮。
+
+      <Expandable title="Primary">
+        <ResponseField name="type" type="&#x22;button&#x22; | &#x22;github&#x22;" required>
+          按钮样式。选择 `button` 以使用带有文本的标准按钮，选择 `github` 以使用指向 GitHub 存储库并带 icon 的链接。
+        </ResponseField>
+
+        <ResponseField name="label" type="string" required>
+          按钮文本。仅当 `type` 为 `button` 时生效。
+        </ResponseField>
+
+        <ResponseField name="href" type="string (uri)" required>
+          按钮目标。必须为外部 URL。若 `type` 为 `github`，则必须为 GitHub 存储库的 URL。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="navigation" type="object" required>
+  内容的导航结构。
+
+  <Expandable title="Navigation">
+    <ResponseField name="global" type="object">
+      在所有页面和部分中显示的全局导航元素。
+
+      <Expandable title="Global">
+        <ResponseField name="languages" type="array of object">
+          用于多语言站点的语言切换器配置。
+
+          <Expandable title="Languages">
+            <ResponseField name="language" type="&#x22;en&#x22; | &#x22;cn&#x22; | &#x22;zh&#x22; | &#x22;zh-Hans&#x22; | &#x22;zh-Hant&#x22; | &#x22;es&#x22; | &#x22;fr&#x22; | &#x22;ja&#x22; | &#x22;jp&#x22; | &#x22;pt&#x22; | &#x22;pt-BR&#x22; | &#x22;de&#x22; | &#x22;ko&#x22; | &#x22;it&#x22; | &#x22;ru&#x22; | &#x22;id&#x22; | &#x22;ar&#x22; | &#x22;tr&#x22;" required>
+              符合 ISO 639-1 格式的语言代码。
+            </ResponseField>
+
+            <ResponseField name="default" type="boolean">
+              是否为默认语言。
+            </ResponseField>
+
+            <ResponseField name="hidden" type="boolean">
+              是否默认隐藏此语言选项。
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              指向此语言文档版本的有效路径或外部链接。
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="versions" type="array of object">
+          多版本站点的版本切换配置。
+
+          <Expandable title="Versions">
+            <ResponseField name="version" type="string" required>
+              此版本的显示名称。
+
+              最小长度：1
+            </ResponseField>
+
+            <ResponseField name="default" type="boolean">
+              是否为默认版本。
+            </ResponseField>
+
+            <ResponseField name="hidden" type="boolean">
+              是否默认隐藏此版本选项。
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              指向该文档版本的 URL 或路径。
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="tabs" type="array of object">
+          用于组织主要部分的顶级导航选项卡。
+
+          <Expandable title="Tabs">
+            <ResponseField name="tab" type="string" required>
+              标签页的显示名称。
+
+              最小长度：1
+            </ResponseField>
+
+            <ResponseField name="icon" type="string">
+              要显示的 icon。
+
+              选项：
+
+              * [Font Awesome icon](https://fontawesome.com/icons) 名称
+              * [Lucide icon](https://lucide.dev/icons) 名称
+              * 用花括号包裹的 JSX 兼容 SVG 代码
+              * 指向外部托管 icon 的 URL
+              * 项目中 icon 文件的路径
+
+              针对自定义 SVG icon：
+
+              1. 使用 [SVGR 转换器](https://react-svgr.com/playground/)将你的 SVG 转换为 JSX。
+              2. 将 SVG 代码粘贴到 SVG 输入框。
+              3. 从 JSX 输出框中复制完整的 `<svg>...</svg>` 元素。
+              4. 用花括号包裹 JSX 兼容的 SVG 代码：`icon={<svg ...> ... </svg>}`。
+              5. 按需调整 `height` 和 `width`。
+            </ResponseField>
+
+            <ResponseField name="iconType" type="string">
+              [Font Awesome](https://fontawesome.com/icons) icon 的样式。仅在使用 Font Awesome icon 时生效。
+
+              选项：`regular`、`solid`、`light`、`thin`、`sharp-solid`、`duotone`、`brands`。
+            </ResponseField>
+
+            <ResponseField name="hidden" type="boolean">
+              是否默认隐藏此标签页。
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              该标签页目标的 URL 或路径。
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="anchors" type="array of object">
+          在侧边栏导航中显著显示的锚点链接。
+
+          <Expandable title="Anchors">
+            <ResponseField name="anchor" type="string" required>
+              锚点的显示名称。
+
+              最小长度：1
+            </ResponseField>
+
+            <ResponseField name="icon" type="string">
+              要显示的 icon。
+
+              选项：
+
+              * [Font Awesome icon](https://fontawesome.com/icons) 名称
+              * [Lucide icon](https://lucide.dev/icons) 名称
+              * 用花括号包裹的 JSX 兼容 SVG 代码
+              * 指向外部托管 icon 的 URL
+              * 项目中 icon 文件的路径
+
+              针对自定义 SVG icon：
+
+              1. 使用 [SVGR 转换器](https://react-svgr.com/playground/)将你的 SVG 转换为 JSX。
+              2. 将 SVG 代码粘贴到 SVG 输入框。
+              3. 从 JSX 输出框中复制完整的 `<svg>...</svg>` 元素。
+              4. 用花括号包裹 JSX 兼容的 SVG 代码：`icon={<svg ...> ... </svg>}`。
+              5. 按需调整 `height` 和 `width`。
+            </ResponseField>
+
+            <ResponseField name="iconType" type="string">
+              [Font Awesome](https://fontawesome.com/icons) icon 的样式。仅在使用 Font Awesome icon 时生效。
+
+              选项：`regular`、`solid`、`light`、`thin`、`sharp-solid`、`duotone`、`brands`。
+            </ResponseField>
+
+            <ResponseField name="color" type="object">
+              锚点的自定义颜色。
+
+              <Expandable title="Color">
+                <ResponseField name="light" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+                  适用于 light 模式的锚点颜色。
+
+                  必须是以 `#` 开头的十六进制代码。
+                </ResponseField>
+
+                <ResponseField name="dark" type="string matching ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$">
+                  适用于 system 模式的锚点颜色。
+
+                  必须是以 `#` 开头的十六进制代码。
+                </ResponseField>
+              </Expandable>
+            </ResponseField>
+
+            <ResponseField name="hidden" type="boolean">
+              是否默认隐藏此锚点。
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              锚点目标的 URL 或路径。
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="dropdowns" type="array of object">
+          用于组织相关内容的下拉菜单。
+
+          <Expandable title="Dropdowns">
+            <ResponseField name="dropdown" type="string" required>
+              下拉菜单的显示名称。
+
+              最小长度：1
+            </ResponseField>
+
+            <ResponseField name="icon" type="string">
+              要显示的 icon。
+
+              选项：
+
+              * [Font Awesome icon](https://fontawesome.com/icons) 名称
+              * [Lucide icon](https://lucide.dev/icons) 名称
+              * 用花括号包裹的 JSX 兼容 SVG 代码
+              * 指向外部托管 icon 的 URL
+              * 项目中 icon 文件的路径
+
+              针对自定义 SVG icon：
+
+              1. 使用 [SVGR 转换器](https://react-svgr.com/playground/)将你的 SVG 转换为 JSX。
+              2. 将 SVG 代码粘贴到 SVG 输入框。
+              3. 从 JSX 输出框中复制完整的 `<svg>...</svg>` 元素。
+              4. 用花括号包裹 JSX 兼容的 SVG 代码：`icon={<svg ...> ... </svg>}`。
+              5. 按需调整 `height` 和 `width`。
+            </ResponseField>
+
+            <ResponseField name="iconType" type="string">
+              [Font Awesome](https://fontawesome.com/icons) icon 的样式。仅在使用 Font Awesome icon 时生效。
+
+              选项：`regular`、`solid`、`light`、`thin`、`sharp-solid`、`duotone`、`brands`。
+            </ResponseField>
+
+            <ResponseField name="hidden" type="boolean">
+              是否默认隐藏此下拉菜单。
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              下拉菜单目标的 URL 或路径。
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+
+        <ResponseField name="products" type="array of object">
+          用于将内容分组为不同部分的产品。
+
+          <Expandable title="Products">
+            <ResponseField name="product" type="string" required>
+              产品的显示名称。
+            </ResponseField>
+
+            <ResponseField name="description" type="string">
+              产品的描述。
+            </ResponseField>
+
+            <ResponseField name="icon" type="string">
+              要显示的 icon。
+
+              选项：
+
+              * [Font Awesome icon](https://fontawesome.com/icons) 名称
+              * [Lucide icon](https://lucide.dev/icons) 名称
+              * 用花括号包裹的 JSX 兼容 SVG 代码
+              * 指向外部托管 icon 的 URL
+              * 项目中 icon 文件的路径
+
+              针对自定义 SVG icon：
+
+              1. 使用 [SVGR 转换器](https://react-svgr.com/playground/)将你的 SVG 转换为 JSX。
+              2. 将 SVG 代码粘贴到 SVG 输入框。
+              3. 从 JSX 输出框中复制完整的 `<svg>...</svg>` 元素。
+              4. 用花括号包裹 JSX 兼容的 SVG 代码：`icon={<svg ...> ... </svg>}`。
+              5. 按需调整 `height` 和 `width`。
+            </ResponseField>
+
+            <ResponseField name="iconType" type="string">
+              [Font Awesome](https://fontawesome.com/icons) icon 的样式。仅在使用 Font Awesome icon 时生效。
+
+              选项：`regular`、`solid`、`light`、`thin`、`sharp-solid`、`duotone`、`brands`。
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="languages" type="array of object">
+      用于[multi-language](/zh/organize/navigation#languages)站点的语言切换器。
+    </ResponseField>
+
+    <ResponseField name="versions" type="array of object">
+      为拥有多个[版本](/zh/organize/navigation#versions)的网站提供版本切换器。
+    </ResponseField>
+
+    <ResponseField name="tabs" type="array of object">
+      顶级导航的 [Tabs](/zh/organize/navigation#tabs)。
+    </ResponseField>
+
+    <ResponseField name="anchors" type="array of object">
+      侧边栏中的[锚点](/zh/organize/navigation#anchors)。
+    </ResponseField>
+
+    <ResponseField name="dropdowns" type="array of object">
+      用于对相关内容进行分组的[下拉菜单](/zh/organize/navigation#dropdowns)。
+    </ResponseField>
+
+    <ResponseField name="products" type="array of object">
+      适用于包含多个[产品](/zh/organize/navigation#products)的站点的产品切换器。
+    </ResponseField>
+
+    <ResponseField name="groups" type="array of object">
+      用于将内容组织成各个部分的[groups](/zh/organize/navigation#groups)。
+    </ResponseField>
+
+    <ResponseField name="pages" type="array of string or object">
+      构成你的文档的独立[页面](/zh/organize/navigation#pages)。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="interaction" type="object">
+  导航元素的用户交互设置。
+
+  <Expandable title="Interaction">
+    <ResponseField name="drilldown" type="boolean">
+      控制选择导航分组时的自动导航行为。设为 `true` 时，在展开导航分组时将强制导航到该分组的第一个页面。设为 `false` 时，将仅展开或折叠分组而不进行导航。不设置则使用主题的默认行为。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="footer" type="object">
+  页脚内容与社交媒体链接。
+
+  <Expandable title="Footer">
+    <ResponseField name="socials" type="object">
+      要在页脚显示的社交媒体资料。每个 key 为平台名称，每个 value 为你的个人资料 URL。例如：
+
+      ```json
+      {
+        "x": "https://x.com/poet_ora"
+      }
+      ```
+
+      可用的属性名称：`x`、`website`、`facebook`、`youtube`、`discord`、`slack`、`github`、`linkedin`、`instagram`、`hacker-news`、`medium`、`telegram`、`twitter`、`x-twitter`、`earth-americas`、`bluesky`、`threads`、`reddit`、`podcast`
+    </ResponseField>
+
+    <ResponseField name="links" type="array of object">
+      要在页脚显示的链接。
+
+      <Expandable title="Links">
+        <ResponseField name="header" type="string">
+          列的标题。
+
+          最小长度：1
+        </ResponseField>
+
+        <ResponseField name="items" type="array of object" required>
+          要在该列显示的链接。
+
+          <Expandable title="Items">
+            <ResponseField name="label" type="string" required>
+              链接文本。
+
+              最小长度：1
+            </ResponseField>
+
+            <ResponseField name="href" type="string (uri)" required>
+              链接目标 URL。
+            </ResponseField>
+          </Expandable>
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="banner" type="object">
+  显示在页面顶部的全站横幅。
+
+  <Expandable title="Banner">
+    <ResponseField name="content" type="string">
+      横幅内容。支持纯文本和 Markdown 格式。例如：
+
+      ```json
+      {
+        "content": "🚀 测试 Banner! [Learn more](poetora.com)"
+      }
+      ```
+    </ResponseField>
+
+    <ResponseField name="dismissible" type="boolean">
+      用户是否可以关闭该横幅。默认值为 `false`。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="redirects" type="array of object">
+  针对已移动、重命名或删除页面的重定向。
+
+  <Expandable title="Redirects">
+    <ResponseField name="source" type="string" required>
+      要重定向的源路径。例如：`/old-page`
+    </ResponseField>
+
+    <ResponseField name="destination" type="string" required>
+      重定向的目标路径。例如：`/new-page`
+    </ResponseField>
+
+    <ResponseField name="permanent" type="boolean">
+      是否使用永久重定向（301）。默认值为 `true`。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="contextual" type="object">
+  面向 AI 优化内容和集成的上下文菜单。
+
+  <Expandable title="Contextual">
+    <ResponseField name="options" type="array of &#x22;copy&#x22; | &#x22;view&#x22; | &#x22;chatgpt&#x22; | &#x22;claude&#x22; | &#x22;perplexity&#x22; | &#x22;mcp&#x22; | &#x22;cursor&#x22; | &#x22;vscode&#x22;" required>
+      上下文菜单中可用的操作。第一个选项将作为默认项显示。
+
+      * `copy`：将当前页面以 Markdown 形式复制到剪贴板。
+      * `view`：在新标签页中以 Markdown 查看当前页面。
+      * `chatgpt`：将当前页面内容发送给 ChatGPT。
+      * `claude`：将当前页面内容发送给 Claude。
+      * `perplexity`：将当前页面内容发送给 Perplexity。
+      * `mcp`：将你的 MCP 服务器 URL 复制到剪贴板。
+      * `cursor`：在 Cursor 中安装你托管的 MCP 服务器。
+      * `vscode`：在 VSCode 中安装你托管的 MCP 服务器。
+
+      <img src="/images/organize/page-context-menu.png" width="1348" height="824" />
+
+      <Note>
+        上下文菜单仅在预览和生产部署中可用。
+      </Note>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+
+### SEO 和搜索
+
+<ResponseField name="seo" type="object">
+  SEO（搜索引擎优化）索引配置。
+
+  <Expandable title="Seo">
+    <ResponseField name="metatags" type="object">
+      添加到每个页面的元标签。必须是有效的键值对。请参阅[常见元标签参考](/optimize/seo#common-meta-tags-reference)以获取选项。
+    </ResponseField>
+
+    <ResponseField name="indexing" type="&#x22;navigable&#x22; | &#x22;all&#x22;">
+      指定搜索引擎应索引哪些页面。选择 `navigable` 仅索引 `docs.json` 导航中的页面，选择 `all` 索引每个页面。默认为 `navigable`。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="search" type="object">
+  搜索显示设置。
+
+  <Expandable title="Search">
+    <ResponseField name="prompt" type="string">
+      搜索栏中显示的占位符文本。
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+### 集成
+
+<ResponseField name="integrations" type="object">
+  第三方集成。
+
+  <Expandable title="Integrations">
+    <ResponseField name="amplitude" type="object">
+      Amplitude 分析集成。
+
+      <Expandable title="Amplitude">
+        <ResponseField name="apiKey" type="string" required>
+          Amplitude API 密钥。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="clearbit" type="object">
+      Clearbit 数据增强集成。
+
+      <Expandable title="Clearbit">
+        <ResponseField name="publicApiKey" type="string" required>
+          Clearbit API 密钥。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="fathom" type="object">
+      Fathom 分析集成。
+
+      <Expandable title="Fathom">
+        <ResponseField name="siteId" type="string" required>
+          Fathom 站点 ID。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="frontchat" type="object">
+      Front 聊天集成。
+
+      <Expandable title="Frontchat">
+        <ResponseField name="snippetId" type="string" required>
+          Front 聊天片段 ID。
+
+          Minimum length: 6
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="ga4" type="object">
+      Google Analytics 4 集成。
+
+      <Expandable title="Ga4">
+        <ResponseField name="measurementId" type="string matching ^G" required>
+          Google Analytics 4 测量 ID。
+
+          Must match pattern: ^G
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="gtm" type="object">
+      Google Tag Manager 集成。
+
+      <Expandable title="Gtm">
+        <ResponseField name="tagId" type="string matching ^G" required>
+          Google Tag Manager 标签 ID。
+
+          Must match pattern: ^G
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="heap" type="object">
+      Heap 分析集成。
+
+      <Expandable title="Heap">
+        <ResponseField name="appId" type="string" required>
+          Heap 应用 ID。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="hotjar" type="object">
+      Hotjar 集成。
+
+      <Expandable title="Hotjar">
+        <ResponseField name="hjid" type="string" required>
+          Hotjar ID。
+        </ResponseField>
+
+        <ResponseField name="hjsv" type="string" required>
+          Hotjar 脚本版本。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="intercom" type="object">
+      Intercom 集成。
+
+      <Expandable title="Intercom">
+        <ResponseField name="appId" type="string" required>
+          Intercom 应用 ID。
+
+          Minimum length: 6
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="logrocket" type="object">
+      LogRocket 集成。
+
+      <Expandable title="Logrocket">
+        <ResponseField name="appId" type="string" required>
+          LogRocket 应用 ID。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="mixpanel" type="object">
+      Mixpanel 集成。
+
+      <Expandable title="Mixpanel">
+        <ResponseField name="projectToken" type="string" required>
+          Mixpanel 项目令牌。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="osano" type="object">
+      Osano 集成。
+
+      <Expandable title="Osano">
+        <ResponseField name="scriptSource" type="string" required>
+          Osano 脚本源。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="pirsch" type="object">
+      Pirsch 分析集成。
+
+      <Expandable title="Pirsch">
+        <ResponseField name="id" type="string" required>
+          Pirsch ID。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="posthog" type="object">
+      PostHog 集成。
+
+      <Expandable title="Posthog">
+        <ResponseField name="apiKey" type="string matching ^phc\_" required>
+          PostHog API 密钥。
+
+          Must match pattern: ^phc\_
+        </ResponseField>
+
+        <ResponseField name="apiHost" type="string (uri)">
+          PostHog API 主机。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="plausible" type="object">
+      Plausible 分析集成。
+
+      <Expandable title="Plausible">
+        <ResponseField name="domain" type="string" required>
+          Plausible 域名。
+        </ResponseField>
+
+        <ResponseField name="server" type="string">
+          Plausible 服务器。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="segment" type="object">
+      Segment 集成。
+
+      <Expandable title="Segment">
+        <ResponseField name="key" type="string" required>
+          Segment 密钥。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="telemetry" type="object">
+      遥测设置。
+
+      <Expandable title="Telemetry">
+        <ResponseField name="enabled" type="boolean">
+          是否启用遥测。
+
+          <Note>
+            当设置为 `false` 时，反馈功能也会被禁用，并且不会出现在文档页面上。
+          </Note>
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="cookies" type="object">
+      Cookie 设置。
+
+      <Expandable title="Cookies">
+        <ResponseField name="key" type="string">
+          Cookie 键。
+        </ResponseField>
+
+        <ResponseField name="value" type="string">
+          Cookie 值。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+### 错误
+
+<ResponseField name="errors" type="object">
+  错误处理设置。
+
+  <Expandable title="Errors">
+    <ResponseField name="404" type="object">
+      404 "页面未找到" 错误处理。
+
+      <Expandable title="404">
+        <ResponseField name="redirect" type="boolean">
+          是否自动重定向到首页当页面未找到时。
+        </ResponseField>
+
+        <ResponseField name="title" type="string">
+          404 错误页面的自定义标题。
+        </ResponseField>
+
+        <ResponseField name="description" type="string">
+          404 错误页面的自定义描述。支持 Markdown 格式。
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+
+## 示例
+
+<Tabs>
+  <Tab title="基本示例">
+    ```json title="docs.json" wrap lines
+    {
+      "$schema": "https://poetora.com/docs.json",
+      "theme": "ora",
+      "name": "Poetora 文档",
+      "description": "Poetora 美观易用的下一代文档编辑平台，专为开发者和内容创作者设计。",
+      "colors": {
+        "primary": "#3B82F6",
+        "light": "#F8FAFC",
+        "dark": "#0F172A"
+      },
+      "navigation": {
+        "groups": [
+          {
+            "group": "快速开始",
+            "pages": [
+              "index",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "核心配置",
+            "pages": [
+              "settings",
+              "pages",
+              "navigation"
+            ]
+          }
+        ]
+      },
+      "logo": {
+        "light": "/logo-light.svg",
+        "dark": "/logo-dark.svg",
+        "href": "https://poetora.com"
+      },
+      "navbar": {
+        "links": [
+          {
+            "label": "社区",
+            "href": "https://poetora.com/community"
+          }
+        ],
+        "primary": {
+          "type": "button",
+          "label": "开始使用",
+          "href": "https://poetora.com/start"
+        }
+      },
+      "footer": {
+        "socials": {
+          "github": "https://github.com/poetora",
+          "x": "https://x.com/poet_ora"
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="多语言示例">
+    ```json title="docs.json" wrap lines
+    {
+      "$schema": "https://poetora.com/docs.json",
+      "theme": "ora",
+      "name": "Poetora 文档",
+      "description": "Poetora 美观易用的下一代文档编辑平台，专为开发者和内容创作者设计。",
+      "colors": {
+        "primary": "#3B82F6",
+        "light": "#F8FAFC",
+        "dark": "#0F172A"
+      },
+      "navigation": {
+        "global": {
+          "anchors": [
+            {
+              "anchor": "Poetora 文档",
+              "href": "https://poetora.com/docs"
+            },
+            {
+              "anchor": "更新日志",
+              "href": "https://poetora.com/docs/changelog"
+            }
+          ]
+        },
+        "languages": [
+          {
+            "language": "en",
+            "dropdowns": [
+              {
+                "dropdown": "Documentation",
+                "icon": "book",
+                "description": "How to use the Poetora platform",
+                "pages": [
+                  {
+                    "group": "Getting started",
+                    "pages": ["index", "quickstart"]
+                  },
+                  {
+                    "group": "Web Editor",
+                    "pages": [
+                      "editor/getting-started",
+                      "editor/content-management",
+                      "editor/git-concepts",
+                      "editor/publishing"
+                    ]
+                  },
+                  {
+                    "group": "Core Configuration",
+                    "pages": ["pages", "settings", "navigation"]
+                  }
+                ]
+              },
+              {
+                "dropdown": "Components",
+                "icon": "puzzle",
+                "description": "Available components and features",
+                "pages": [
+                  {
+                    "group": "Basic Components",
+                    "pages": [
+                      "components/accordions",
+                      "components/callouts",
+                      "components/cards",
+                      "components/tabs",
+                      "components/steps"
+                    ]
+                  },
+                  {
+                    "group": "Advanced Components",
+                    "pages": [
+                      "components/code-groups",
+                      "components/param-fields",
+                      "components/columns",
+                      "components/frames"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "language": "cn",
+            "dropdowns": [
+              {
+                "dropdown": "文档中心",
+                "icon": "book",
+                "description": "如何使用 Poetora 平台",
+                "pages": [
+                  {
+                    "group": "快速开始",
+                    "pages": ["cn/index", "cn/quickstart"]
+                  },
+                  {
+                    "group": "Web 编辑器",
+                    "pages": [
+                      "cn/editor/getting-started",
+                      "cn/editor/content-management",
+                      "cn/editor/git-concepts",
+                      "cn/editor/publishing"
+                    ]
+                  },
+                  {
+                    "group": "核心配置",
+                    "pages": ["cn/pages", "cn/settings", "cn/navigation"]
+                  }
+                ]
+              },
+              {
+                "dropdown": "组件库",
+                "icon": "puzzle",
+                "description": "可用的组件和功能",
+                "pages": [
+                  {
+                    "group": "基础组件",
+                    "pages": [
+                      "cn/components/accordions",
+                      "cn/components/callouts",
+                      "cn/components/cards",
+                      "cn/components/tabs",
+                      "cn/components/steps"
+                    ]
+                  },
+                  {
+                    "group": "高级组件",
+                    "pages": [
+                      "cn/components/code-groups",
+                      "cn/components/param-fields",
+                      "cn/components/columns",
+                      "cn/components/frames"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "logo": {
+        "light": "/logo-light.svg",
+        "dark": "/logo-dark.svg",
+        "href": "https://poetora.com"
+      },
+      "navbar": {
+        "links": [
+          {
+            "label": "Community",
+            "href": "https://poetora.com/community"
+          }
+        ],
+        "primary": {
+          "type": "button",
+          "label": "Get Started",
+          "href": "https://poetora.com/start"
+        }
+      },
+      "footer": {
+        "socials": {
+          "github": "https://github.com/poetora",
+          "x": "https://x.com/poet_ora"
+        },
+        "links": [
+          {
+            "header": "Resources",
+            "items": [
+              {
+                "label": "Documentation",
+                "href": "https://poetora.com/docs"
+              },
+              {
+                "label": "API Reference",
+                "href": "https://poetora.com/docs/api"
+              },
+              {
+                "label": "Support",
+                "href": "https://poetora.com/support"
+              }
+            ]
+          },
+          {
+            "header": "Company",
+            "items": [
+              {
+                "label": "About",
+                "href": "https://poetora.com/about"
+              },
+              {
+                "label": "Blog",
+                "href": "https://poetora.com/blog"
+              },
+              {
+                "label": "Privacy Policy",
+                "href": "https://poetora.com/privacy"
+              }
+            ]
+          }
+        ]
+      },
+      "contextual": {
+        "options": [
+          "copy",
+          "view",
+          "chatgpt",
+          "claude"
+        ]
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
