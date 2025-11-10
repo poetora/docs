@@ -85,6 +85,29 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "指南",
+        "icon": "bookmark-check",
+        "pages": [{
+          "group": "最佳实践",
+          "pages": [
+            "guides/content-types",
+            "guides/improving-docs",
+            "guides/media",
+            "guides/navigation",
+            "guides/seo",
+            "guides/style-and-tone",
+            "guides/understand-your-audience"
+          ]
+        },
+        {
+          "group": "Git",
+          "pages": [
+            "guides/git-concepts",
+            "guides/branches"
+          ]
+        }]
       }
     ]
   },
