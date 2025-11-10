@@ -32,6 +32,13 @@
             ]
           },
           {
+            "group": "定制化",
+            "pages": [
+              "customize/fonts",
+              "customize/custom-scripts"
+            ]
+          },
+          {
             "group": "组件库",
             "pages": [
               "components/text-formatting",
