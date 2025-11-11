@@ -55,9 +55,53 @@ class HelloWorld {
 
 ### 语法高亮
 
-通过在代码块开头的反引号后指定编程语言来启用语法高亮。
+在代码块的起始反引号后指定编程语言即可启用语法高亮。
 
-我们使用 [Shiki](https://shiki.style/) 进行语法高亮，支持所有可用语言。查看 Shiki 文档中的完整[语言列表](https://shiki.style/languages)。
+我们使用 [Shiki](https://shiki.style/) 实现语法高亮，支持所有可用语言。完整语言列表请参见 Shiki 文档中的[语言](https://shiki.style/languages)。
+
+在 `docs.json` 中通过 `styling.codeblocks` 全局自定义代码块主题。可设置 `system` 或 `dark` 等简单主题，或为明暗模式配置自定义的 [Shiki 主题](https://shiki.style/themes)。配置项参见 [Settings](/zh/organize/settings#param-styling)。
+
+<Accordion title="自定义语法高亮主题">
+  如需自定义主题，请在 `docs.json` 中将主题设为 `"css-variables"`，并使用以 `--poet-` 为前缀的 CSS 变量覆盖语法高亮颜色。
+
+  可用变量如下：
+
+  **基础颜色**
+
+  * `--poet-color-text`: 默认文本颜色
+  * `--poet-color-background`: 背景颜色
+
+  **Token 颜色**
+
+  * `--poet-token-constant`: 常量和字面量
+  * `--poet-token-string`: 字符串值
+  * `--poet-token-comment`: 注释
+  * `--poet-token-keyword`: 关键字
+  * `--poet-token-parameter`: 函数参数
+  * `--poet-token-function`: 函数名
+  * `--poet-token-string-expression`: 字符串表达式
+  * `--poet-token-punctuation`: 标点符号
+  * `--poet-token-link`: 链接
+
+  **ANSI 颜色**
+
+  * `--poet-ansi-black`, `--poet-ansi-black-dim`
+  * `--poet-ansi-red`, `--poet-ansi-red-dim`
+  * `--poet-ansi-green`, `--poet-ansi-green-dim`
+  * `--poet-ansi-yellow`, `--poet-ansi-yellow-dim`
+  * `--poet-ansi-blue`, `--poet-ansi-blue-dim`
+  * `--poet-ansi-magenta`, `--poet-ansi-magenta-dim`
+  * `--poet-ansi-cyan`, `--poet-ansi-cyan-dim`
+  * `--poet-ansi-white`, `--poet-ansi-white-dim`
+  * `--poet-ansi-bright-black`, `--poet-ansi-bright-black-dim`
+  * `--poet-ansi-bright-red`, `--poet-ansi-bright-red-dim`
+  * `--poet-ansi-bright-green`, `--poet-ansi-bright-green-dim`
+  * `--poet-ansi-bright-yellow`, `--poet-ansi-bright-yellow-dim`
+  * `--poet-ansi-bright-blue`, `--poet-ansi-bright-blue-dim`
+  * `--poet-ansi-bright-magenta`, `--poet-ansi-bright-magenta-dim`
+  * `--poet-ansi-bright-cyan`, `--poet-ansi-bright-cyan-dim`
+  * `--poet-ansi-bright-white`, `--poet-ansi-bright-white-dim`
+</Accordion>
 
 ```javascript
 function greetUser(name) {
@@ -76,6 +120,36 @@ function greetUser(name) {
 }
 ```
 ````
+
+### Twoslash
+
+在 JavaScript 和 TypeScript 代码块中，使用 `twoslash` 可启用交互式类型信息。用户可以像在 IDE 中一样，将鼠标悬停在变量、函数和参数上以查看类型和错误。
+
+<CodeGroup>
+  ```ts twoslash Twoslash example theme={null}
+  type Pet = "cat" | "dog" | "hamster";
+
+  function adoptPet(name: string, type: Pet) {
+  return `${name} the ${type} is now adopted!`;
+  }
+
+  // Hover to see the inferred types
+  const message = adoptPet("Mintie", "cat");
+  ```
+
+  ````mdx Format theme={null}
+  ```ts twoslash Twoslash example
+  type Pet = "cat" | "dog" | "hamster";
+
+  function adoptPet(name: string, type: Pet) {
+    return `${name} the ${type} is now adopted!`;
+  }
+
+  // Hover to see the inferred types
+  const message = adoptPet("Ora", "cat");
+  ```
+  ````
+</CodeGroup>
 
 ### 标题
 
