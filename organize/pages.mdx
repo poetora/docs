@@ -1,8 +1,8 @@
 ---
-title: '页面'
-description: '页面是文档的构建块'
-icon: 'leaf'
-keywords: ['tags', 'tag']
+title: "页面"
+description: "页面是文档的构建块"
+icon: "leaf"
+keywords: ["tags", "tag", "frontmatter", "metadata", "layout"]
 ---
 
 每个页面都是一个 MDX 文件（后缀名为 `.mdx`），它将 Markdown 内容与 React 组件相结合，让你创建丰富、交互式的文档。
@@ -13,35 +13,32 @@ keywords: ['tags', 'tag']
 
 使用元数据来控制：
 
-- 页面标题和描述
-- 侧边栏标题、图标和标签
+* 页面标题和描述
 
-<ResponseField
-  name="title"
-  type="string"
-  required
->
+* 侧边栏标题、图标和标签
+
+<ResponseField name="title" type="string" required deprecated={false}>
   页面标题，显示在导航和浏览器标签中。
 </ResponseField>
 
-<ResponseField name="description" type="string">
+<ResponseField name="description" type="string" required={false} deprecated={false}>
   此页面内容的简要描述。显示在标题下方并改善 SEO。
 </ResponseField>
 
-<ResponseField name="sidebarTitle" type="string">
+<ResponseField name="sidebarTitle" type="string" required={false} deprecated={false}>
   在侧边栏导航中显示的短标题。
 </ResponseField>
 
-<ResponseField name="icon" type="string">
+<ResponseField name="icon" type="string" required={false} deprecated={false}>
   显示在侧边栏中页面标题旁边的图标。支持
   FontAwesome 和 Lucide 图标。
 </ResponseField>
 
-<ResponseField name="tag" type="string">
+<ResponseField name="tag" type="string" required={false} deprecated={false}>
   在侧边栏中显示在页面标题旁边的标签。
 </ResponseField>
 
-<ResponseField name="<custom>" type="string">
+<ResponseField name="<custom>" type="string" required={false} deprecated={false}>
   任意有效的 YAML frontmatter。例如：product: "API" 或 version: "1.0.0"。
 </ResponseField>
 
@@ -117,7 +114,9 @@ url: 'https://www.npmjs.com/package/poetora'
 
 大多数 SEO 元标签是自动生成的。你可以手动设置 SEO 元标签来改善你的站点 SEO、社交分享和浏览器兼容性。
 
-<Note>带有冒号的元标签必须用引号包围。</Note>
+<Note>
+  带有冒号的元标签必须用引号包围。
+</Note>
 
 ```yaml
 ---

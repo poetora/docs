@@ -1,7 +1,7 @@
 ---
-title: '代码格式'
-description: '在文档中显示内联代码和代码块，支持语法高亮、标题、行高亮等丰富的展示选项'
-icon: 'code'
+title: "代码格式"
+description: "在文档中显示内联代码和代码块，支持语法高亮、标题、行高亮等丰富的展示选项"
+icon: "code"
 ---
 
 ## 添加代码示例
@@ -22,7 +22,7 @@ icon: 'code'
 
 指定编程语言以启用语法高亮和元选项。在语言后添加任何元选项，如标题或图标。
 
-```java HelloWorld.java lines icon="java"
+```java HelloWorld.java icon=java lines
 class HelloWorld {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
@@ -50,8 +50,9 @@ class HelloWorld {
 
 ### 选项语法
 
-- **字符串和布尔选项**：用 `""`、`''` 或不加引号包装
-- **表达式选项**：用 `{}`、`""` 或 `''` 包装
+* **字符串和布尔选项**：用 `""`、`''` 或不加引号包装
+
+* **表达式选项**：用 `{}`、`""` 或 `''` 包装
 
 ### 语法高亮
 
@@ -69,40 +70,63 @@ class HelloWorld {
   **基础颜色**
 
   * `--poet-color-text`: 默认文本颜色
+
   * `--poet-color-background`: 背景颜色
 
   **Token 颜色**
 
   * `--poet-token-constant`: 常量和字面量
+
   * `--poet-token-string`: 字符串值
+
   * `--poet-token-comment`: 注释
+
   * `--poet-token-keyword`: 关键字
+
   * `--poet-token-parameter`: 函数参数
+
   * `--poet-token-function`: 函数名
+
   * `--poet-token-string-expression`: 字符串表达式
+
   * `--poet-token-punctuation`: 标点符号
+
   * `--poet-token-link`: 链接
 
   **ANSI 颜色**
 
   * `--poet-ansi-black`, `--poet-ansi-black-dim`
+
   * `--poet-ansi-red`, `--poet-ansi-red-dim`
+
   * `--poet-ansi-green`, `--poet-ansi-green-dim`
+
   * `--poet-ansi-yellow`, `--poet-ansi-yellow-dim`
+
   * `--poet-ansi-blue`, `--poet-ansi-blue-dim`
+
   * `--poet-ansi-magenta`, `--poet-ansi-magenta-dim`
+
   * `--poet-ansi-cyan`, `--poet-ansi-cyan-dim`
+
   * `--poet-ansi-white`, `--poet-ansi-white-dim`
+
   * `--poet-ansi-bright-black`, `--poet-ansi-bright-black-dim`
+
   * `--poet-ansi-bright-red`, `--poet-ansi-bright-red-dim`
+
   * `--poet-ansi-bright-green`, `--poet-ansi-bright-green-dim`
+
   * `--poet-ansi-bright-yellow`, `--poet-ansi-bright-yellow-dim`
+
   * `--poet-ansi-bright-blue`, `--poet-ansi-bright-blue-dim`
+
   * `--poet-ansi-bright-magenta`, `--poet-ansi-bright-magenta-dim`
+
   * `--poet-ansi-bright-cyan`, `--poet-ansi-bright-cyan-dim`
+
   * `--poet-ansi-bright-white`, `--poet-ansi-bright-white-dim`
 </Accordion>
-
 ```javascript
 function greetUser(name) {
   console.log(
@@ -126,29 +150,32 @@ function greetUser(name) {
 在 JavaScript 和 TypeScript 代码块中，使用 `twoslash` 可启用交互式类型信息。用户可以像在 IDE 中一样，将鼠标悬停在变量、函数和参数上以查看类型和错误。
 
 <CodeGroup>
-  ```ts twoslash Twoslash example theme={null}
-  type Pet = "cat" | "dog" | "hamster";
 
-  function adoptPet(name: string, type: Pet) {
+```ts twoslash Twoslash example
+type Pet = "cat" | "dog" | "hamster";
+
+function adoptPet(name: string, type: Pet) {
+return `${name} the ${type} is now adopted!`;
+}
+
+// Hover to see the inferred types
+const message = adoptPet("Ora", "cat");
+```
+
+
+````mdx Format
+```ts twoslash Twoslash example
+type Pet = "cat" | "dog" | "hamster";
+
+function adoptPet(name: string, type: Pet) {
   return `${name} the ${type} is now adopted!`;
-  }
+}
 
-  // Hover to see the inferred types
-  const message = adoptPet("Ora", "cat");
-  ```
+// Hover to see the inferred types
+const message = adoptPet("Ora", "cat");
+```
+````
 
-  ````mdx Format theme={null}
-  ```ts twoslash Twoslash example
-  type Pet = "cat" | "dog" | "hamster";
-
-  function adoptPet(name: string, type: Pet) {
-    return `${name} the ${type} is now adopted!`;
-  }
-
-  // Hover to see the inferred types
-  const message = adoptPet("Ora", "cat");
-  ```
-  ````
 </CodeGroup>
 
 ### 标题
@@ -171,7 +198,7 @@ console.log(message);
 
 使用 `icon` 属性为代码块添加图标。查看[图标组件](/components/icons)了解所有可用选项。
 
-```javascript icon="square-js"
+```javascript icon=square-js
 const message = 'Hello, Poetora!';
 console.log(message);
 ```
@@ -187,7 +214,7 @@ console.log(message);
 
 使用 `highlight` 与要高亮的行号或范围来高亮代码块中的特定行。
 
-```javascript 行高亮示例 highlight={1-2,5}
+```javascript 行高亮示例 {1,2,5}
 const greeting = 'Hello, Poetora!';
 function sayHello() {
   console.log(greeting);
@@ -209,7 +236,7 @@ sayHello();
 
 使用 `focus` 与行号或范围来聚焦代码块中的特定行。
 
-```javascript 行聚焦示例 focus={2,4-5}
+```javascript 行聚焦示例 focus=2,4,5
 const greeting = 'Hello, Poetora!';
 function sayHello() {
   console.log(greeting);
@@ -345,17 +372,19 @@ function processLongText() {
 
 要创建差异，在代码块的行末添加这些特殊注释：
 
-- `// [!code ++]`：将行标记为添加（绿色高亮）
-- `// [!code --]`：将行标记为删除（红色高亮）
+* `// [!code ++]`：将行标记为添加（绿色高亮）
+
+* `// [!code --]`：将行标记为删除（红色高亮）
 
 对于多个连续行，在冒号后指定行数：
 
-- `// [!code ++:3]`：标记当前行加上接下来的两行为添加
-- `// [!code --:5]`：标记当前行加上接下来的四行为删除
+* `// [!code ++:3]`：标记当前行加上接下来的两行为添加
+
+* `// [!code --:5]`：标记当前行加上接下来的四行为删除
 
 注释语法必须匹配你的编程语言（例如，JavaScript 使用 `//`，Python 使用 `#`）。
 
-```javascript 差异示例 icon="code" lines
+```javascript 差异示例 icon=code lines
 const greeting = 'Hello, Poetora!'; // [!code ++]
 function sayHello() {
   console.log('Hello, World!'); // [!code --]
@@ -380,22 +409,24 @@ sayHello();
 使用[代码组组件](/components/code-groups)展示同一概念的多种编程语言实现：
 
 <CodeGroup>
-  ```javascript Node.js
-  const response = await fetch('/api/documents', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      title: '我的文档',
-      content: '# 标题\n\n这是内容。'
-    })
-  });
 
-  const document = await response.json();
-  console.log('文档创建成功:', document.id);
-  ```
+```javascript Node.js
+const response = await fetch('/api/documents', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${apiKey}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    title: '我的文档',
+    content: '# 标题\n\n这是内容。'
+  })
+});
+
+const document = await response.json();
+console.log('文档创建成功:', document.id);
+```
+
 
 ```python Python
 import requests
@@ -416,6 +447,7 @@ document = response.json()
 print(f'文档创建成功: {document["id"]}')
 ```
 
+
 ```bash cURL
 curl -X POST '/api/documents' \
   -H 'Authorization: Bearer YOUR_API_KEY' \
@@ -432,7 +464,7 @@ curl -X POST '/api/documents' \
 
 Poetora 支持所有主流编程语言的语法高亮：
 
-<Tabs>
+<Tabs>  
   <Tab title="前端语言">
     ```javascript JavaScript
     const app = express();
@@ -447,7 +479,7 @@ Poetora 支持所有主流编程语言的语法高亮：
       name: string;
       email: string;
     }
-
+    
     const user: User = {
       id: '1',
       name: 'Alice',
@@ -473,15 +505,13 @@ Poetora 支持所有主流编程语言的语法高亮：
       color: #1a202c;
       font-family: 'Inter', sans-serif;
     }
-
+    
     .dark .poetora-theme {
       background-color: #1a202c;
       color: #f8fafc;
     }
     ```
-
   </Tab>
-
   <Tab title="后端语言">
     ```python Python
     def create_document(title, content):
@@ -509,19 +539,19 @@ Poetora 支持所有主流编程语言的语法高亮：
 
     ```go Go
     package main
-
+    
     import (
         "fmt"
         "time"
     )
-
+    
     type Document struct {
         ID        string    `json:"id"`
         Title     string    `json:"title"`
         Content   string    `json:"content"`
         CreatedAt time.Time `json:"created_at"`
     }
-
+    
     func CreateDocument(title, content string) *Document {
         return &Document{
             ID:        generateID(),
@@ -547,9 +577,7 @@ Poetora 支持所有主流编程语言的语法高亮：
         }
     }
     ```
-
   </Tab>
-
   <Tab title="配置文件">
     ```json JSON
     {
@@ -568,12 +596,12 @@ Poetora 支持所有主流编程语言的语法高亮：
     name: poetora-docs
     version: 1.0.0
     description: Poetora 文档站点
-
+    
     dependencies:
       - next
       - react
       - typescript
-
+    
     scripts:
       dev: next dev
       build: next build
@@ -585,7 +613,7 @@ Poetora 支持所有主流编程语言的语法高亮：
     name = "poetora-docs"
     version = "1.0.0"
     description = "Poetora 文档站点"
-
+    
     [scripts]
     dev = "next dev"
     build = "next build"
@@ -600,17 +628,21 @@ Poetora 支持所有主流编程语言的语法高亮：
       <description>Poetora 文档站点</description>
     </project>
     ```
-
   </Tab>
 </Tabs>
 
 ## 最佳实践
 
 1. **选择合适的语言标识符** - 使用正确的语言名称启用语法高亮
+
 2. **添加有意义的标题** - 为代码块提供描述性标题
+
 3. **使用行高亮突出重点** - 高亮关键代码行
+
 4. **提供完整的示例** - 包含可运行的完整代码
+
 5. **添加注释说明** - 为复杂代码添加中文注释
+
 6. **考虑代码长度** - 对于长代码块考虑使用可展开选项
 
 通过合理使用代码展示功能，可以让你的技术文档更加清晰、易懂和实用。
