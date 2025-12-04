@@ -19,8 +19,11 @@
         "groups": [
           {
             "group": "快速开始",
-            "pages": ["index", "quickstart",
-            "editor"]
+            "pages": [
+              "index",
+              "quickstart",
+              "editor"
+            ]
           },
           {
             "group": "核心配置",
@@ -89,25 +92,27 @@
       {
         "tab": "指南",
         "icon": "bookmark-check",
-        "pages": [{
-          "group": "最佳实践",
-          "pages": [
-            "guides/content-types",
-            "guides/improving-docs",
-            "guides/media",
-            "guides/navigation",
-            "guides/seo",
-            "guides/style-and-tone",
-            "guides/understand-your-audience"
-          ]
-        },
-        {
-          "group": "Git",
-          "pages": [
-            "guides/git-concepts",
-            "guides/branches"
-          ]
-        }]
+        "pages": [
+          {
+            "group": "最佳实践",
+            "pages": [
+              "guides/content-types",
+              "guides/improving-docs",
+              "guides/media",
+              "guides/navigation",
+              "guides/seo",
+              "guides/style-and-tone",
+              "guides/understand-your-audience"
+            ]
+          },
+          {
+            "group": "Git",
+            "pages": [
+              "guides/git-concepts",
+              "guides/branches"
+            ]
+          }
+        ]
       }
     ]
   },
@@ -127,13 +132,13 @@
     "primary": {
       "type": "button",
       "label": "立即使用",
-      "href": "https://poetora.com/signup"
+      "href": "https://poetora.com/start"
     }
   },
   "footer": {
     "socials": {
-      "github": "https://github.com/poetora/poetora",
-      "twitter": "https://twitter.com/poetora"
+      "github": "https://github.com/poetora",
+      "twitter": "https://twitter.com/poet_ora"
     },
     "links": [
       {
@@ -211,6 +216,12 @@
     ]
   },
   "contextual": {
-    "options": ["copy", "chatgpt"]
+    "options": [
+      "copy",
+      "chatgpt",
+      "claude",
+      "cursor",
+      "vscode"
+    ]
   }
 }
